@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: isa_store_development
+  username: <%= ENV.fetch("DATABASE_USERNAME") { ENV["USER"] || ENV["USERNAME"] || "isabela" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("DATABASE_PORT") { 5432 } %>
+
+test:
+  <<: *default
+  database: isa_store_test
+  username: <%= ENV.fetch("DATABASE_USERNAME") { ENV["USER"] || ENV["USERNAME"] || "isabela" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("DATABASE_PORT") { 5432 } %>
+
+production:
+  <<: *default
+  url: <%= ENV.fetch("DATABASE_URL") { "postgresql://#{ENV.fetch('DATABASE_USERNAME', 'postgres')}:#{ENV['DATABASE_PASSWORD']}@#{ENV.fetch('DATABASE_HOST', 'localhost')}:#{ENV.fetch('DATABASE_PORT', 5432)}/#{ENV.fetch('DATABASE_NAME', 'isa_store_production')}" } %>
+

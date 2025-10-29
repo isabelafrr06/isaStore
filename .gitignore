@@ -1,0 +1,21 @@
+# Backend
+isa_store_backend/data/*.json
+isa_store_backend/.bundle/
+isa_store_backend/vendor/
+
+# Frontend
+isa_store_frontend/node_modules/
+isa_store_frontend/dist/
+
+# General
+.DS_Store
+*.log
+
+
+
+
+
+
+
+
+
