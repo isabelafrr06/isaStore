@@ -2,14 +2,26 @@
 isa_store_backend/data/*.json
 isa_store_backend/.bundle/
 isa_store_backend/vendor/
+isa_store_backend/config/master.key
+isa_store_backend/.env*
+isa_store_backend/*.sqlite3
+isa_store_backend/*.sqlite3-journal
 
 # Frontend
 isa_store_frontend/node_modules/
 isa_store_frontend/dist/
+isa_store_frontend/.env*
 
 # General
 .DS_Store
 *.log
+
+# Sensitive files
+*.key
+*.pem
+.env
+.env.local
+.env.*.local
 
 
 
