@@ -3,6 +3,7 @@ services:
     name: isa-store-backend
     env: ruby
     plan: starter
+    rootDir: isa_store_backend
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
