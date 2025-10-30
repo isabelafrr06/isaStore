@@ -10,6 +10,9 @@ cmds = [
   'bundle exec rails assets:clean || true'
 ]
 
+[phases.deploy]
+cmds = ['bundle exec rails db:migrate']
+
 [start]
 cmd = 'bundle exec puma -C config/puma.rb'
 
