@@ -38,7 +38,7 @@ Ruby on Rails API for the IsaStore e-commerce platform.
    createdb isa_store_test
    ```
 
-For more detailed instructions, see [LOCAL_POSTGRES_SETUP.md](./LOCAL_POSTGRES_SETUP.md)
+For more detailed instructions, see [LOCAL_POSTGRES_SETUP.md](../LOCAL_POSTGRES_SETUP.md)
 
 ## Setup
 

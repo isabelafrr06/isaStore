@@ -12,6 +12,14 @@ export const getApiUrl = (path) => {
   return path
 }
 
+// Get image URL (images are served from backend)
+export const getImageUrl = (imagePath) => {
+  if (API_BASE_URL) {
+    return `${API_BASE_URL}/images/${imagePath}`
+  }
+  return `http://localhost:3001/images/${imagePath}`
+}
+
 
 
 

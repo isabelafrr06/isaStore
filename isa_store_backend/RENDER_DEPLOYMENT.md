@@ -23,15 +23,6 @@ This guide will help you deploy IsaStore backend to Render.
 
 ### 2. Deploy the Web Service
 
-#### Option A: Using render.yaml (Recommended)
-
-1. Push your code to GitHub/GitLab
-2. In Render dashboard, click **New +** → **Blueprint**
-3. Connect your repository
-4. Render will automatically detect `render.yaml` and configure everything
-
-#### Option B: Manual Setup
-
 1. In Render dashboard, click **New +** → **Web Service**
 2. Connect your repository
 3. Configure:

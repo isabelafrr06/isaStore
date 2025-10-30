@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getApiUrl, getImageUrl } from '../config.js'
 import './ProductList.css'
 
 function ProductList() {
@@ -9,7 +10,7 @@ function ProductList() {
   const { t } = useLanguage()
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch(getApiUrl('/api/products'))
       .then(res => res.json())
       .then(data => {
         setProducts(data)
@@ -31,7 +32,7 @@ function ProductList() {
       <div className="products-grid">
         {products.map(product => (
           <div key={product.id} className="product-card">
-            <img src={`http://localhost:3001/images/${product.image}`} alt={product.name} className="product-image" />
+            <img src={getImageUrl(product.image)} alt={product.name} className="product-image" />
             <div className="product-info">
               <h3 className="product-name">{product.name}</h3>
               <p className="product-description">{product.description}</p>

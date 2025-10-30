@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getApiUrl, getImageUrl } from '../config.js'
 import CheckoutForm from './CheckoutForm'
 import './Cart.css'
 
@@ -15,7 +16,7 @@ function Cart() {
   }, [])
 
   const fetchCart = () => {
-    fetch('/api/cart')
+    fetch(getApiUrl('/api/cart'))
       .then(res => res.json())
       .then(data => {
         setCart(data)
@@ -28,7 +29,7 @@ function Cart() {
   }
 
   const removeFromCart = (itemId) => {
-    fetch(`/api/cart/remove/${itemId}`, {
+    fetch(getApiUrl(`/api/cart/remove/${itemId}`), {
       method: 'DELETE'
     })
     .then(res => res.json())
@@ -39,7 +40,7 @@ function Cart() {
     if (quantity <= 0) {
       removeFromCart(itemId)
     } else {
-      fetch(`/api/cart/update/${itemId}`, {
+      fetch(getApiUrl(`/api/cart/update/${itemId}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -52,7 +53,7 @@ function Cart() {
   }
 
   const clearCart = () => {
-    fetch('/api/cart/clear', {
+    fetch(getApiUrl('/api/cart/clear'), {
       method: 'DELETE'
     })
     .then(res => res.json())
@@ -60,7 +61,7 @@ function Cart() {
   }
 
   const checkout = (customerInfo) => {
-    fetch('/api/orders', {
+    fetch(getApiUrl('/api/orders'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -110,7 +111,7 @@ function Cart() {
           <div className="cart-items">
             {cart.map(item => (
               <div key={item.id} className="cart-item">
-                <img src={`http://localhost:3001/images/${item.image}`} alt={item.name} className="cart-item-image" />
+                <img src={getImageUrl(item.image)} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-info">
                   <h3>{item.name}</h3>
                   <p className="cart-item-price">₡{parseFloat(item.price).toFixed(2)}</p>
