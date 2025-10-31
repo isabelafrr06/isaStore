@@ -22,5 +22,5 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV.fetch("DATABASE_URL") { "postgresql://#{ENV.fetch('DATABASE_USERNAME', 'postgres')}:#{ENV['DATABASE_PASSWORD']}@#{ENV.fetch('DATABASE_HOST', 'localhost')}:#{ENV.fetch('DATABASE_PORT', 5432)}/#{ENV.fetch('DATABASE_NAME', 'isa_store_production')}" } %>
+  url: <%= ENV['DATABASE_URL'] %>
 
