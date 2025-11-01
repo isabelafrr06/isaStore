@@ -2,11 +2,7 @@
 nixPkgs = ['...', 'postgresql']
 
 [phases.install]
-cmds = [
-  'bundle config set --local deployment "true"',
-  'bundle config set --local without "development test"',
-  'bundle install --jobs=4 --retry=3'
-]
+cmds = ['bundle install --without development test']
 
 [phases.build]
 cmds = [
