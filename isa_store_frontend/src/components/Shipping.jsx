@@ -12,39 +12,39 @@ function Shipping() {
         
         <div className="shipping-content">
           <div className="shipping-section">
-            <h2>{t('shippingAreas')}</h2>
-            <p>{t('shippingAreasDescription')}</p>
+            <h2>{t('shippingMethods')}</h2>
+            <p>{t('shippingMethodsDescription')}</p>
             <ul className="info-list">
-              <li>{t('shippingArea1')}</li>
-              <li>{t('shippingArea2')}</li>
-              <li>{t('shippingArea3')}</li>
+              <li>{t('shippingMethod1')}</li>
+              <li>{t('shippingMethod2')}</li>
+              <li>{t('pickupOption')}</li>
             </ul>
           </div>
 
           <div className="shipping-section">
-            <h2>{t('shippingTimes')}</h2>
-            <div className="shipping-times">
-              <div className="time-card">
-                <h3>{t('standardShipping')}</h3>
-                <p><strong>{t('duration')}:</strong> 2-4 {t('businessDays')}</p>
-                <p><strong>{t('cost')}:</strong> ₡{t('standardShippingCost')}</p>
-              </div>
-              <div className="time-card">
-                <h3>{t('expressShipping')}</h3>
-                <p><strong>{t('duration')}:</strong> 1-2 {t('businessDays')}</p>
-                <p><strong>{t('cost')}:</strong> ₡{t('expressShippingCost')}</p>
-              </div>
-            </div>
+            <h2>{t('pickupTitle')}</h2>
+            <p>{t('pickupDescription')}</p>
+            <p className="pickup-location">{t('pickupLocation')}</p>
           </div>
 
           <div className="shipping-section">
-            <h2>{t('freeShipping')}</h2>
-            <p>{t('freeShippingDescription')}</p>
+            <h2>{t('paymentMethods')}</h2>
+            <p>{t('paymentMethodsDescription')}</p>
+            <ul className="info-list">
+              <li>{t('paymentMethod1')}</li>
+              <li>{t('paymentMethod2')}</li>
+              <li>{t('paymentMethod3')}</li>
+            </ul>
+            <p className="important-note">{t('paymentNote')}</p>
           </div>
 
           <div className="shipping-section">
-            <h2>{t('trackingOrder')}</h2>
-            <p>{t('trackingOrderDescription')}</p>
+            <h2>{t('warranty')}</h2>
+            <p>{t('warrantyDescription')}</p>
+            <ul className="info-list">
+              <li>{t('warrantyUsed')}</li>
+              <li>{t('warrantyNew')}</li>
+            </ul>
           </div>
         </div>
       </div>

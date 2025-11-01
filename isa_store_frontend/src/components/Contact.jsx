@@ -39,15 +39,6 @@ function Contact() {
               </a>
             </div>
           </div>
-
-          <div className="contact-section">
-            <h2>{t('businessHours')}</h2>
-            <div className="hours-list">
-              <p><strong>{t('mondayToFriday')}:</strong> 9:00 AM - 6:00 PM</p>
-              <p><strong>{t('saturday')}:</strong> 9:00 AM - 2:00 PM</p>
-              <p><strong>{t('sunday')}:</strong> {t('closed')}</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

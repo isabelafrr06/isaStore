@@ -65,3 +65,12 @@
   line-height: 1.6;
 }
 
+.important-note {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 1rem;
+  border-radius: 8px;
+  color: #856404;
+  font-weight: 500;
+}
+

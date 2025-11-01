@@ -18,7 +18,7 @@ function Returns() {
 
           <div className="returns-section">
             <h2>{t('returnPeriod')}</h2>
-            <p>{t('returnPeriodDescription')}</p>
+            <p className="important-note">{t('returnPeriodDescription')}</p>
           </div>
 
           <div className="returns-section">
