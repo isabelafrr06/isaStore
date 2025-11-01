@@ -11,9 +11,10 @@ function AdminDashboard({ admin, onLogout }) {
     description: '',
     price: '',
     image: '',
+    images: [],
     stock: ''
   });
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
 
   useEffect(() => {
     fetchProducts();
@@ -38,13 +39,13 @@ function AdminDashboard({ admin, onLogout }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    let imagePath = formData.image;
+    // Upload all image files first
+    const uploadedImages = [];
     
-    // Upload image if a new file is selected
-    if (imageFile) {
+    for (const file of imageFiles) {
       try {
         const formDataUpload = new FormData();
-        formDataUpload.append('image', imageFile);
+        formDataUpload.append('image', file);
         
         const uploadResponse = await fetch(getApiUrl('/api/admin/upload-image'), {
           method: 'POST',
@@ -56,7 +57,7 @@ function AdminDashboard({ admin, onLogout }) {
         
         if (uploadResponse.ok) {
           const uploadData = await uploadResponse.json();
-          imagePath = uploadData.filename;
+          uploadedImages.push(uploadData.filename);
         } else {
           console.error('Image upload failed');
           return;
@@ -66,6 +67,13 @@ function AdminDashboard({ admin, onLogout }) {
         return;
       }
     }
+    
+    // Combine uploaded images with existing images and text input
+    const allImages = [
+      ...uploadedImages,
+      ...(formData.images || []).filter(img => img),
+      ...(formData.image ? [formData.image] : [])
+    ].filter((img, index, self) => self.indexOf(img) === index); // Remove duplicates
     
     const url = editingProduct
       ? getApiUrl(`/api/admin/products/${editingProduct.id}`)
@@ -80,8 +88,12 @@ function AdminDashboard({ admin, onLogout }) {
         },
         body: JSON.stringify({ 
           product: {
-            ...formData,
-            image: imagePath
+            name: formData.name,
+            description: formData.description,
+            price: parseInt(formData.price) || formData.price,
+            stock: formData.stock,
+            images: allImages.length > 0 ? allImages : undefined,
+            image: allImages.length > 0 ? allImages[0] : formData.image // First image for backward compatibility
           }
         })
       });
@@ -90,8 +102,8 @@ function AdminDashboard({ admin, onLogout }) {
         await fetchProducts();
         setShowForm(false);
         setEditingProduct(null);
-        setFormData({ name: '', description: '', price: '', image: '', stock: '' });
-        setImageFile(null);
+        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '' });
+        setImageFiles([]);
       }
     } catch (err) {
       console.error('Error saving product:', err);
@@ -104,10 +116,18 @@ function AdminDashboard({ admin, onLogout }) {
       name: product.name,
       description: product.description,
       price: product.price,
-      image: product.image,
+      image: product.image || (product.images && product.images[0]) || '',
+      images: product.images || [],
       stock: product.stock
     });
+    setImageFiles([]);
     setShowForm(true);
+  };
+  
+  const removeImage = (index) => {
+    const newImages = [...formData.images];
+    newImages.splice(index, 1);
+    setFormData({ ...formData, images: newImages });
   };
 
   const handleDelete = async (id) => {
@@ -144,7 +164,12 @@ function AdminDashboard({ admin, onLogout }) {
       </div>
 
       <div className="dashboard-actions">
-        <button onClick={() => { setShowForm(!showForm); setEditingProduct(null); }} className="add-button">
+        <button onClick={() => { 
+          setShowForm(!showForm); 
+          setEditingProduct(null); 
+          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '' });
+          setImageFiles([]);
+        }} className="add-button">
           {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
         </button>
       </div>
@@ -163,7 +188,6 @@ function AdminDashboard({ admin, onLogout }) {
               />
               <input
                 type="number"
-                step="0.01"
                 placeholder="Price"
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -176,11 +200,13 @@ function AdminDashboard({ admin, onLogout }) {
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               required
             />
-            <div className="form-row">
+            <div className="form-group">
+              <label>Images</label>
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => setImageFile(e.target.files[0])}
+                multiple
+                onChange={(e) => setImageFiles(Array.from(e.target.files))}
                 className="file-input"
               />
               <input
@@ -189,6 +215,17 @@ function AdminDashboard({ admin, onLogout }) {
                 value={formData.image}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
               />
+              {formData.images && formData.images.length > 0 && (
+                <div className="existing-images">
+                  <p>Existing images:</p>
+                  {formData.images.map((img, index) => (
+                    <div key={index} className="image-item">
+                      <span>{img}</span>
+                      <button type="button" onClick={() => removeImage(index)}>Remove</button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="form-row">
               <input
@@ -211,7 +248,7 @@ function AdminDashboard({ admin, onLogout }) {
             <div key={product.id} className="product-card-admin">
               <img src={getImageUrl(product.image)} alt={product.name} />
               <h3>{product.name}</h3>
-              <p className="price">₡{product.price}</p>
+              <p className="price">₡{parseInt(product.price) || product.price}</p>
               <p className="stock">Stock: {product.stock}</p>
               <div className="product-actions">
                 <button onClick={() => handleEdit(product)} className="edit-button">Editar</button>

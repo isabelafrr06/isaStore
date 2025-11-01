@@ -1,17 +1,6 @@
 class Api::CartController < ApplicationController
   def show
-    cart_items = CartItem.all.includes(:product)
-    cart = cart_items.map do |item|
-      {
-        id: item.id,
-        productId: item.product_id,
-        name: item.product.name,
-        price: item.product.price,
-        image: item.product.image,
-        quantity: item.quantity
-      }
-    end
-    render json: cart
+    render_cart
   end
 
   def add
@@ -71,8 +60,8 @@ class Api::CartController < ApplicationController
         id: item.id,
         productId: item.product_id,
         name: item.product.name,
-        price: item.product.price,
-        image: item.product.image,
+        price: item.product.price_integer, # Return as integer (no decimals)
+        image: item.product.primary_image, # Use primary image (from images array or image field)
         quantity: item.quantity
       }
     end

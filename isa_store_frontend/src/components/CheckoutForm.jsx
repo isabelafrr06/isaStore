@@ -66,14 +66,14 @@ function CheckoutForm({ onCancel, cartItems, total }) {
 
     // Build WhatsApp message first
     const itemsText = cartItems.map(item => 
-      `• ${item.name} x${item.quantity} - ₡${(parseFloat(item.price) * item.quantity).toFixed(2)}`
+      `• ${item.name} x${item.quantity} - ₡${(parseInt(item.price) || 0) * item.quantity}`
     ).join('\n')
     
     const message = `${t('whatsAppMessagePrefix')}
 
 ${itemsText}
 
-${t('total')}: ₡${total.toFixed(2)}
+${t('total')}: ₡${total}
 
 ${t('fullName')}: ${formData.name}
 ${t('phone')}: ${formData.phone}

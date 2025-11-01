@@ -11,6 +11,7 @@ function ProductDetail() {
   const [loading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [message, setMessage] = useState('')
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
   useEffect(() => {
     fetch(getApiUrl(`/api/products/${id}`))
@@ -61,12 +62,35 @@ function ProductDetail() {
       
       <div className="product-detail-container">
         <div className="product-image-container">
-          <img src={getImageUrl(product.image)} alt={product.name} className="detail-image" />
+          {product.images && product.images.length > 0 ? (
+            <>
+              <img 
+                src={getImageUrl(product.images[selectedImageIndex] || product.image)} 
+                alt={product.name} 
+                className="detail-image" 
+              />
+              {product.images.length > 1 && (
+                <div className="product-image-thumbnails">
+                  {product.images.map((img, index) => (
+                    <img
+                      key={index}
+                      src={getImageUrl(img)}
+                      alt={`${product.name} - Image ${index + 1}`}
+                      className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
+                      onClick={() => setSelectedImageIndex(index)}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <img src={getImageUrl(product.image)} alt={product.name} className="detail-image" />
+          )}
         </div>
         
         <div className="product-details">
           <h1 className="detail-title">{product.name}</h1>
-          <p className="detail-price">₡{parseFloat(product.price).toFixed(2)}</p>
+          <p className="detail-price">₡{product.price}</p>
           <p className="detail-description">{product.description}</p>
           
           <div className="quantity-selector">

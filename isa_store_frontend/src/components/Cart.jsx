@@ -91,7 +91,7 @@ function Cart() {
     setShowCheckoutForm(true)
   }
 
-  const total = cart.reduce((sum, item) => sum + parseFloat(item.price) * item.quantity, 0)
+  const total = cart.reduce((sum, item) => sum + (parseInt(item.price) || 0) * item.quantity, 0)
 
   if (loading) {
     return <div className="loading">{t('loadingCart')}</div>
@@ -114,7 +114,7 @@ function Cart() {
                 <img src={getImageUrl(item.image)} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-info">
                   <h3>{item.name}</h3>
-                  <p className="cart-item-price">₡{parseFloat(item.price).toFixed(2)}</p>
+                  <p className="cart-item-price">₡{item.price}</p>
                 </div>
                 <div className="cart-item-controls">
                   <div className="quantity-controls">
@@ -127,7 +127,7 @@ function Cart() {
                   </button>
                 </div>
                 <div className="cart-item-total">
-                  ₡{(parseFloat(item.price) * item.quantity).toFixed(2)}
+                  ₡{parseInt(item.price) * item.quantity}
                 </div>
               </div>
             ))}
@@ -137,7 +137,7 @@ function Cart() {
             <h3>{t('orderSummary')}</h3>
             <div className="summary-row">
               <span>{t('subtotal')}:</span>
-              <span>₡{total.toFixed(2)}</span>
+              <span>₡{total}</span>
             </div>
             <div className="summary-row">
               <span>{t('shipping')}:</span>
@@ -145,7 +145,7 @@ function Cart() {
             </div>
             <div className="summary-row total">
               <span>{t('total')}:</span>
-              <span>₡{total.toFixed(2)}</span>
+              <span>₡{total}</span>
             </div>
             <button onClick={handleCheckoutClick} className="checkout-btn">
               {t('checkout')}

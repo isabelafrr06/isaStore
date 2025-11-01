@@ -57,7 +57,7 @@ function Orders() {
                 </div>
                 <div>
                   <span className={`status status-${order.status}`}>{order.status}</span>
-                  <p className="order-total">₡{parseFloat(order.total).toFixed(2)}</p>
+                  <p className="order-total">₡{parseInt(order.total) || order.total}</p>
                 </div>
               </div>
               
@@ -70,7 +70,7 @@ function Orders() {
                       <p>{t('quantity')}: {item.quantity}</p>
                     </div>
                     <span className="order-item-price">
-                      ₡{(parseFloat(item.price) * item.quantity).toFixed(2)}
+                      ₡{(parseInt(item.price) || item.price) * item.quantity}
                     </span>
                   </div>
                 ))}

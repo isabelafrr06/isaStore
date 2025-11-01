@@ -37,7 +37,7 @@ function ProductList() {
               <h3 className="product-name">{product.name}</h3>
               <p className="product-description">{product.description}</p>
               <div className="product-footer">
-                <span className="product-price">₡{parseFloat(product.price).toFixed(2)}</span>
+                <span className="product-price">₡{product.price}</span>
                 <Link to={`/product/${product.id}`} className="view-btn">
                   {t('viewDetails')}
                 </Link>

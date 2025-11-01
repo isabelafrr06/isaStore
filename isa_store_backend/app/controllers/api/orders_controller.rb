@@ -13,12 +13,12 @@ class Api::OrdersController < ApplicationController
           {
             productId: item.product_id,
             name: item.product_name,
-            price: item.product_price,
+            price: item.product_price.to_i, # Convert to integer (no decimals)
             image: item.product_image,
             quantity: item.quantity
           }
         end,
-        total: order.total,
+        total: order.total.to_i, # Convert to integer (no decimals)
         date: order.created_at.to_s,
         status: order.status
       }
@@ -34,7 +34,7 @@ class Api::OrdersController < ApplicationController
       return
     end
     
-    total = cart_items.sum { |item| item.product.price * item.quantity }
+    total = cart_items.sum { |item| item.product.price_integer * item.quantity }
     
     order = Order.create!(
       total: total,
@@ -49,8 +49,8 @@ class Api::OrdersController < ApplicationController
         order: order,
         product_id: cart_item.product_id,
         product_name: cart_item.product.name,
-        product_price: cart_item.product.price,
-        product_image: cart_item.product.image,
+        product_price: cart_item.product.price_integer, # Store as integer
+        product_image: cart_item.product.primary_image, # Use primary image
         quantity: cart_item.quantity
       )
     end
@@ -63,12 +63,12 @@ class Api::OrdersController < ApplicationController
         {
           productId: item.product_id,
           name: item.product_name,
-          price: item.product_price,
+          price: item.product_price.to_i, # Convert to integer (no decimals)
           image: item.product_image,
           quantity: item.quantity
         }
       end,
-      total: order.total,
+      total: order.total.to_i, # Convert to integer (no decimals)
       date: order.created_at.to_s,
       status: order.status
     }
