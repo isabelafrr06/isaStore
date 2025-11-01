@@ -11,19 +11,32 @@ function Header({ admin, onAdminLogout }) {
   useEffect(() => {
     fetchCartCount()
     
-    // Refresh cart count periodically
-    const interval = setInterval(fetchCartCount, 2000)
+    // Refresh cart count periodically (every 10 seconds is enough)
+    const interval = setInterval(fetchCartCount, 10000)
     return () => clearInterval(interval)
   }, [])
 
   const fetchCartCount = () => {
     fetch(getApiUrl('/api/cart'))
-      .then(res => res.json())
-      .then(data => {
-        const count = data.reduce((sum, item) => sum + item.quantity, 0)
-        setCartCount(count)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+        return res.json()
       })
-      .catch(err => console.error('Error fetching cart:', err))
+      .then(data => {
+        if (Array.isArray(data)) {
+          const count = data.reduce((sum, item) => sum + item.quantity, 0)
+          setCartCount(count)
+        }
+      })
+      .catch(err => {
+        // Only log if it's not a 404 (might be expected if cart is empty/not initialized)
+        if (!err.message?.includes('404')) {
+          console.error('Error fetching cart:', err)
+        }
+        setCartCount(0)
+      })
   }
 
   return (
