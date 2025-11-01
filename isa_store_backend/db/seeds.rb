@@ -57,15 +57,27 @@ end
 puts "Created #{Product.count} products"
 
 # Create default admin (uses environment variable for password)
+admin_email = ENV.fetch('ADMIN_EMAIL', 'admin@isastore.com')
 admin_password = ENV.fetch('ADMIN_PASSWORD', 'CHANGE_ME_IN_PRODUCTION')
-admin = Admin.find_or_create_by(email: ENV.fetch('ADMIN_EMAIL', 'admin@isastore.com')) do |a|
-  a.name = ENV.fetch('ADMIN_NAME', 'Admin User')
+admin_name = ENV.fetch('ADMIN_NAME', 'Admin User')
+
+admin = Admin.find_or_create_by(email: admin_email) do |a|
+  a.name = admin_name
   a.password = admin_password
 end
 
+# Update password if admin already exists (ensures password syncs with environment variable)
 if admin.persisted?
-  puts "Created admin user with email: #{admin.email}"
-  puts "⚠️  WARNING: Using default password in development. Set ADMIN_PASSWORD in production!"
+  admin.name = admin_name
+  admin.password = admin_password
+  admin.save!
+  
+  if admin_password == 'CHANGE_ME_IN_PRODUCTION'
+    puts "Created/updated admin user with email: #{admin.email}"
+    puts "⚠️  WARNING: Using default password! Set ADMIN_PASSWORD in production!"
+  else
+    puts "Created/updated admin user with email: #{admin.email} (password set from ADMIN_PASSWORD)"
+  end
 end
 
 puts "Seeding completed!"
