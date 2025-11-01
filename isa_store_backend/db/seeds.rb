@@ -70,18 +70,24 @@ end
 
 # Update password if admin already exists (ensures password syncs with environment variable)
 if admin.persisted?
-  # Use update! with password and password_confirmation to ensure has_secure_password updates correctly
-  admin.update!(
-    name: admin_name,
-    password: admin_password,
-    password_confirmation: admin_password
-  )
+  # Always update name
+  admin.name = admin_name
   
-  if admin_password == 'CHANGE_ME_IN_PRODUCTION'
-    puts "Created/updated admin user with email: #{admin.email}"
-    puts "⚠️  WARNING: Using default password! Set ADMIN_PASSWORD in production!"
+  # Force password update by setting it directly (bypasses has_secure_password's "no change" optimization)
+  admin.password = admin_password
+  admin.password_confirmation = admin_password
+  
+  # Save will update password_digest if password changed
+  if admin.save
+    if admin_password == 'CHANGE_ME_IN_PRODUCTION'
+      puts "Created/updated admin user with email: #{admin.email}"
+      puts "⚠️  WARNING: Using default password! Set ADMIN_PASSWORD in production!"
+      puts "   Default password is: CHANGE_ME_IN_PRODUCTION"
+    else
+      puts "Created/updated admin user with email: #{admin.email} (password set from ADMIN_PASSWORD)"
+    end
   else
-    puts "Created/updated admin user with email: #{admin.email} (password set from ADMIN_PASSWORD)"
+    puts "ERROR: Failed to update admin user: #{admin.errors.full_messages.join(', ')}"
   end
 end
 
