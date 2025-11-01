@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getImageUrl } from '../config.js'
+import { getApiUrl, getImageUrl } from '../config.js'
 import './ProductDetail.css'
 
 function ProductDetail() {
@@ -13,7 +13,7 @@ function ProductDetail() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch(`/api/products/${id}`)
+    fetch(getApiUrl(`/api/products/${id}`))
       .then(res => res.json())
       .then(data => {
         setProduct(data)
@@ -26,7 +26,7 @@ function ProductDetail() {
   }, [id])
 
   const addToCart = () => {
-    fetch('/api/cart/add', {
+    fetch(getApiUrl('/api/cart/add'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

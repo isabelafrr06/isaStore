@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getApiUrl } from '../config.js'
 import './Header.css'
 
 function Header({ admin, onAdminLogout }) {
@@ -16,7 +17,7 @@ function Header({ admin, onAdminLogout }) {
   }, [])
 
   const fetchCartCount = () => {
-    fetch('/api/cart')
+    fetch(getApiUrl('/api/cart'))
       .then(res => res.json())
       .then(data => {
         const count = data.reduce((sum, item) => sum + item.quantity, 0)

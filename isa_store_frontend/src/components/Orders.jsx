@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getImageUrl } from '../config.js'
+import { getApiUrl, getImageUrl } from '../config.js'
 import './Orders.css'
 
 function Orders() {
@@ -11,7 +11,7 @@ function Orders() {
   useEffect(() => {
     const adminToken = localStorage.getItem('adminToken')
     
-    fetch('/api/orders', {
+    fetch(getApiUrl('/api/orders'), {
       headers: {
         'Authorization': `Bearer ${adminToken}`
       }
