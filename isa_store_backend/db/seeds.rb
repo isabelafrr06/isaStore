@@ -57,13 +57,15 @@ end
 puts "Created #{Product.count} products"
 
 # Create default admin (uses environment variable for password)
-admin_email = ENV.fetch('ADMIN_EMAIL', 'admin@isastore.com')
+admin_email = ENV.fetch('ADMIN_EMAIL', 'admin@isastore.com').strip.downcase
 admin_password = ENV.fetch('ADMIN_PASSWORD', 'CHANGE_ME_IN_PRODUCTION')
 admin_name = ENV.fetch('ADMIN_NAME', 'Admin User')
 
+# Normalize email to lowercase for consistent lookup
 admin = Admin.find_or_create_by(email: admin_email) do |a|
   a.name = admin_name
   a.password = admin_password
+  a.password_confirmation = admin_password
 end
 
 # Update password if admin already exists (ensures password syncs with environment variable)
