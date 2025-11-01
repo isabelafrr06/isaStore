@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
+import { getApiUrl, getImageUrl } from '../config.js';
 
 function AdminDashboard({ admin, onLogout }) {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ function AdminDashboard({ admin, onLogout }) {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/admin/products', {
+      const response = await fetch(getApiUrl('/api/admin/products'), {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         }
@@ -45,7 +46,7 @@ function AdminDashboard({ admin, onLogout }) {
         const formDataUpload = new FormData();
         formDataUpload.append('image', imageFile);
         
-        const uploadResponse = await fetch('http://localhost:3001/api/admin/upload-image', {
+        const uploadResponse = await fetch(getApiUrl('/api/admin/upload-image'), {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
@@ -67,8 +68,8 @@ function AdminDashboard({ admin, onLogout }) {
     }
     
     const url = editingProduct
-      ? `http://localhost:3001/api/admin/products/${editingProduct.id}`
-      : 'http://localhost:3001/api/admin/products';
+      ? getApiUrl(`/api/admin/products/${editingProduct.id}`)
+      : getApiUrl('/api/admin/products');
 
     try {
       const response = await fetch(url, {
@@ -113,7 +114,7 @@ function AdminDashboard({ admin, onLogout }) {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/admin/products/${id}`, {
+      const response = await fetch(getApiUrl(`/api/admin/products/${id}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
@@ -208,7 +209,7 @@ function AdminDashboard({ admin, onLogout }) {
         <div className="products-grid">
           {products.map(product => (
             <div key={product.id} className="product-card-admin">
-              <img src={`http://localhost:3001/images/${product.image}`} alt={product.name} />
+              <img src={getImageUrl(product.image)} alt={product.name} />
               <h3>{product.name}</h3>
               <p className="price">₡{product.price}</p>
               <p className="stock">Stock: {product.stock}</p>

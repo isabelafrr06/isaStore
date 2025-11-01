@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getImageUrl } from '../config.js'
 import './Orders.css'
 
 function Orders() {
@@ -63,7 +64,7 @@ function Orders() {
               <div className="order-items">
                 {Array.isArray(order.items) && order.items.map((item, index) => (
                   <div key={index} className="order-item">
-                    <img src={`http://localhost:3001/images/${item.image}`} alt={item.name} className="order-item-image" />
+                    <img src={getImageUrl(item.image)} alt={item.name} className="order-item-image" />
                     <div className="order-item-info">
                       <h4>{item.name}</h4>
                       <p>{t('quantity')}: {item.quantity}</p>

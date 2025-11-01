@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AdminLogin.css';
+import { getApiUrl } from '../config.js';
 
 function AdminLogin({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ function AdminLogin({ onLogin }) {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/admin/login', {
+      const response = await fetch(getApiUrl('/api/admin/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,6 +69,7 @@ function AdminLogin({ onLogin }) {
 }
 
 export default AdminLogin;
+
 
 
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getImageUrl } from '../config.js'
 import './ProductDetail.css'
 
 function ProductDetail() {
@@ -60,7 +61,7 @@ function ProductDetail() {
       
       <div className="product-detail-container">
         <div className="product-image-container">
-          <img src={`http://localhost:3001/images/${product.image}`} alt={product.name} className="detail-image" />
+          <img src={getImageUrl(product.image)} alt={product.name} className="detail-image" />
         </div>
         
         <div className="product-details">
