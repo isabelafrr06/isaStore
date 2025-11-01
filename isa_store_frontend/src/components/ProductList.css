@@ -3,10 +3,11 @@
 }
 
 .page-title {
-  color: white;
+  color: white !important;
   font-size: 2.5rem;
   margin-bottom: 2rem;
   text-align: center;
+  -webkit-text-fill-color: white !important;
 }
 
 .loading {
