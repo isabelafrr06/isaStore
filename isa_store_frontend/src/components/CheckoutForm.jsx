@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getApiUrl } from '../config.js'
 import './CheckoutForm.css'
 
 function CheckoutForm({ onCancel, cartItems, total }) {
@@ -88,7 +89,7 @@ ${t('address')}: ${formData.address}`
 
     try {
       // Register the order in the database
-      const orderResponse = await fetch('/api/orders', {
+      const orderResponse = await fetch(getApiUrl('/api/orders'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

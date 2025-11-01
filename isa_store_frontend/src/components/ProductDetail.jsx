@@ -41,6 +41,8 @@ function ProductDetail() {
     .then(() => {
       setMessage(t('productAddedToCart'))
       setTimeout(() => setMessage(''), 3000)
+      // Trigger cart update event to refresh Header cart count
+      window.dispatchEvent(new Event('cartUpdated'))
     })
     .catch(err => {
       console.error('Error adding to cart:', err)

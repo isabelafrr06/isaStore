@@ -9,11 +9,19 @@ function Header({ admin, onAdminLogout }) {
   const { t, language, toggleLanguage } = useLanguage()
 
   useEffect(() => {
+    // Fetch cart count on mount
     fetchCartCount()
     
-    // Refresh cart count periodically (every 10 seconds is enough)
-    const interval = setInterval(fetchCartCount, 10000)
-    return () => clearInterval(interval)
+    // Listen for cart update events
+    const handleCartUpdate = () => {
+      fetchCartCount()
+    }
+    
+    window.addEventListener('cartUpdated', handleCartUpdate)
+    
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate)
+    }
   }, [])
 
   const fetchCartCount = () => {

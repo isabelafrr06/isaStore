@@ -33,7 +33,11 @@ function Cart() {
       method: 'DELETE'
     })
     .then(res => res.json())
-    .then(() => fetchCart())
+    .then(() => {
+      fetchCart()
+      // Trigger cart update event to refresh Header cart count
+      window.dispatchEvent(new Event('cartUpdated'))
+    })
   }
 
   const updateQuantity = (itemId, quantity) => {
@@ -48,7 +52,11 @@ function Cart() {
         body: JSON.stringify({ quantity })
       })
       .then(res => res.json())
-      .then(() => fetchCart())
+      .then(() => {
+        fetchCart()
+        // Trigger cart update event to refresh Header cart count
+        window.dispatchEvent(new Event('cartUpdated'))
+      })
     }
   }
 
@@ -57,7 +65,11 @@ function Cart() {
       method: 'DELETE'
     })
     .then(res => res.json())
-    .then(() => fetchCart())
+    .then(() => {
+      fetchCart()
+      // Trigger cart update event to refresh Header cart count
+      window.dispatchEvent(new Event('cartUpdated'))
+    })
   }
 
   const checkout = (customerInfo) => {
@@ -162,6 +174,8 @@ function Cart() {
           onCancel={() => {
             setShowCheckoutForm(false)
             fetchCart() // Refresh cart after order
+            // Trigger cart update event to refresh Header cart count
+            window.dispatchEvent(new Event('cartUpdated'))
           }}
           cartItems={cart}
           total={total}
