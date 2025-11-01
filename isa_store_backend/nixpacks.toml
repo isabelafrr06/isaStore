@@ -11,5 +11,5 @@ cmds = [
 ]
 
 [start]
-cmd = 'bundle exec puma -C config/puma.rb'
+cmd = 'bash railway-deploy.sh'
 
