@@ -68,9 +68,12 @@ end
 
 # Update password if admin already exists (ensures password syncs with environment variable)
 if admin.persisted?
-  admin.name = admin_name
-  admin.password = admin_password
-  admin.save!
+  # Use update! with password and password_confirmation to ensure has_secure_password updates correctly
+  admin.update!(
+    name: admin_name,
+    password: admin_password,
+    password_confirmation: admin_password
+  )
   
   if admin_password == 'CHANGE_ME_IN_PRODUCTION'
     puts "Created/updated admin user with email: #{admin.email}"

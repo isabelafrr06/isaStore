@@ -2,8 +2,19 @@ class Api::AuthController < ApplicationController
   def login
     admin = Admin.find_by(email: params[:email])
     
-    if admin&.authenticate(params[:password])
+    # Log for debugging (remove in production if sensitive)
+    Rails.logger.info "Login attempt for email: #{params[:email]}"
+    Rails.logger.info "Admin found: #{admin.present?}"
+    
+    if admin.nil?
+      Rails.logger.warn "Admin not found for email: #{params[:email]}"
+      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      return
+    end
+    
+    if admin.authenticate(params[:password])
       token = encode_token({ admin_id: admin.id })
+      Rails.logger.info "Login successful for admin: #{admin.email}"
       render json: { 
         token: token, 
         admin: { 
@@ -13,6 +24,7 @@ class Api::AuthController < ApplicationController
         } 
       }
     else
+      Rails.logger.warn "Password authentication failed for admin: #{admin.email}"
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
   end
