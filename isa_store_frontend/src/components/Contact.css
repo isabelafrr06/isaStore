@@ -1,0 +1,100 @@
+.contact {
+  padding: 2rem 0;
+  min-height: 70vh;
+}
+
+.contact-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.contact-content {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.contact-section {
+  margin-bottom: 2rem;
+}
+
+.contact-section h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.contact-section p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.contact-info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.contact-card {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.contact-card h3 {
+  color: #667eea;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.contact-card p {
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+.contact-card a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.contact-card a:hover {
+  color: #5568d3;
+}
+
+.whatsapp-link {
+  display: inline-block;
+  background: #25D366;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.whatsapp-link:hover {
+  background: #20BA5A;
+}
+
+.hours-list {
+  margin-top: 1rem;
+}
+
+.hours-list p {
+  margin: 0.75rem 0;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .contact-info-section {
+    grid-template-columns: 1fr;
+  }
+}
+

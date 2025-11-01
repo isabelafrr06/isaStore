@@ -1,0 +1,67 @@
+.returns {
+  padding: 2rem 0;
+  min-height: 70vh;
+}
+
+.returns-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.returns-content {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.returns-section {
+  margin-bottom: 2.5rem;
+}
+
+.returns-section h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.returns-section p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.info-list li {
+  color: #666;
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 1.1rem;
+}
+
+.info-list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.steps-list {
+  padding-left: 1.5rem;
+}
+
+.steps-list li {
+  color: #666;
+  padding: 0.75rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+

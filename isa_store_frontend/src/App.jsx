@@ -8,6 +8,12 @@ import ProductDetail from './components/ProductDetail'
 import Cart from './components/Cart'
 import Orders from './components/Orders'
 import About from './components/About'
+import Contact from './components/Contact'
+import Shipping from './components/Shipping'
+import Returns from './components/Returns'
+import FAQ from './components/FAQ'
+import Privacy from './components/Privacy'
+import Terms from './components/Terms'
 import AdminLogin from './components/AdminLogin'
 import AdminDashboard from './components/AdminDashboard'
 import Footer from './components/Footer'
@@ -48,6 +54,12 @@ function App() {
                 element={admin ? <Orders /> : <Navigate to="/" replace />} 
               />
               <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/shipping" element={<Shipping />} />
+              <Route path="/returns" element={<Returns />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
               <Route 
                 path="/admin/login" 
                 element={admin ? <Navigate to="/admin" replace /> : <AdminLogin onLogin={handleAdminLogin} />} 
