@@ -1,10 +1,21 @@
-# Clear existing data
-Product.destroy_all
-CartItem.destroy_all
-Order.destroy_all
-OrderItem.destroy_all
+# Only seed if running in development or if SEED_DATABASE environment variable is set
+# In production, don't destroy existing data - only create missing items
+should_seed = Rails.env.development? || ENV['SEED_DATABASE'] == 'true'
 
-# Create sample products
+unless should_seed
+  puts "Skipping database seeding (set SEED_DATABASE=true to force seeding in production)"
+  exit
+end
+
+# Only clear data in development, not production
+if Rails.env.development?
+  Product.destroy_all
+  CartItem.destroy_all
+  Order.destroy_all
+  OrderItem.destroy_all
+end
+
+# Create sample products (only if they don't exist)
 products = [
   {
     name: 'Wireless Headphones',
@@ -51,7 +62,13 @@ products = [
 ]
 
 products.each do |product_data|
-  Product.create!(product_data)
+  # Only create if product doesn't exist (check by name)
+  Product.find_or_create_by(name: product_data[:name]) do |product|
+    product.description = product_data[:description]
+    product.price = product_data[:price]
+    product.image = product_data[:image]
+    product.stock = product_data[:stock]
+  end
 end
 
 puts "Created #{Product.count} products"
