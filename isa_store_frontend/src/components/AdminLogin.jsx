@@ -60,9 +60,6 @@ function AdminLogin({ onLogin }) {
           </div>
           <button type="submit" className="login-button">Login</button>
         </form>
-        <div className="login-hint">
-          Default credentials: admin@isastore.com / admin123
-        </div>
       </div>
     </div>
   );
