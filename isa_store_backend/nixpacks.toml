@@ -11,5 +11,5 @@ cmds = [
 ]
 
 [start]
-cmd = 'bundle exec puma -C config/puma.rb'
+cmd = 'rails db:migrate && rails db:seed && bundle exec puma -C config/puma.rb'
 
