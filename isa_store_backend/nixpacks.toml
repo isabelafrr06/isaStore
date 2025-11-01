@@ -2,12 +2,16 @@
 nixPkgs = ['...', 'postgresql']
 
 [phases.install]
-cmds = ['bundle install']
+cmds = [
+  'bundle config set --local deployment "true"',
+  'bundle config set --local without "development test"',
+  'bundle install --jobs=4 --retry=3'
+]
 
 [phases.build]
 cmds = [
-  'bundle exec rails assets:precompile || true',
-  'bundle exec rails assets:clean || true'
+  # Skip asset precompilation for API-only app (saves time)
+  'echo "Skipping asset precompilation (API-only app)"'
 ]
 
 [start]

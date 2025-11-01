@@ -30,8 +30,27 @@
 /tmp/storage/*
 !/tmp/storage/.keep
 
+# Ignore SQLite databases
+*.sqlite3
+*.db
+/db/*.sqlite3
+/db/*.db
+
 # Ignore assets.
 /node_modules/
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /public/assets
+
+# Ignore test files (not needed in production build)
+/test/*
+!/test/.keep
+
+# Ignore documentation files
+*.md
+/README.md
+/LOCAL_POSTGRES_SETUP.md
+
+# Ignore development files
+/.vscode/
+/.idea/
