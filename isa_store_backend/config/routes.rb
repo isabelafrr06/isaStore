@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post 'admin/login', to: 'auth#login'
     post 'admin/logout', to: 'auth#logout'
     get 'admin/me', to: 'auth#me'
+    put 'admin/change-password', to: 'auth#change_password'
     
           # Admin products management
           resources :admin_products, path: 'admin/products', only: [:index, :show, :create, :update, :destroy]

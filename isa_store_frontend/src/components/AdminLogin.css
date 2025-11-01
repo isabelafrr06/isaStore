@@ -57,18 +57,20 @@
 .login-button {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.3s;
 }
 
 .login-button:hover {
+  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
 }
 
 .login-hint {

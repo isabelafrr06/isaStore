@@ -55,13 +55,16 @@
 }
 
 .cart-link {
-  background: #667eea;
+  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
   color: white !important;
   border-radius: 25px;
+  transition: all 0.3s;
 }
 
 .cart-link:hover {
-  background: #5568d3;
+  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
 }
 
 .logout-btn {

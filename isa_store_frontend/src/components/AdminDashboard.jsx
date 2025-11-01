@@ -5,6 +5,7 @@ import { getApiUrl, getImageUrl } from '../config.js';
 function AdminDashboard({ admin, onLogout }) {
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -15,6 +16,12 @@ function AdminDashboard({ admin, onLogout }) {
     stock: ''
   });
   const [imageFiles, setImageFiles] = useState([]);
+  const [passwordData, setPasswordData] = useState({
+    current_password: '',
+    new_password: '',
+    new_password_confirmation: ''
+  });
+  const [passwordMessage, setPasswordMessage] = useState('');
 
   useEffect(() => {
     fetchProducts();
@@ -154,14 +161,107 @@ function AdminDashboard({ admin, onLogout }) {
     onLogout();
   };
 
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    setPasswordMessage('');
+
+    try {
+      const response = await fetch(getApiUrl('/api/admin/change-password'), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+        },
+        body: JSON.stringify(passwordData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setPasswordMessage('Contraseña cambiada exitosamente');
+        setPasswordData({
+          current_password: '',
+          new_password: '',
+          new_password_confirmation: ''
+        });
+        setTimeout(() => {
+          setShowPasswordForm(false);
+          setPasswordMessage('');
+        }, 2000);
+      } else {
+        setPasswordMessage(data.error || data.errors?.join(', ') || 'Error al cambiar la contraseña');
+      }
+    } catch (err) {
+      console.error('Error changing password:', err);
+      setPasswordMessage('Error al cambiar la contraseña');
+    }
+  };
+
   return (
     <div className="admin-dashboard">
       <div className="dashboard-header">
         <h1>Admin Dashboard</h1>
         <div className="header-actions">
           <span>Welcome, {admin?.name}</span>
+          <button onClick={() => setShowPasswordForm(!showPasswordForm)} className="change-password-btn">
+            Cambiar Contraseña
+          </button>
         </div>
       </div>
+
+      {showPasswordForm && (
+        <div className="password-form">
+          <h2>Cambiar Contraseña</h2>
+          <form onSubmit={handlePasswordChange}>
+            <div className="form-group">
+              <label>Contraseña Actual</label>
+              <input
+                type="password"
+                value={passwordData.current_password}
+                onChange={(e) => setPasswordData({ ...passwordData, current_password: e.target.value })}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Nueva Contraseña</label>
+              <input
+                type="password"
+                value={passwordData.new_password}
+                onChange={(e) => setPasswordData({ ...passwordData, new_password: e.target.value })}
+                required
+                minLength={6}
+              />
+            </div>
+            <div className="form-group">
+              <label>Confirmar Nueva Contraseña</label>
+              <input
+                type="password"
+                value={passwordData.new_password_confirmation}
+                onChange={(e) => setPasswordData({ ...passwordData, new_password_confirmation: e.target.value })}
+                required
+                minLength={6}
+              />
+            </div>
+            {passwordMessage && (
+              <div className={passwordMessage.includes('exitosamente') ? 'success-message' : 'error-message'}>
+                {passwordMessage}
+              </div>
+            )}
+            <div className="form-actions">
+              <button type="submit" className="save-button">Cambiar Contraseña</button>
+              <button type="button" onClick={() => {
+                setShowPasswordForm(false);
+                setPasswordData({
+                  current_password: '',
+                  new_password: '',
+                  new_password_confirmation: ''
+                });
+                setPasswordMessage('');
+              }} className="cancel-button">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      )}
 
       <div className="dashboard-actions">
         <button onClick={() => { 

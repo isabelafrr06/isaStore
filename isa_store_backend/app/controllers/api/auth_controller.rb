@@ -62,10 +62,47 @@ class Api::AuthController < ApplicationController
     end
   end
   
+  def change_password
+    authenticate_admin
+    return if performed?
+    
+    current_password = change_password_params[:current_password]
+    new_password = change_password_params[:new_password]
+    new_password_confirmation = change_password_params[:new_password_confirmation]
+    
+    unless @current_admin.authenticate(current_password)
+      render json: { error: 'Current password is incorrect' }, status: :unauthorized
+      return
+    end
+    
+    if new_password.blank? || new_password.length < 6
+      render json: { error: 'New password must be at least 6 characters long' }, status: :bad_request
+      return
+    end
+    
+    if new_password != new_password_confirmation
+      render json: { error: 'New password and confirmation do not match' }, status: :bad_request
+      return
+    end
+    
+    @current_admin.password = new_password
+    @current_admin.password_confirmation = new_password_confirmation
+    
+    if @current_admin.save
+      render json: { message: 'Password changed successfully' }, status: :ok
+    else
+      render json: { errors: @current_admin.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+  
   private
   
   def login_params
     params.permit(:email, :password)
+  end
+  
+  def change_password_params
+    params.permit(:current_password, :new_password, :new_password_confirmation)
   end
   
   def encode_token(payload)
