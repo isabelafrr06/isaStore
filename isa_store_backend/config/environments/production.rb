@@ -16,8 +16,8 @@ Rails.application.configure do
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
-  # Disable serving static files from `public/`, relying on NGINX/Apache for it.
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  # Enable serving static files from `public/` (needed for images)
+  config.public_file_server.enabled = true
 
   # Disable asset pipeline for API-only app
   config.assets.enabled = false
