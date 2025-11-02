@@ -111,7 +111,7 @@ const translations = {
     // Orders
     myOrders: 'Mis Pedidos',
     loadingOrders: 'Cargando pedidos...',
-    noOrdersYet: 'Aún no has realizado ningún pedido',
+    noOrdersYet: 'Aún no hay ningún pedido',
     order: 'Pedido',
     
     // Checkout Form
