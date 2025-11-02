@@ -70,6 +70,31 @@ The application uses PostgreSQL for development and includes:
 - OrderItems table for order line items
 - Admins table for admin authentication
 
+## Image Storage (Important!)
+
+### ⚠️ Railway uses ephemeral filesystems
+
+Images uploaded through the admin panel will be **deleted on every deployment** unless you use Railway Volumes.
+
+### Quick Setup (Railway Volumes)
+
+1. Go to Railway → Your backend service → Variables
+2. Click **"+ New Volume"**
+3. Set mount path to `/data`
+4. Save and redeploy
+
+**That's it!** Images will now persist across deployments.
+
+See [RAILWAY_VOLUME_SETUP.md](../RAILWAY_VOLUME_SETUP.md) for detailed instructions.
+
+### How it works
+
+- **With Volume:** Images save to `/data/images/` (persistent ✅)
+- **Without Volume:** Images save to `/app/public/images/` (deleted on deploy ❌)
+- **Local Dev:** Images save to `public/images/` (always works ✅)
+
+The code automatically detects and uses the Railway volume if available.
+
 ## API Endpoints
 
 - `GET /api/products` - Get all products
@@ -81,3 +106,4 @@ The application uses PostgreSQL for development and includes:
 - `DELETE /api/cart/clear` - Clear cart
 - `GET /api/orders` - Get all orders
 - `POST /api/orders` - Create new order
+- `POST /api/admin/upload-image` - Upload product image (admin only)
