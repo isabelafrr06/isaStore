@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
+import { addToCart as addToCartService } from '../services/cartService.js'
 import './ProductDetail.css'
 
 function ProductDetail() {
@@ -41,27 +42,15 @@ function ProductDetail() {
       return
     }
     
-    fetch(getApiUrl('/api/cart/add'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        productId: parseInt(id),
-        quantity: quantity
-      })
-    })
-    .then(res => res.json())
-    .then(() => {
+    try {
+      // Add to local cart
+      addToCartService(product, quantity)
       setMessage(t('productAddedToCart'))
       setTimeout(() => setMessage(''), 3000)
-      // Trigger cart update event to refresh Header cart count
-      window.dispatchEvent(new Event('cartUpdated'))
-    })
-    .catch(err => {
+    } catch (err) {
       console.error('Error adding to cart:', err)
       setMessage(t('errorAddingToCart'))
-    })
+    }
   }
 
   if (loading) {

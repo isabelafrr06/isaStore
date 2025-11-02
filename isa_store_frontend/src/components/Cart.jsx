@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getApiUrl, getImageUrl } from '../config.js'
+import { getImageUrl } from '../config.js'
+import { getCart, removeFromCart as removeFromCartService, updateQuantity as updateQuantityService, clearCart as clearCartService } from '../services/cartService.js'
 import CheckoutForm from './CheckoutForm'
 import './Cart.css'
 
@@ -12,91 +13,39 @@ function Cart() {
   const { t } = useLanguage()
 
   useEffect(() => {
-    fetchCart()
+    loadCart()
+    
+    // Listen for cart updates
+    const handleCartUpdate = () => {
+      loadCart()
+    }
+    
+    window.addEventListener('cartUpdated', handleCartUpdate)
+    
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate)
+    }
   }, [])
 
-  const fetchCart = () => {
-    fetch(getApiUrl('/api/cart'))
-      .then(res => res.json())
-      .then(data => {
-        setCart(data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error('Error fetching cart:', err)
-        setLoading(false)
-      })
+  const loadCart = () => {
+    const cartData = getCart()
+    setCart(cartData)
+    setLoading(false)
   }
 
-  const removeFromCart = (itemId) => {
-    fetch(getApiUrl(`/api/cart/remove/${itemId}`), {
-      method: 'DELETE'
-    })
-    .then(res => res.json())
-    .then(() => {
-      fetchCart()
-      // Trigger cart update event to refresh Header cart count
-      window.dispatchEvent(new Event('cartUpdated'))
-    })
+  const handleRemoveFromCart = (itemId) => {
+    removeFromCartService(itemId)
+    loadCart()
   }
 
-  const updateQuantity = (itemId, quantity) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId)
-    } else {
-      fetch(getApiUrl(`/api/cart/update/${itemId}`), {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ quantity })
-      })
-      .then(res => res.json())
-      .then(() => {
-        fetchCart()
-        // Trigger cart update event to refresh Header cart count
-        window.dispatchEvent(new Event('cartUpdated'))
-      })
-    }
+  const handleUpdateQuantity = (itemId, quantity) => {
+    updateQuantityService(itemId, quantity)
+    loadCart()
   }
 
-  const clearCart = () => {
-    fetch(getApiUrl('/api/cart/clear'), {
-      method: 'DELETE'
-    })
-    .then(res => res.json())
-    .then(() => {
-      fetchCart()
-      // Trigger cart update event to refresh Header cart count
-      window.dispatchEvent(new Event('cartUpdated'))
-    })
-  }
-
-  const checkout = (customerInfo) => {
-    fetch(getApiUrl('/api/orders'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        customer_name: customerInfo.name,
-        customer_email: customerInfo.email,
-        customer_phone: customerInfo.phone,
-        customer_address: customerInfo.address,
-        customer_city: customerInfo.city,
-        customer_zip_code: customerInfo.zipCode
-      })
-    })
-    .then(res => res.json())
-    .then(() => {
-      alert(t('orderPlacedSuccess'))
-      setShowCheckoutForm(false)
-      fetchCart()
-    })
-    .catch(err => {
-      console.error('Error placing order:', err)
-      alert(t('errorPlacingOrder'))
-    })
+  const handleClearCart = () => {
+    clearCartService()
+    loadCart()
   }
 
   const handleCheckoutClick = () => {
@@ -130,11 +79,11 @@ function Cart() {
                 </div>
                 <div className="cart-item-controls">
                   <div className="quantity-controls">
-                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                    <button onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}>-</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                    <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}>+</button>
                   </div>
-                  <button onClick={() => removeFromCart(item.id)} className="remove-btn">
+                  <button onClick={() => handleRemoveFromCart(item.id)} className="remove-btn">
                     {t('remove')}
                   </button>
                 </div>
@@ -162,7 +111,7 @@ function Cart() {
             <button onClick={handleCheckoutClick} className="checkout-btn">
               {t('checkout')}
             </button>
-            <button onClick={clearCart} className="clear-cart-btn">
+            <button onClick={handleClearCart} className="clear-cart-btn">
               {t('clearCart')}
             </button>
           </div>
@@ -173,9 +122,7 @@ function Cart() {
         <CheckoutForm 
           onCancel={() => {
             setShowCheckoutForm(false)
-            fetchCart() // Refresh cart after order
-            // Trigger cart update event to refresh Header cart count
-            window.dispatchEvent(new Event('cartUpdated'))
+            loadCart() // Refresh cart after order
           }}
           cartItems={cart}
           total={total}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getApiUrl } from '../config.js'
+import { getCartCount } from '../services/cartService.js'
 import './Header.css'
 
 function Header({ admin, onAdminLogout }) {
@@ -9,12 +9,12 @@ function Header({ admin, onAdminLogout }) {
   const { t, language, toggleLanguage } = useLanguage()
 
   useEffect(() => {
-    // Fetch cart count on mount
-    fetchCartCount()
+    // Load cart count on mount
+    updateCartCount()
     
     // Listen for cart update events
     const handleCartUpdate = () => {
-      fetchCartCount()
+      updateCartCount()
     }
     
     window.addEventListener('cartUpdated', handleCartUpdate)
@@ -24,27 +24,9 @@ function Header({ admin, onAdminLogout }) {
     }
   }, [])
 
-  const fetchCartCount = () => {
-    fetch(getApiUrl('/api/cart'))
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`)
-        }
-        return res.json()
-      })
-      .then(data => {
-        if (Array.isArray(data)) {
-          const count = data.reduce((sum, item) => sum + item.quantity, 0)
-          setCartCount(count)
-        }
-      })
-      .catch(err => {
-        // Only log if it's not a 404 (might be expected if cart is empty/not initialized)
-        if (!err.message?.includes('404')) {
-          console.error('Error fetching cart:', err)
-        }
-        setCartCount(0)
-      })
+  const updateCartCount = () => {
+    const count = getCartCount()
+    setCartCount(count)
   }
 
   return (
