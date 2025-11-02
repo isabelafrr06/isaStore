@@ -27,6 +27,20 @@ function ProductDetail() {
   }, [id])
 
   const addToCart = () => {
+    // Check if product is out of stock
+    if (product.stock <= 0) {
+      setMessage(t('productOutOfStock'))
+      setTimeout(() => setMessage(''), 3000)
+      return
+    }
+    
+    // Check if requested quantity exceeds available stock
+    if (quantity > product.stock) {
+      setMessage(t('notEnoughStock'))
+      setTimeout(() => setMessage(''), 3000)
+      return
+    }
+    
     fetch(getApiUrl('/api/cart/add'), {
       method: 'POST',
       headers: {
@@ -101,20 +115,25 @@ function ProductDetail() {
               id="quantity"
               type="number"
               min="1"
-              max="10"
+              max={product.stock > 0 ? Math.min(product.stock, 10) : 0}
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value))}
+              disabled={product.stock <= 0}
             />
           </div>
           
-          <button onClick={addToCart} className="add-to-cart-btn">
-            {t('addToCart')}
+          <button 
+            onClick={addToCart} 
+            className={`add-to-cart-btn ${product.stock <= 0 ? 'disabled' : ''}`}
+            disabled={product.stock <= 0}
+          >
+            {product.stock <= 0 ? t('outOfStock') : t('addToCart')}
           </button>
           
-          {message && <div className="message">{message}</div>}
+          {message && <div className={`message ${product.stock <= 0 ? 'error' : ''}`}>{message}</div>}
           
-          <div className="product-stock">
-            {t('stock')}: {product.stock} {t('available')}
+          <div className={`product-stock ${product.stock <= 0 ? 'out-of-stock' : ''}`}>
+            {t('stock')}: {product.stock} {product.stock > 0 ? t('available') : t('unavailable')}
           </div>
         </div>
       </div>

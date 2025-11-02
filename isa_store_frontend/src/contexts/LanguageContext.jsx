@@ -50,6 +50,10 @@ const translations = {
     errorAddingToCart: 'Error al agregar producto al carrito',
     stock: 'Stock',
     available: 'disponible',
+    unavailable: 'no disponible',
+    outOfStock: 'Agotado',
+    productOutOfStock: 'Este producto está agotado',
+    notEnoughStock: 'No hay suficiente stock disponible',
     
     // About
     aboutTitle: 'Acerca de IsaStore',
@@ -303,6 +307,10 @@ const translations = {
     addToCart: 'Add to Cart',
     productAddedToCart: 'Product added to cart!',
     errorAddingToCart: 'Error adding product to cart',
+    unavailable: 'unavailable',
+    outOfStock: 'Out of Stock',
+    productOutOfStock: 'This product is out of stock',
+    notEnoughStock: 'Not enough stock available',
     stock: 'Stock',
     available: 'available',
     
