@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_29_160000) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_01_011430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,23 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_29_160000) do
     t.integer "stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "images", default: []
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating", null: false
+    t.text "comment"
+    t.string "user_name", null: false
+    t.string "user_email"
+    t.string "provider", null: false
+    t.string "provider_id", null: false
+    t.string "profile_picture_url"
+    t.boolean "verified", default: false
+    t.boolean "approved", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["approved"], name: "index_reviews_on_approved"
+    t.index ["provider_id"], name: "index_reviews_on_provider_id"
   end
 
   add_foreign_key "cart_items", "products"

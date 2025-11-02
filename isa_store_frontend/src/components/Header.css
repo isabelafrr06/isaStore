@@ -68,7 +68,7 @@
 }
 
 .logout-btn {
-  background: #87CEEB;
+  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
   color: white !important;
   border: none;
   cursor: pointer;
@@ -76,11 +76,13 @@
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  transition: background 0.3s ease;
+  transition: all 0.3s;
 }
 
 .logout-btn:hover {
-  background: #6BB6FF;
+  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
 }
 
 .language-btn {

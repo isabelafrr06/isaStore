@@ -84,7 +84,6 @@ const translations = {
     quickLinks: 'Enlaces Rápidos',
     support: 'Soporte',
     contactInfo: 'Información de Contacto',
-    contactUs: 'Contáctanos',
     whatsappUs: 'Escríbenos por WhatsApp',
     privacyPolicy: 'Política de Privacidad',
     termsOfService: 'Términos de Servicio',
@@ -102,7 +101,6 @@ const translations = {
     price: 'Precio',
     description: 'Descripción',
     image: 'Imagen',
-    stock: 'Stock',
     orEnterImageFilename: 'O ingresa nombre del archivo de imagen',
     
     // Breadcrumb
@@ -138,6 +136,24 @@ const translations = {
     completeViaWhatsApp: 'Completar por WhatsApp',
     whatsAppPhone: '50683047863',
     whatsAppMessagePrefix: 'Hola! Me gustaría realizar el siguiente pedido:',
+    
+    // Reviews
+    reviews: 'Reseñas',
+    writeReview: 'Escribir Reseña',
+    submitReview: 'Enviar Reseña',
+    yourName: 'Tu Nombre',
+    yourReview: 'Tu Reseña',
+    reviewPlaceholder: 'Comparte tu experiencia...',
+    loadingReviews: 'Cargando reseñas...',
+    noReviewsYet: 'Aún no hay reseñas. ¡Sé el primero en dejar una reseña!',
+    verifiedReview: 'Reseña Verificada',
+    authenticateToReview: 'Por favor autentícate con Google o Facebook para escribir una reseña',
+    pleaseAuthenticate: 'Por favor autentícate con Google o Facebook primero',
+    pleaseSelectRating: 'Por favor selecciona una calificación',
+    errorGoogleAuth: 'Error al autenticarse con Google',
+    errorFacebookAuth: 'Error al autenticarse con Facebook',
+    errorSubmittingReview: 'Error al enviar la reseña',
+    submitting: 'Enviando...',
     
     // Contact Page
     contactTitle: 'Contáctanos',
@@ -323,7 +339,6 @@ const translations = {
     quickLinks: 'Quick Links',
     support: 'Support',
     contactInfo: 'Contact Info',
-    contactUs: 'Contact Us',
     whatsappUs: 'WhatsApp Us',
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
@@ -341,7 +356,6 @@ const translations = {
     price: 'Price',
     description: 'Description',
     image: 'Image',
-    stock: 'Stock',
     orEnterImageFilename: 'Or enter image filename',
     
     // Breadcrumb
@@ -377,6 +391,24 @@ const translations = {
     completeViaWhatsApp: 'Complete via WhatsApp',
     whatsAppPhone: '50683047863',
     whatsAppMessagePrefix: 'Hello! I would like to place the following order:',
+    
+    // Reviews
+    reviews: 'Reviews',
+    writeReview: 'Write a Review',
+    submitReview: 'Submit Review',
+    yourName: 'Your Name',
+    yourReview: 'Your Review',
+    reviewPlaceholder: 'Share your experience...',
+    loadingReviews: 'Loading reviews...',
+    noReviewsYet: 'No reviews yet. Be the first to leave a review!',
+    verifiedReview: 'Verified Review',
+    authenticateToReview: 'Please authenticate with Google or Facebook to write a review',
+    pleaseAuthenticate: 'Please authenticate with Google or Facebook first',
+    pleaseSelectRating: 'Please select a rating',
+    errorGoogleAuth: 'Error authenticating with Google',
+    errorFacebookAuth: 'Error authenticating with Facebook',
+    errorSubmittingReview: 'Error submitting review',
+    submitting: 'Submitting...',
     
     // Contact Page
     contactTitle: 'Contact Us',

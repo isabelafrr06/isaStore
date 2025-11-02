@@ -52,6 +52,7 @@ function Footer() {
               <li><Link to="/shipping">{t('shippingInfo')}</Link></li>
               <li><Link to="/returns">{t('returns')}</Link></li>
               <li><Link to="/faq">{t('faq')}</Link></li>
+              <li><Link to="/reviews">{t('reviews')}</Link></li>
             </ul>
           </div>
 

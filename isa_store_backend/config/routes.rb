@@ -13,6 +13,13 @@ Rails.application.routes.draw do
     # Orders
     resources :orders, only: [:index, :create]
     
+    # Reviews
+    get 'reviews', to: 'reviews#index'
+    get 'admin/reviews', to: 'reviews#index_all'
+    post 'reviews', to: 'reviews#create'
+    put 'admin/reviews/:id', to: 'reviews#update'
+    delete 'admin/reviews/:id', to: 'reviews#destroy'
+    
     # Admin authentication
     post 'admin/login', to: 'auth#login'
     post 'admin/logout', to: 'auth#logout'
