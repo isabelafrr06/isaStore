@@ -31,19 +31,21 @@ function ProductList() {
       <h2 className="page-title">{t('ourProducts')}</h2>
       <div className="products-grid">
         {products.map(product => (
-          <div key={product.id} className="product-card">
-            <img src={getImageUrl(product.image)} alt={product.name} className="product-image" />
-            <div className="product-info">
-              <h3 className="product-name">{product.name}</h3>
-              <p className="product-description">{product.description}</p>
-              <div className="product-footer">
-                <span className="product-price">₡{product.price}</span>
-                <Link to={`/product/${product.id}`} className="view-btn">
-                  {t('viewDetails')}
-                </Link>
+          <Link to={`/product/${product.id}`} key={product.id} className="product-card-link">
+            <div className="product-card">
+              <img src={getImageUrl(product.image)} alt={product.name} className="product-image" />
+              <div className="product-info">
+                <h3 className="product-name">{product.name}</h3>
+                <p className="product-description">{product.description}</p>
+                <div className="product-footer">
+                  <span className="product-price">₡{product.price}</span>
+                  <span className="view-btn">
+                    {t('viewDetails')}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
