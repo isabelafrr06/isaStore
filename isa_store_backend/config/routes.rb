@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     # Products
     resources :products, only: [:index, :show]
+    get 'categories', to: 'products#categories'
     
     # Cart operations
     get 'cart', to: 'cart#show'

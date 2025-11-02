@@ -13,7 +13,8 @@ function AdminDashboard({ admin, onLogout }) {
     price: '',
     image: '',
     images: [],
-    stock: ''
+    stock: '',
+    category: ''
   });
   const [imageFiles, setImageFiles] = useState([]);
   const [passwordData, setPasswordData] = useState({
@@ -99,6 +100,7 @@ function AdminDashboard({ admin, onLogout }) {
             description: formData.description,
             price: parseInt(formData.price) || formData.price,
             stock: formData.stock,
+            category: formData.category || null,
             images: allImages.length > 0 ? allImages : undefined,
             image: allImages.length > 0 ? allImages[0] : formData.image // First image for backward compatibility
           }
@@ -109,7 +111,7 @@ function AdminDashboard({ admin, onLogout }) {
         await fetchProducts();
         setShowForm(false);
         setEditingProduct(null);
-        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '' });
+        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '' });
         setImageFiles([]);
       }
     } catch (err) {
@@ -125,7 +127,8 @@ function AdminDashboard({ admin, onLogout }) {
       price: product.price,
       image: product.image || (product.images && product.images[0]) || '',
       images: product.images || [],
-      stock: product.stock
+      stock: product.stock,
+      category: product.category || ''
     });
     setImageFiles([]);
     setShowForm(true);
@@ -267,7 +270,7 @@ function AdminDashboard({ admin, onLogout }) {
         <button onClick={() => { 
           setShowForm(!showForm); 
           setEditingProduct(null); 
-          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '' });
+          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '' });
           setImageFiles([]);
         }} className="add-button">
           {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
@@ -302,6 +305,21 @@ function AdminDashboard({ admin, onLogout }) {
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               required
             />
+            <div className="form-group">
+              <label>Category</label>
+              <select
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                className="category-select"
+              >
+                <option value="">Select a category</option>
+                <option value="Chargers">Chargers</option>
+                <option value="Laptops">Laptops</option>
+                <option value="iPads">iPads</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
             <div className="form-group">
               <label>Images</label>
               <input

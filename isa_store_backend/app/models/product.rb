@@ -1,11 +1,18 @@
 class Product < ApplicationRecord
+  CATEGORIES = ['Chargers', 'Laptops', 'iPads', 'Accessories', 'Other'].freeze
+  
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :stock, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :category, inclusion: { in: CATEGORIES, allow_nil: true }
   
   # Support both single image (backward compatibility) and images array
   validates :image, presence: true, if: -> { images.blank? || images.empty? }
   validate :images_present
+  
+  # Scopes for filtering
+  scope :by_category, ->(category) { where(category: category) if category.present? }
+  scope :in_stock, -> { where('stock > ?', 0) }
   
   # Ensure images is always an array
   before_save :normalize_images

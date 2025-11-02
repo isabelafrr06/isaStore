@@ -40,6 +40,14 @@ const translations = {
     checkout: 'Finalizar Compra',
     clearCart: 'Vaciar Carrito',
     
+    // Categories
+    allProducts: 'Todos los Productos',
+    chargers: 'Cargadores',
+    laptops: 'Laptops',
+    ipads: 'iPads',
+    accessories: 'Accesorios',
+    other: 'Otros',
+    
     // Product Detail
     loadingProduct: 'Cargando producto...',
     productNotFound: 'Producto no encontrado',
@@ -298,6 +306,14 @@ const translations = {
     total: 'Total',
     checkout: 'Checkout',
     clearCart: 'Clear Cart',
+    
+    // Categories
+    allProducts: 'All Products',
+    chargers: 'Chargers',
+    laptops: 'Laptops',
+    ipads: 'iPads',
+    accessories: 'Accessories',
+    other: 'Other',
     
     // Product Detail
     loadingProduct: 'Loading product...',

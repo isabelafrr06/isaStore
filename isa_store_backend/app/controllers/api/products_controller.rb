@@ -1,7 +1,11 @@
 class Api::ProductsController < ApplicationController
   def index
-    @products = Product.all.map { |p| serialize_product(p) }
+    @products = Product.by_category(params[:category]).map { |p| serialize_product(p) }
     render json: @products
+  end
+  
+  def categories
+    render json: { categories: Product::CATEGORIES }
   end
 
   def show
@@ -24,6 +28,7 @@ class Api::ProductsController < ApplicationController
       images: product.all_images, # Array of images
       image: product.primary_image, # First image for backward compatibility
       stock: product.stock,
+      category: product.category,
       created_at: product.created_at,
       updated_at: product.updated_at
     }

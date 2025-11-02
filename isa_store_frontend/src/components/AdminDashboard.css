@@ -101,7 +101,8 @@
 }
 
 .product-form input,
-.product-form textarea {
+.product-form textarea,
+.product-form select {
   padding: 12px;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -111,6 +112,22 @@
 .product-form textarea {
   min-height: 100px;
   resize: vertical;
+}
+
+.product-form select {
+  background: white;
+  cursor: pointer;
+}
+
+.product-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-form .form-group label {
+  font-weight: 600;
+  color: #333;
 }
 
 .form-row {
