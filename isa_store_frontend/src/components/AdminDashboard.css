@@ -62,9 +62,13 @@
 
 .dashboard-actions {
   margin-bottom: 20px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.add-button {
+.add-button,
+.manage-categories-button {
   padding: 12px 24px;
   background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
   color: white;
@@ -75,7 +79,8 @@
   transition: all 0.3s;
 }
 
-.add-button:hover {
+.add-button:hover,
+.manage-categories-button:hover {
   background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);

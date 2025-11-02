@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { getApiUrl, getImageUrl } from '../config.js';
+import CategoryManager from './CategoryManager.jsx';
 
 function AdminDashboard({ admin, onLogout }) {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [showCategoryManager, setShowCategoryManager] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -26,6 +29,7 @@ function AdminDashboard({ admin, onLogout }) {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
@@ -41,6 +45,22 @@ function AdminDashboard({ admin, onLogout }) {
       }
     } catch (err) {
       console.error('Error fetching products:', err);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(getApiUrl('/api/admin/categories'), {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data.categories || []);
+      }
+    } catch (err) {
+      console.error('Error fetching categories:', err);
     }
   };
 
@@ -275,7 +295,20 @@ function AdminDashboard({ admin, onLogout }) {
         }} className="add-button">
           {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
         </button>
+        <button onClick={() => setShowCategoryManager(!showCategoryManager)} className="manage-categories-button">
+          {showCategoryManager ? 'Hide Categories' : 'Manage Categories'}
+        </button>
       </div>
+
+      {showCategoryManager && (
+        <CategoryManager 
+          categories={categories} 
+          onUpdate={() => {
+            fetchCategories();
+            fetchProducts(); // Refresh products in case category names changed
+          }} 
+        />
+      )}
 
       {showForm && (
         <div className="product-form">
@@ -313,11 +346,11 @@ function AdminDashboard({ admin, onLogout }) {
                 className="category-select"
               >
                 <option value="">Select a category</option>
-                <option value="Chargers">Chargers</option>
-                <option value="Laptops">Laptops</option>
-                <option value="iPads">iPads</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Other">Other</option>
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.name}>
+                    {cat.name_en}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-group">

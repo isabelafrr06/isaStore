@@ -3,10 +3,6 @@ class Api::ProductsController < ApplicationController
     @products = Product.by_category(params[:category]).map { |p| serialize_product(p) }
     render json: @products
   end
-  
-  def categories
-    render json: { categories: Product::CATEGORIES }
-  end
 
   def show
     @product = Product.find_by(id: params[:id])

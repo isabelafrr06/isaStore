@@ -6,13 +6,29 @@ import './ProductList.css'
 
 function ProductList() {
   const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState('')
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
 
   useEffect(() => {
     fetchProducts(selectedCategory)
   }, [selectedCategory])
+
+  const fetchCategories = () => {
+    fetch(getApiUrl('/api/categories'))
+      .then(res => res.json())
+      .then(data => {
+        setCategories(data.categories || [])
+      })
+      .catch(err => {
+        console.error('Error fetching categories:', err)
+      })
+  }
 
   const fetchProducts = (category) => {
     const url = category 
@@ -51,36 +67,15 @@ function ProductList() {
         >
           {t('allProducts')}
         </button>
-        <button 
-          className={`category-btn ${selectedCategory === 'Chargers' ? 'active' : ''}`}
-          onClick={() => handleCategoryChange('Chargers')}
-        >
-          {t('chargers')}
-        </button>
-        <button 
-          className={`category-btn ${selectedCategory === 'Laptops' ? 'active' : ''}`}
-          onClick={() => handleCategoryChange('Laptops')}
-        >
-          {t('laptops')}
-        </button>
-        <button 
-          className={`category-btn ${selectedCategory === 'iPads' ? 'active' : ''}`}
-          onClick={() => handleCategoryChange('iPads')}
-        >
-          {t('ipads')}
-        </button>
-        <button 
-          className={`category-btn ${selectedCategory === 'Accessories' ? 'active' : ''}`}
-          onClick={() => handleCategoryChange('Accessories')}
-        >
-          {t('accessories')}
-        </button>
-        <button 
-          className={`category-btn ${selectedCategory === 'Other' ? 'active' : ''}`}
-          onClick={() => handleCategoryChange('Other')}
-        >
-          {t('other')}
-        </button>
+        {categories.map(category => (
+          <button 
+            key={category.id}
+            className={`category-btn ${selectedCategory === category.name ? 'active' : ''}`}
+            onClick={() => handleCategoryChange(category.name)}
+          >
+            {language === 'es' ? category.name_es : category.name_en}
+          </button>
+        ))}
       </div>
       
       <div className="products-grid">

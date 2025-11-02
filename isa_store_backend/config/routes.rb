@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   namespace :api do
     # Products
     resources :products, only: [:index, :show]
-    get 'categories', to: 'products#categories'
+    
+    # Categories (public)
+    resources :categories, only: [:index]
     
     # Cart operations
     get 'cart', to: 'cart#show'
@@ -27,11 +29,15 @@ Rails.application.routes.draw do
     get 'admin/me', to: 'auth#me'
     put 'admin/change-password', to: 'auth#change_password'
     
-          # Admin products management
-          resources :admin_products, path: 'admin/products', only: [:index, :show, :create, :update, :destroy]
-          
-          # Image upload
-          post 'admin/upload-image', to: 'image_upload#upload'
+    # Admin products management
+    resources :admin_products, path: 'admin/products', only: [:index, :show, :create, :update, :destroy]
+    
+    # Admin categories management
+    resources :admin_categories, path: 'admin/categories', only: [:index, :create, :update, :destroy]
+    post 'admin/categories/reorder', to: 'admin_categories#reorder'
+    
+    # Image upload
+    post 'admin/upload-image', to: 'image_upload#upload'
   end
   
   root 'api/products#index'
