@@ -114,9 +114,9 @@ function ProductDetail() {
             <input
               id="quantity"
               type="number"
-              min="1"
+              min={product.stock > 0 ? 1 : 0}
               max={product.stock > 0 ? Math.min(product.stock, 10) : 0}
-              value={quantity}
+              value={product.stock > 0 ? quantity : 0}
               onChange={(e) => setQuantity(parseInt(e.target.value))}
               disabled={product.stock <= 0}
             />
