@@ -6,6 +6,12 @@ import './Footer.css'
 function Footer() {
   const { t } = useLanguage()
   
+  // Address for maps from context
+  const address = t('storeAddress')
+  const encodedAddress = encodeURIComponent(address)
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`
+  const wazeUrl = `https://waze.com/ul?q=${encodedAddress}`
+  
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -62,6 +68,26 @@ function Footer() {
               <p>📧 info@isastore.com</p>
               <p>📞 +506 83047863</p>
               <p>📍 {t('contactAddress')}</p>
+              <div className="footer-map-buttons">
+                <a 
+                  href={googleMapsUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="footer-map-link"
+                  title={t('openInGoogleMaps')}
+                >
+                  🗺️
+                </a>
+                <a 
+                  href={wazeUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="footer-map-link"
+                  title={t('openInWaze')}
+                >
+                  🧭
+                </a>
+              </div>
             </div>
             <a href="https://wa.me/50683047863" target="_blank" rel="noopener noreferrer" className="whatsapp-btn">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">

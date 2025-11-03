@@ -5,6 +5,12 @@ import './Contact.css'
 function Contact() {
   const { t } = useLanguage()
   
+  // Address for maps from context
+  const address = t('storeAddress')
+  const encodedAddress = encodeURIComponent(address)
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`
+  const wazeUrl = `https://waze.com/ul?q=${encodedAddress}`
+  
   return (
     <div className="contact">
       <div className="contact-container">
@@ -30,6 +36,24 @@ function Contact() {
             <div className="contact-card">
               <h3>📍 {t('address')}</h3>
               <p>{t('contactAddress')}</p>
+              <div className="map-buttons">
+                <a 
+                  href={googleMapsUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="map-button google-maps-btn"
+                >
+                  🗺️ {t('openInGoogleMaps')}
+                </a>
+                <a 
+                  href={wazeUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="map-button waze-btn"
+                >
+                  🧭 {t('openInWaze')}
+                </a>
+              </div>
             </div>
             
             <div className="contact-card">

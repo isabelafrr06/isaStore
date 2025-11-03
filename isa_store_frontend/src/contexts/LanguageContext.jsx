@@ -104,7 +104,10 @@ const translations = {
     contactUsText: '¿Tienes preguntas o necesitas asistencia? ¡Estamos aquí para ayudarte! Comunícate con nosotros a través de nuestros canales de contacto o visita nuestra tienda para un servicio personalizado.',
     contactEmail: '📧 Email: info@isastore.com',
     contactPhone: '📞 Teléfono: +506 83047863',
-    contactAddress: '📍 Dirección: San Antonio de Belen, Heredia, Costa Rica',
+    contactAddress: '📍 Dirección: San Antonio de Belén, Heredia, Costa Rica',
+    storeAddress: 'San Antonio de Belén, Heredia, Costa Rica',
+    openInGoogleMaps: 'Abrir en Google Maps',
+    openInWaze: 'Abrir en Waze',
     
     // Footer
     footerDescription: 'Electrónicos de alta calidad y accesorios tecnológicos.',
@@ -386,7 +389,10 @@ const translations = {
     contactUsText: 'Have questions or need assistance? We\'re here to help! Reach out through our contact channels or visit our store for personalized service.',
     contactEmail: '📧 Email: info@isastore.com',
     contactPhone: '📞 Phone: +506 83047863',
-    contactAddress: '📍 Address: San Antonio de Belen, Heredia, Costa Rica',
+    contactAddress: '📍 Address: San Antonio de Belén, Heredia, Costa Rica',
+    storeAddress: 'San Antonio de Belén, Heredia, Costa Rica',
+    openInGoogleMaps: 'Open in Google Maps',
+    openInWaze: 'Open in Waze',
     
     // Footer
     footerDescription: 'High-quality electronics and tech accessories.',

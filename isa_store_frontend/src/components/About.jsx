@@ -5,6 +5,12 @@ import './About.css'
 function About() {
   const { t } = useLanguage()
   
+  // Address for maps from context
+  const address = t('storeAddress')
+  const encodedAddress = encodeURIComponent(address)
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`
+  const wazeUrl = `https://waze.com/ul?q=${encodedAddress}`
+  
   return (
     <div className="about">
       <div className="about-container">
@@ -62,6 +68,24 @@ function About() {
               <p>{t('contactEmail')}</p>
               <p>{t('contactPhone')}</p>
               <p>{t('contactAddress')}</p>
+              <div className="about-map-buttons">
+                <a 
+                  href={googleMapsUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="about-map-button google-maps-btn"
+                >
+                  🗺️ {t('openInGoogleMaps')}
+                </a>
+                <a 
+                  href={wazeUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="about-map-button waze-btn"
+                >
+                  🧭 {t('openInWaze')}
+                </a>
+              </div>
             </div>
           </div>
         </div>
