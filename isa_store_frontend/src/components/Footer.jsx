@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
+import WazeIcon from './icons/WazeIcon.jsx'
 import './Footer.css'
 
 function Footer() {
@@ -76,7 +78,7 @@ function Footer() {
                   className="footer-map-link"
                   title={t('openInGoogleMaps')}
                 >
-                  🗺️
+                  <GoogleMapsIcon size={24} />
                 </a>
                 <a 
                   href={wazeUrl} 
@@ -85,7 +87,7 @@ function Footer() {
                   className="footer-map-link"
                   title={t('openInWaze')}
                 >
-                  🧭
+                  <WazeIcon size={24} />
                 </a>
               </div>
             </div>

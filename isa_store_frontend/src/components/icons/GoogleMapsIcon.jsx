@@ -1,0 +1,25 @@
+import React from 'react'
+
+function GoogleMapsIcon({ size = 20, className = '' }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      {/* Google Maps location pin - red pin shape */}
+      <path 
+        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" 
+        fill="#EA4335"
+      />
+      {/* White center circle */}
+      <circle cx="12" cy="9" r="3" fill="#FFFFFF"/>
+    </svg>
+  )
+}
+
+export default GoogleMapsIcon
+

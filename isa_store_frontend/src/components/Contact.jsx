@@ -1,5 +1,7 @@
 import React from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
+import WazeIcon from './icons/WazeIcon.jsx'
 import './Contact.css'
 
 function Contact() {
@@ -43,7 +45,8 @@ function Contact() {
                   rel="noopener noreferrer" 
                   className="map-button google-maps-btn"
                 >
-                  🗺️ {t('openInGoogleMaps')}
+                  <GoogleMapsIcon size={20} />
+                  <span>{t('openInGoogleMaps')}</span>
                 </a>
                 <a 
                   href={wazeUrl} 
@@ -51,7 +54,8 @@ function Contact() {
                   rel="noopener noreferrer" 
                   className="map-button waze-btn"
                 >
-                  🧭 {t('openInWaze')}
+                  <WazeIcon size={20} />
+                  <span>{t('openInWaze')}</span>
                 </a>
               </div>
             </div>
