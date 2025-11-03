@@ -87,10 +87,12 @@ function ProductList() {
           {categories.map(category => (
             <button 
               key={category.id}
-              className={`category-btn ${selectedCategory === category.name ? 'active' : ''}`}
-              onClick={() => handleCategoryChange(category.name)}
+              className={`category-btn ${selectedCategory === category.name ? 'active' : ''} ${category.product_count === 0 ? 'disabled' : ''}`}
+              onClick={() => category.product_count > 0 && handleCategoryChange(category.name)}
+              disabled={category.product_count === 0}
             >
               {language === 'es' ? category.name_es : category.name_en}
+              {category.product_count === 0 && ' (0)'}
             </button>
           ))}
         </div>

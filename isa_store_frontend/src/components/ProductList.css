@@ -101,6 +101,21 @@
   box-shadow: 0 4px 12px rgba(61, 219, 200, 0.4);
 }
 
+.category-btn.disabled,
+.category-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #666;
+  color: #999;
+}
+
+.category-btn.disabled:hover,
+.category-btn:disabled:hover {
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
