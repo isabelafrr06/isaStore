@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl } from '../config.js'
+import { formatPrice } from '../utils/formatPrice.js'
 import './CheckoutForm.css'
 
 function CheckoutForm({ onCancel, cartItems, total }) {
@@ -67,14 +68,14 @@ function CheckoutForm({ onCancel, cartItems, total }) {
 
     // Build WhatsApp message first
     const itemsText = cartItems.map(item => 
-      `• ${item.name} x${item.quantity} - ₡${(parseInt(item.price) || 0) * item.quantity}`
+      `• ${item.name} x${item.quantity} - ₡${formatPrice((parseInt(item.price) || 0) * item.quantity)}`
     ).join('\n')
     
     const message = `${t('whatsAppMessagePrefix')}
 
 ${itemsText}
 
-${t('total')}: ₡${total}
+${t('total')}: ₡${formatPrice(total)}
 
 ${t('fullName')}: ${formData.name}
 ${t('phone')}: ${formData.phone}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getImageUrl } from '../config.js'
 import { getCart, removeFromCart as removeFromCartService, updateQuantity as updateQuantityService, clearCart as clearCartService } from '../services/cartService.js'
+import { formatPrice } from '../utils/formatPrice.js'
 import CheckoutForm from './CheckoutForm'
 import './Cart.css'
 
@@ -75,7 +76,7 @@ function Cart() {
                 <img src={getImageUrl(item.image)} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-info">
                   <h3>{item.name}</h3>
-                  <p className="cart-item-price">₡{item.price}</p>
+                  <p className="cart-item-price">₡{formatPrice(item.price)}</p>
                 </div>
                 <div className="cart-item-controls">
                   <div className="quantity-controls">
@@ -88,7 +89,7 @@ function Cart() {
                   </button>
                 </div>
                 <div className="cart-item-total">
-                  ₡{parseInt(item.price) * item.quantity}
+                  ₡{formatPrice(parseInt(item.price) * item.quantity)}
                 </div>
               </div>
             ))}
@@ -98,7 +99,7 @@ function Cart() {
             <h3>{t('orderSummary')}</h3>
             <div className="summary-row">
               <span>{t('subtotal')}:</span>
-              <span>₡{total}</span>
+              <span>₡{formatPrice(total)}</span>
             </div>
             <div className="summary-row">
               <span>{t('shipping')}:</span>
@@ -106,7 +107,7 @@ function Cart() {
             </div>
             <div className="summary-row total">
               <span>{t('total')}:</span>
-              <span>₡{total}</span>
+              <span>₡{formatPrice(total)}</span>
             </div>
             <button onClick={handleCheckoutClick} className="checkout-btn">
               {t('checkout')}

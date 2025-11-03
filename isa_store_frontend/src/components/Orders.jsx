@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
+import { formatPrice } from '../utils/formatPrice.js'
 import './Orders.css'
 
 function Orders() {
@@ -57,7 +58,7 @@ function Orders() {
                 </div>
                 <div>
                   <span className={`status status-${order.status}`}>{order.status}</span>
-                  <p className="order-total">₡{parseInt(order.total) || order.total}</p>
+                  <p className="order-total">₡{formatPrice(parseInt(order.total) || order.total)}</p>
                 </div>
               </div>
               
@@ -70,7 +71,7 @@ function Orders() {
                       <p>{t('quantity')}: {item.quantity}</p>
                     </div>
                     <span className="order-item-price">
-                      ₡{(parseInt(item.price) || item.price) * item.quantity}
+                      ₡{formatPrice((parseInt(item.price) || item.price) * item.quantity)}
                     </span>
                   </div>
                 ))}

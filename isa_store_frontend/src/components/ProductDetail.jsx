@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { addToCart as addToCartService } from '../services/cartService.js'
+import { formatPrice } from '../utils/formatPrice.js'
 import './ProductDetail.css'
 
 function ProductDetail() {
@@ -95,7 +96,7 @@ function ProductDetail() {
         
         <div className="product-details">
           <h1 className="detail-title">{product.name}</h1>
-          <p className="detail-price">₡{product.price}</p>
+          <p className="detail-price">₡{formatPrice(product.price)}</p>
           {product.condition && (
             <div className={`product-condition ${product.condition}`}>
               <strong>{t('condition')}:</strong> {product.condition === 'new' ? t('new') : t('used')}

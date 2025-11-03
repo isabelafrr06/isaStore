@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
+import { formatPrice } from '../utils/formatPrice.js'
 import './ProductList.css'
 
 function ProductList() {
@@ -140,7 +141,7 @@ function ProductList() {
                 <h3 className="product-name">{product.name}</h3>
                 <p className="product-description">{product.description}</p>
                 <div className="product-footer">
-                  <span className="product-price">₡{product.price}</span>
+                  <span className="product-price">₡{formatPrice(product.price)}</span>
                   <span className="view-btn">
                     {t('viewDetails')}
                   </span>
