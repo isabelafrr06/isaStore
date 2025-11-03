@@ -132,11 +132,9 @@ function ProductList() {
             <div className="product-card">
               <div className="product-image-container">
                 <img src={getImageUrl(product.image)} alt={product.name} className="product-image" />
-                {product.condition && (
-                  <span className={`condition-badge ${product.condition}`}>
-                    {product.condition === 'new' ? t('new') : t('used')}
-                  </span>
-                )}
+                <span className={`availability-badge ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
+                  {product.stock > 0 ? t('available') : t('outOfStock')}
+                </span>
               </div>
               <div className="product-info">
                 <h3 className="product-name">{product.name}</h3>
