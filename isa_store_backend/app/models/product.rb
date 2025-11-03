@@ -1,7 +1,10 @@
 class Product < ApplicationRecord
+  CONDITIONS = ['new', 'used'].freeze
+  
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :stock, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :condition, inclusion: { in: CONDITIONS }
   validate :category_exists, if: -> { category.present? }
   
   # Support both single image (backward compatibility) and images array
@@ -12,7 +15,16 @@ class Product < ApplicationRecord
   
   # Scopes for filtering
   scope :by_category, ->(category) { where(category: category) if category.present? }
+  scope :by_condition, ->(condition) { where(condition: condition) if condition.present? }
   scope :in_stock, -> { where('stock > ?', 0) }
+  
+  # Scopes for sorting
+  scope :order_by_price_asc, -> { order(price: :asc) }
+  scope :order_by_price_desc, -> { order(price: :desc) }
+  scope :order_by_name_asc, -> { order(name: :asc) }
+  scope :order_by_name_desc, -> { order(name: :desc) }
+  scope :order_by_newest, -> { order(created_at: :desc) }
+  scope :order_by_oldest, -> { order(created_at: :asc) }
   
   def category_exists
     unless Category.exists?(name: category)

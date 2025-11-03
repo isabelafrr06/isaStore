@@ -48,6 +48,21 @@ const translations = {
     accessories: 'Accesorios',
     other: 'Otros',
     
+    // Sorting
+    sortBy: 'Ordenar por',
+    priceAsc: 'Precio: Menor a Mayor',
+    priceDesc: 'Precio: Mayor a Menor',
+    nameAsc: 'Nombre: A-Z',
+    nameDesc: 'Nombre: Z-A',
+    newest: 'Más Recientes',
+    oldest: 'Más Antiguos',
+    
+    // Condition
+    condition: 'Condición',
+    new: 'Nuevo',
+    used: 'Usado',
+    allConditions: 'Todas las Condiciones',
+    
     // Product Detail
     loadingProduct: 'Cargando producto...',
     productNotFound: 'Producto no encontrado',
@@ -314,6 +329,21 @@ const translations = {
     ipads: 'iPads',
     accessories: 'Accessories',
     other: 'Other',
+    
+    // Sorting
+    sortBy: 'Sort by',
+    priceAsc: 'Price: Low to High',
+    priceDesc: 'Price: High to Low',
+    nameAsc: 'Name: A-Z',
+    nameDesc: 'Name: Z-A',
+    newest: 'Newest First',
+    oldest: 'Oldest First',
+    
+    // Condition
+    condition: 'Condition',
+    new: 'New',
+    used: 'Used',
+    allConditions: 'All Conditions',
     
     // Product Detail
     loadingProduct: 'Loading product...',

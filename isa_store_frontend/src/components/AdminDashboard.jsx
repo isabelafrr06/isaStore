@@ -17,7 +17,8 @@ function AdminDashboard({ admin, onLogout }) {
     image: '',
     images: [],
     stock: '',
-    category: ''
+    category: '',
+    condition: 'new'
   });
   const [imageFiles, setImageFiles] = useState([]);
   const [passwordData, setPasswordData] = useState({
@@ -121,6 +122,7 @@ function AdminDashboard({ admin, onLogout }) {
             price: parseInt(formData.price) || formData.price,
             stock: formData.stock,
             category: formData.category || null,
+            condition: formData.condition || 'new',
             images: allImages.length > 0 ? allImages : undefined,
             image: allImages.length > 0 ? allImages[0] : formData.image // First image for backward compatibility
           }
@@ -131,7 +133,7 @@ function AdminDashboard({ admin, onLogout }) {
         await fetchProducts();
         setShowForm(false);
         setEditingProduct(null);
-        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '' });
+        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new' });
         setImageFiles([]);
       }
     } catch (err) {
@@ -148,7 +150,8 @@ function AdminDashboard({ admin, onLogout }) {
       image: product.image || (product.images && product.images[0]) || '',
       images: product.images || [],
       stock: product.stock,
-      category: product.category || ''
+      category: product.category || '',
+      condition: product.condition || 'new'
     });
     setImageFiles([]);
     setShowForm(true);
@@ -290,7 +293,7 @@ function AdminDashboard({ admin, onLogout }) {
         <button onClick={() => { 
           setShowForm(!showForm); 
           setEditingProduct(null); 
-          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '' });
+          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new' });
           setImageFiles([]);
         }} className="add-button">
           {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
@@ -351,6 +354,17 @@ function AdminDashboard({ admin, onLogout }) {
                     {cat.name_en}
                   </option>
                 ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Condition</label>
+              <select
+                value={formData.condition}
+                onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
+                className="condition-select"
+              >
+                <option value="new">New</option>
+                <option value="used">Used</option>
               </select>
             </div>
             <div className="form-group">

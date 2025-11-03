@@ -96,6 +96,11 @@ function ProductDetail() {
         <div className="product-details">
           <h1 className="detail-title">{product.name}</h1>
           <p className="detail-price">₡{product.price}</p>
+          {product.condition && (
+            <div className={`product-condition ${product.condition}`}>
+              <strong>{t('condition')}:</strong> {product.condition === 'new' ? t('new') : t('used')}
+            </div>
+          )}
           <p className="detail-description">{product.description}</p>
           
           <div className="quantity-selector">
