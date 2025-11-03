@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getGoogleMapsUrl, getWazeUrl } from '../config.js'
 import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
 import WazeIcon from './icons/WazeIcon.jsx'
 import './Contact.css'
@@ -9,9 +10,8 @@ function Contact() {
   
   // Address for maps from context
   const address = t('storeAddress')
-  const encodedAddress = encodeURIComponent(address)
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`
-  const wazeUrl = `https://waze.com/ul?q=${encodedAddress}`
+  const googleMapsUrl = getGoogleMapsUrl(address)
+  const wazeUrl = getWazeUrl(address)
   
   return (
     <div className="contact">
