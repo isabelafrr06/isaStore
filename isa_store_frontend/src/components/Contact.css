@@ -1,60 +1,74 @@
 .contact {
-  padding: 2rem 0;
+  padding: 3rem 0;
   min-height: 70vh;
 }
 
 .contact-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 .contact-content {
   background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .contact-section {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
 }
 
 .contact-section h2 {
-  color: #333;
+  color: #2d3748;
   margin-bottom: 1rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .contact-section p {
-  color: #666;
-  line-height: 1.6;
+  color: #4a5568;
+  line-height: 1.8;
   font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .contact-info-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
 }
 
 .contact-card {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 2rem;
+  border-radius: 16px;
   text-align: center;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .contact-card h3 {
-  color: #667eea;
+  color: #2d3748;
   margin-bottom: 1rem;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
 .contact-card p {
-  color: #333;
+  color: #4a5568;
   margin: 0.5rem 0;
+  font-size: 1rem;
 }
 
 .contact-card a {
@@ -62,25 +76,31 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
+  font-size: 1.1rem;
 }
 
 .contact-card a:hover {
   color: #5568d3;
+  text-decoration: underline;
 }
 
 .whatsapp-link {
   display: inline-block;
-  background: #25D366;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #25D366 0%, #20BA5A 100%);
+  color: white !important;
+  padding: 0.875rem 1.75rem;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
 }
 
 .whatsapp-link:hover {
-  background: #20BA5A;
+  background: linear-gradient(135deg, #20BA5A 0%, #25D366 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
 }
 
 .map-buttons {
@@ -95,12 +115,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.875rem 1.75rem;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s;
-  color: white;
+  transition: all 0.3s ease;
+  color: white !important;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .google-maps-btn {
@@ -133,8 +155,36 @@
 }
 
 @media (max-width: 768px) {
+  .contact {
+    padding: 2rem 0;
+  }
+  
+  .contact-content {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .contact-section h2 {
+    font-size: 1.6rem;
+  }
+  
   .contact-info-section {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-card {
+    padding: 1.5rem;
+  }
+  
+  .map-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .map-button {
+    width: 100%;
+    justify-content: center;
   }
 }
 

@@ -24,7 +24,7 @@ function Shipping() {
           <div className="shipping-section">
             <h2>{t('pickupTitle')}</h2>
             <p>{t('pickupDescription')}</p>
-            <p className="pickup-location">{t('pickupLocation')}</p>
+            <p className="pickup-location">{t('contactAddress')}</p>
           </div>
 
           <div className="shipping-section">

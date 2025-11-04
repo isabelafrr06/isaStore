@@ -86,8 +86,6 @@ const translations = {
     ourMission: 'Nuestra Misión',
     ourMissionText: 'Creemos que la tecnología debe mejorar tu vida, no complicarla. Por eso seleccionamos cuidadosamente nuestros productos para traerte solo lo mejor, los electrónicos y accesorios más confiables que ofrecen gran valor por tu dinero.',
     whatWeOffer: 'Lo que Ofrecemos',
-    whatWeOfferItem1: '💻 Accesorios y periféricos para computadora',
- 
     whyChooseUs: '¿Por qué Elegirnos?',
     fastShipping: '🚚 Envío Rápido',
     fastShippingText: 'Entrega rápida y confiable a tu puerta',
@@ -105,7 +103,7 @@ const translations = {
     storeAddress: 'San Antonio de Belén, Heredia, Costa Rica',
     storeEmail: 'info@isastore.com',
     storePhone: '+506 83047863',
-    openInGoogleMaps: 'Abrir en Google Maps',
+    openInGoogleMaps: 'Google Maps',
     openInWaze: 'Abrir en Waze',
     
     // Footer
@@ -186,14 +184,8 @@ const translations = {
     
     // Contact Page
     contactTitle: 'Contáctanos',
-    getInTouch: 'Ponte en Contacto',
     contactDescription: 'Estamos aquí para ayudarte. Si tienes alguna pregunta, comentario o necesitas asistencia, no dudes en contactarnos a través de cualquiera de nuestros canales.',
     whatsapp: 'WhatsApp',
-    businessHours: 'Horario de Atención',
-    mondayToFriday: 'Lunes a Viernes',
-    saturday: 'Sábado',
-    sunday: 'Domingo',
-    closed: 'Cerrado',
     
     // Shipping Page
     shippingTitle: 'Información de Envío',
@@ -204,7 +196,6 @@ const translations = {
     pickupOption: '📍 Recogida en tienda - Belén (Puedes pagar al momento de recoger)',
     pickupTitle: 'Recogida en Tienda',
     pickupDescription: 'También puedes venir a recoger tu pedido directamente en nuestra ubicación en Belén. Si eliges esta opción, puedes pagar al momento de la recogida.',
-    pickupLocation: '📍 Ubicación: Belén',
     paymentMethods: 'Métodos de Pago',
     paymentMethodsDescription: 'Aceptamos los siguientes métodos de pago:',
     paymentMethod1: '💳 SINPE',
@@ -370,7 +361,6 @@ const translations = {
     ourMission: 'Our Mission',
     ourMissionText: 'We believe technology should enhance your life, not complicate it. That\'s why we carefully curate our products to bring you only the best, the most reliable electronics and accessories that offer great value for your money.',
     whatWeOffer: 'What We Offer',
-    whatWeOfferItem1: '💻 Computer accessories and peripherals',
     whyChooseUs: 'Why Choose Us?',
     fastShipping: '🚚 Fast Shipping',
     fastShippingText: 'Quick and reliable delivery to your door',
@@ -388,7 +378,7 @@ const translations = {
     storeAddress: 'San Antonio de Belén, Heredia, Costa Rica',
     storeEmail: 'info@isastore.com',
     storePhone: '+506 83047863',
-    openInGoogleMaps: 'Open in Google Maps',
+    openInGoogleMaps: 'Google Maps',
     openInWaze: 'Open in Waze',
     
     // Footer
@@ -469,14 +459,8 @@ const translations = {
     
     // Contact Page
     contactTitle: 'Contact Us',
-    getInTouch: 'Get in Touch',
     contactDescription: 'We are here to help you. If you have any questions, comments, or need assistance, don\'t hesitate to contact us through any of our channels.',
     whatsapp: 'WhatsApp',
-    businessHours: 'Business Hours',
-    mondayToFriday: 'Monday to Friday',
-    saturday: 'Saturday',
-    sunday: 'Sunday',
-    closed: 'Closed',
     
     // Shipping Page
     shippingTitle: 'Shipping Information',
@@ -487,7 +471,6 @@ const translations = {
     pickupOption: '📍 Store Pickup - Belén (You can pay at pickup)',
     pickupTitle: 'Store Pickup',
     pickupDescription: 'You can also come pick up your order directly at our location in Belén. If you choose this option, you can pay at the time of pickup.',
-    pickupLocation: '📍 Location: Belén',
     paymentMethods: 'Payment Methods',
     paymentMethodsDescription: 'We accept the following payment methods:',
     paymentMethod1: '💳 SINPE',

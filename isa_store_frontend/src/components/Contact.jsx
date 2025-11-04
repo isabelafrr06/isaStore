@@ -20,7 +20,6 @@ function Contact() {
         
         <div className="contact-content">
           <div className="contact-section">
-            <h2>{t('getInTouch')}</h2>
             <p>{t('contactDescription')}</p>
           </div>
 
@@ -28,11 +27,13 @@ function Contact() {
             <div className="contact-card">
               <h3>📧 {t('email')}</h3>
               <p><a href={`mailto:${t('storeEmail')}`}>{t('storeEmail')}</a></p>
-            </div>
-            
-            <div className="contact-card">
+              
               <h3>📞 {t('phone')}</h3>
               <p><a href={`tel:${t('storePhone').replace(/\s/g, '')}`}>{t('storePhone')}</a></p>
+
+              <a href={`https://wa.me/${t('whatsAppPhone')}`} target="_blank" rel="noopener noreferrer" className="whatsapp-link">
+                {t('whatsappUs')}
+              </a>
             </div>
             
             <div className="contact-card">
@@ -40,31 +41,24 @@ function Contact() {
               <p>{t('contactAddress')}</p>
               <div className="map-buttons">
                 <a 
-                  href={googleMapsUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="map-button google-maps-btn"
-                >
-                  <GoogleMapsIcon size={20} />
-                  <span>{t('openInGoogleMaps')}</span>
-                </a>
-                <a 
                   href={wazeUrl} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="map-button waze-btn"
                 >
-                  <WazeIcon size={20} />
+                  <WazeIcon size={30} />
                   <span>{t('openInWaze')}</span>
                 </a>
+                <a 
+                  href={googleMapsUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="map-button google-maps-btn"
+                >
+                  <GoogleMapsIcon size={30} />
+                  <span>{t('openInGoogleMaps')}</span>
+                </a>
               </div>
-            </div>
-            
-            <div className="contact-card">
-              <h3>💬 {t('whatsapp')}</h3>
-              <a href={`https://wa.me/${t('whatsAppPhone')}`} target="_blank" rel="noopener noreferrer" className="whatsapp-link">
-                {t('whatsappUs')}
-              </a>
             </div>
           </div>
         </div>
