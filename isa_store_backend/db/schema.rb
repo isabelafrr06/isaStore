@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_01_011430) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_02_213218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_011430) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_cart_items_on_product_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "name_en"
+    t.string "name_es"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
+    t.index ["position"], name: "index_categories_on_position"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -61,6 +72,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_011430) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "images", default: []
+    t.string "category"
+    t.string "condition", default: "new"
+    t.index ["category"], name: "index_products_on_category"
+    t.index ["condition"], name: "index_products_on_condition"
   end
 
   create_table "reviews", force: :cascade do |t|

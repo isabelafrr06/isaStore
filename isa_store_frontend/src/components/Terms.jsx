@@ -49,7 +49,7 @@ function Terms() {
           <div className="terms-section">
             <h2>{t('contactTerms')}</h2>
             <p>{t('contactTermsText')}</p>
-            <p><a href="mailto:info@isastore.com">info@isastore.com</a></p>
+            <p><a href={`mailto:${t('storeEmail')}`}>{t('storeEmail')}</a></p>
           </div>
         </div>
       </div>

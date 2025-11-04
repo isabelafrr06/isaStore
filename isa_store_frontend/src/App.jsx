@@ -18,6 +18,7 @@ import Reviews from './components/Reviews'
 import AdminLogin from './components/AdminLogin'
 import AdminDashboard from './components/AdminDashboard'
 import Footer from './components/Footer'
+import FloatingWhatsApp from './components/FloatingWhatsApp'
 import './App.css'
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
             </Routes>
           </main>
           <Footer />
+          <FloatingWhatsApp />
         </div>
       </Router>
     </LanguageProvider>

@@ -47,6 +47,7 @@ const translations = {
     ipads: 'iPads',
     accessories: 'Accesorios',
     other: 'Otros',
+    noCategories: 'No hay categorías disponibles',
     
     // Sorting
     sortBy: 'Ordenar por',
@@ -85,12 +86,8 @@ const translations = {
     ourMission: 'Nuestra Misión',
     ourMissionText: 'Creemos que la tecnología debe mejorar tu vida, no complicarla. Por eso seleccionamos cuidadosamente nuestros productos para traerte solo lo mejor, los electrónicos y accesorios más confiables que ofrecen gran valor por tu dinero.',
     whatWeOffer: 'Lo que Ofrecemos',
-    whatWeOfferItem1: '🎧 Auriculares inalámbricos premium y equipos de audio',
-    whatWeOfferItem2: '⌚ Relojes inteligentes y tecnología wearable',
-    whatWeOfferItem3: '💻 Accesorios y periféricos para computadora',
-    whatWeOfferItem4: '🔌 Hubs USB y soluciones de conectividad',
-    whatWeOfferItem5: '🖱️ Ratones y teclados ergonómicos',
-    whatWeOfferItem6: '📱 Accesorios móviles y gadgets',
+    whatWeOfferItem1: '💻 Accesorios y periféricos para computadora',
+ 
     whyChooseUs: '¿Por qué Elegirnos?',
     fastShipping: '🚚 Envío Rápido',
     fastShippingText: 'Entrega rápida y confiable a tu puerta',
@@ -102,10 +99,12 @@ const translations = {
     bestPricesText: 'Precios competitivos sin comprometer la calidad',
     contactUs: 'Contáctanos',
     contactUsText: '¿Tienes preguntas o necesitas asistencia? ¡Estamos aquí para ayudarte! Comunícate con nosotros a través de nuestros canales de contacto o visita nuestra tienda para un servicio personalizado.',
-    contactEmail: '📧 Email: info@isastore.com',
-    contactPhone: '📞 Teléfono: +506 83047863',
-    contactAddress: '📍 Dirección: San Antonio de Belén, Heredia, Costa Rica',
+    contactEmail: 'Email: info@isastore.com',
+    contactPhone: 'Teléfono: +506 83047863',
+    contactAddress: 'Dirección: San Antonio de Belén, Heredia, Costa Rica',
     storeAddress: 'San Antonio de Belén, Heredia, Costa Rica',
+    storeEmail: 'info@isastore.com',
+    storePhone: '+506 83047863',
     openInGoogleMaps: 'Abrir en Google Maps',
     openInWaze: 'Abrir en Waze',
     
@@ -332,6 +331,7 @@ const translations = {
     ipads: 'iPads',
     accessories: 'Accessories',
     other: 'Other',
+    noCategories: 'No categories available',
     
     // Sorting
     sortBy: 'Sort by',
@@ -370,12 +370,7 @@ const translations = {
     ourMission: 'Our Mission',
     ourMissionText: 'We believe technology should enhance your life, not complicate it. That\'s why we carefully curate our products to bring you only the best, the most reliable electronics and accessories that offer great value for your money.',
     whatWeOffer: 'What We Offer',
-    whatWeOfferItem1: '🎧 Premium wireless headphones and audio equipment',
-    whatWeOfferItem2: '⌚ Smartwatches and wearable technology',
-    whatWeOfferItem3: '💻 Computer accessories and peripherals',
-    whatWeOfferItem4: '🔌 USB hubs and connectivity solutions',
-    whatWeOfferItem5: '🖱️ Ergonomic mice and keyboards',
-    whatWeOfferItem6: '📱 Mobile accessories and gadgets',
+    whatWeOfferItem1: '💻 Computer accessories and peripherals',
     whyChooseUs: 'Why Choose Us?',
     fastShipping: '🚚 Fast Shipping',
     fastShippingText: 'Quick and reliable delivery to your door',
@@ -391,6 +386,8 @@ const translations = {
     contactPhone: '📞 Phone: +506 83047863',
     contactAddress: '📍 Address: San Antonio de Belén, Heredia, Costa Rica',
     storeAddress: 'San Antonio de Belén, Heredia, Costa Rica',
+    storeEmail: 'info@isastore.com',
+    storePhone: '+506 83047863',
     openInGoogleMaps: 'Open in Google Maps',
     openInWaze: 'Open in Waze',
     
@@ -587,7 +584,17 @@ export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState('es') // Default to Spanish
   
   const t = (key) => {
-    return translations[language][key] || key
+    try {
+      if (!key) return ''
+      if (!translations[language]) {
+        console.warn(`Language '${language}' not found, defaulting to 'es'`)
+        return translations['es'][key] || key
+      }
+      return translations[language][key] || translations['es'][key] || key
+    } catch (error) {
+      console.error('Translation error:', error, 'key:', key, 'language:', language)
+      return key
+    }
   }
   
   const toggleLanguage = () => {

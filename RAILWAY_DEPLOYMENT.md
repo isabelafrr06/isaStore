@@ -31,7 +31,47 @@ Complete guide to deploy IsaStore backend to Railway.
    - Generate a `DATABASE_URL` environment variable
    - Link it to your backend service
 
-## Step 4: Configure Environment Variables
+## Step 4: Create Volume for Image Storage (Critical!)
+
+**⚠️ Important:** Railway uses ephemeral filesystems. Images uploaded through the admin panel will be **deleted on every deployment** unless you use a Railway Volume.
+
+### Why You Need a Volume
+
+Without a volume:
+- Images are stored in `/app/public/images/`
+- All images are deleted when Railway redeploys your service
+- You'll lose all product images after each deployment
+
+With a volume:
+- Images are stored in `/data/images/` (persistent storage)
+- Images persist across deployments
+- Your product images remain safe
+
+### How to Create the Volume
+
+1. In your Railway project dashboard, click on your **backend service**
+2. Go to the **"Volumes"** tab
+3. Click **"+ New Volume"**
+4. Configure the volume:
+   - **Name:** `images-storage` (or any name you prefer)
+   - **Mount Path:** `/data`
+   - **Size:** Start with 1GB (you can increase later if needed)
+5. Click **"Add Volume"**
+
+### Set Environment Variable
+
+After creating the volume, Railway will automatically set the `RAILWAY_VOLUME_MOUNT_PATH` environment variable to `/data`. The backend code will automatically detect this and use the volume for image storage.
+
+**That's it!** Images will now persist across deployments. ✅
+
+### Verify Volume Setup
+
+After deployment, you can verify the volume is working:
+1. Upload a product image through the admin panel
+2. Check the deployment logs to confirm images are being saved to `/data/images/`
+3. Redeploy your service - your images should still be accessible
+
+## Step 5: Configure Environment Variables
 
 1. Click on your **backend service** (not the database)
 2. Go to the **"Variables"** tab
@@ -58,7 +98,7 @@ RAILS_SERVE_STATIC_FILES=true
 RAILS_LOG_TO_STDOUT=true
 ```
 
-## Step 5: Configure Root Directory
+## Step 6: Configure Root Directory
 
 Since this is a monorepo (frontend + backend), you need to tell Railway where the backend code is:
 
@@ -67,7 +107,7 @@ Since this is a monorepo (frontend + backend), you need to tell Railway where th
 3. Set it to: `isa_store_backend`
 4. Click **"Save"**
 
-## Step 6: Deploy
+## Step 7: Deploy
 
 1. Railway will automatically start deploying
 2. You can watch the build logs in real-time
@@ -76,7 +116,7 @@ Since this is a monorepo (frontend + backend), you need to tell Railway where th
    - Run database migrations (`rails db:migrate`)
    - Start the Puma server
 
-## Step 7: Get Your Backend URL
+## Step 8: Get Your Backend URL
 
 1. Once deployed, go to **"Settings"**
 2. Scroll down to **"Networking"**
@@ -84,7 +124,7 @@ Since this is a monorepo (frontend + backend), you need to tell Railway where th
 4. Railway will give you a URL like: `https://your-app-name.up.railway.app`
 5. **Copy this URL** - you'll need it for the frontend!
 
-## Step 8: Seed Your Database (First Time Only)
+## Step 9: Seed Your Database (First Time Only)
 
 You need to seed the database with products and admin user:
 
@@ -121,7 +161,7 @@ railway link
 railway run rails db:seed
 ```
 
-## Step 9: Set Admin Password (Important!)
+## Step 10: Set Admin Password (Important!)
 
 For security, set your admin password using environment variables:
 
@@ -135,7 +175,7 @@ ADMIN_NAME=Admin
 
 3. Redeploy or re-run the seed command
 
-## Step 10: Test Your Backend
+## Step 11: Test Your Backend
 
 Test your deployed backend:
 
@@ -143,7 +183,7 @@ Test your deployed backend:
 2. You should see a JSON array of products
 3. Try the admin login at: `https://your-app-name.up.railway.app/api/admin/login`
 
-## Step 11: Configure Frontend
+## Step 12: Configure Frontend
 
 Now update your frontend to use the Railway backend:
 
@@ -177,6 +217,19 @@ Already fixed! We disabled the asset pipeline in `production.rb`
 ### Migrations Don't Run
 - Check the build logs to see if the `release:` command ran
 - Manually run: `railway run rails db:migrate`
+
+### Images Disappear After Deployment
+- **You must create a Railway Volume** (see Step 4)
+- Without a volume, images are stored in ephemeral storage and deleted on each deployment
+- Verify the volume is mounted at `/data` in your service settings
+- Check that `RAILWAY_VOLUME_MOUNT_PATH` environment variable is set to `/data`
+- Verify images are being saved to `/data/images/` by checking deployment logs
+
+### Images Not Loading (404 Errors)
+- Check that the volume is properly mounted and accessible
+- Verify the Rack::Static middleware is configured (see `config/initializers/railway_volume.rb`)
+- Check Railway logs for image serving errors
+- Ensure `config.public_file_server.enabled = true` in `production.rb`
 
 ## Useful Railway CLI Commands
 

@@ -1,17 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getGoogleMapsUrl, getWazeUrl } from '../config.js'
+import { getApiUrl, getGoogleMapsUrl, getWazeUrl } from '../config.js'
 import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
 import WazeIcon from './icons/WazeIcon.jsx'
 import './About.css'
 
 function About() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const [categories, setCategories] = useState([])
+  const [loadingCategories, setLoadingCategories] = useState(true)
   
   // Address for maps from context
   const address = t('storeAddress')
   const googleMapsUrl = getGoogleMapsUrl(address)
   const wazeUrl = getWazeUrl(address)
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+
+  const fetchCategories = () => {
+    fetch(getApiUrl('/api/categories'))
+      .then(res => res.json())
+      .then(data => {
+        setCategories(data.categories || [])
+        setLoadingCategories(false)
+      })
+      .catch(err => {
+        console.error('Error fetching categories:', err)
+        setLoadingCategories(false)
+      })
+  }
   
   return (
     <div className="about">
@@ -31,14 +50,19 @@ function About() {
 
           <div className="about-section">
             <h2>{t('whatWeOffer')}</h2>
-            <ul className="features-list">
-              <li>{t('whatWeOfferItem1')}</li>
-              <li>{t('whatWeOfferItem2')}</li>
-              <li>{t('whatWeOfferItem3')}</li>
-              <li>{t('whatWeOfferItem4')}</li>
-              <li>{t('whatWeOfferItem5')}</li>
-              <li>{t('whatWeOfferItem6')}</li>
-            </ul>
+            {loadingCategories ? (
+              <p>{t('loading')}...</p>
+            ) : categories.length > 0 ? (
+              <ul className="features-list">
+                {categories.map((category) => (
+                  <li key={category.id}>
+                    {language === 'es' ? category.name_es : category.name_en}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>{t('noCategories')}</p>
+            )}
           </div>
 
           <div className="about-section">

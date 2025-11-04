@@ -50,7 +50,7 @@ function Privacy() {
           <div className="privacy-section">
             <h2>{t('contactPrivacy')}</h2>
             <p>{t('contactPrivacyText')}</p>
-            <p><a href="mailto:info@isastore.com">info@isastore.com</a></p>
+            <p><a href={`mailto:${t('storeEmail')}`}>{t('storeEmail')}</a></p>
           </div>
         </div>
       </div>

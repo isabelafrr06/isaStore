@@ -27,12 +27,12 @@ function Contact() {
           <div className="contact-info-section">
             <div className="contact-card">
               <h3>📧 {t('email')}</h3>
-              <p><a href="mailto:info@isastore.com">info@isastore.com</a></p>
+              <p><a href={`mailto:${t('storeEmail')}`}>{t('storeEmail')}</a></p>
             </div>
             
             <div className="contact-card">
               <h3>📞 {t('phone')}</h3>
-              <p><a href="tel:+50683047863">+506 83047863</a></p>
+              <p><a href={`tel:${t('storePhone').replace(/\s/g, '')}`}>{t('storePhone')}</a></p>
             </div>
             
             <div className="contact-card">
@@ -62,7 +62,7 @@ function Contact() {
             
             <div className="contact-card">
               <h3>💬 {t('whatsapp')}</h3>
-              <a href="https://wa.me/50683047863" target="_blank" rel="noopener noreferrer" className="whatsapp-link">
+              <a href={`https://wa.me/${t('whatsAppPhone')}`} target="_blank" rel="noopener noreferrer" className="whatsapp-link">
                 {t('whatsappUs')}
               </a>
             </div>
