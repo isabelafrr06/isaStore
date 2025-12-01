@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
+    # Health check
+    get 'health', to: 'health#show'
+    
     # Products
     resources :products, only: [:index, :show]
     

@@ -1,56 +1,67 @@
-# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
+# Git
+.git
+.gitignore
+.gitattributes
 
-# Ignore git directory.
-/.git/
-
-# Ignore bundler config.
-/.bundle
-
-# Ignore all environment files (except templates).
-/.env*
-!/.env*.erb
-
-# Ignore all default key files.
-/config/master.key
-/config/credentials/*.key
-
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
-
-# Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/.keep
-
-# Ignore storage (uploaded files in development and any SQLite databases).
-/storage/*
-!/storage/.keep
-/tmp/storage/*
-!/tmp/storage/.keep
-
-# Ignore SQLite databases
-*.sqlite3
-*.db
-/db/*.sqlite3
-/db/*.db
-
-# Ignore assets.
-/node_modules/
-/app/assets/builds/*
-!/app/assets/builds/.keep
-/public/assets
-
-# Ignore test files (not needed in production build)
-/test/*
-!/test/.keep
-
-# Ignore documentation files
+# Documentation
 *.md
-/README.md
-/LOCAL_POSTGRES_SETUP.md
+README.md
+DEPLOYMENT.md
+RAILWAY_DEPLOYMENT.md
+VERCEL_DEPLOYMENT.md
+LOCAL_POSTGRES_SETUP.md
+REVIEWS_SETUP.md
 
-# Ignore development files
-/.vscode/
-/.idea/
+# Logs
+log/*
+tmp/*
+*.log
+
+# Database
+*.sqlite3
+db/*.sqlite3
+db/development.sqlite3
+db/test.sqlite3
+storage/development.sqlite3
+
+# Node modules (if any)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test/
+spec/
+coverage/
+
+# Development files
+config/master.key
+config/credentials.yml.enc
+
+# Build artifacts
+public/assets
+public/packs
+public/packs-test
+
+# Railway specific
+railway.json
+nixpacks.toml
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
