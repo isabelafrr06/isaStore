@@ -16,6 +16,14 @@ Rails.application.configure do
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
+  # Set secret_key_base from environment variable
+  # Railway should set SECRET_KEY_BASE as an environment variable
+  # This is required for production deployments
+  # Generate one with: rails secret
+  config.secret_key_base = ENV.fetch("SECRET_KEY_BASE") do
+    raise ArgumentError, "SECRET_KEY_BASE must be set as an environment variable for production. Generate one with: rails secret"
+  end
+
   # Enable serving static files from `public/` (needed for images)
   config.public_file_server.enabled = true
 
