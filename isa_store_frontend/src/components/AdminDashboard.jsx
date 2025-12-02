@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { getApiUrl, getImageUrl } from '../config.js';
 import CategoryManager from './CategoryManager.jsx';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 function AdminDashboard({ admin, onLogout }) {
+  const { t } = useLanguage();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -226,11 +228,11 @@ function AdminDashboard({ admin, onLogout }) {
   return (
     <div className="admin-dashboard">
       <div className="dashboard-header">
-        <h1>Admin Dashboard</h1>
+        <h1>{t('adminDashboard')}</h1>
         <div className="header-actions">
-          <span>Welcome, {admin?.name}</span>
+          <span>{t('welcomeAdmin')}, {admin?.name}</span>
           <button onClick={() => setShowPasswordForm(!showPasswordForm)} className="change-password-btn">
-            Cambiar Contraseña
+            {t('changePassword')}
           </button>
         </div>
       </div>

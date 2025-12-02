@@ -118,6 +118,8 @@ const translations = {
     
     // Admin
     adminDashboard: 'Panel de Administración',
+    welcomeAdmin: 'Bienvenido',
+    changePassword: 'Cambiar Contraseña',
     addNewProduct: 'Agregar Nuevo Producto',
     cancel: 'Cancelar',
     editProduct: 'Editar Producto',
@@ -393,6 +395,8 @@ const translations = {
     
     // Admin
     adminDashboard: 'Admin Dashboard',
+    welcomeAdmin: 'Welcome',
+    changePassword: 'Change Password',
     addNewProduct: 'Add New Product',
     cancel: 'Cancel',
     editProduct: 'Edit Product',

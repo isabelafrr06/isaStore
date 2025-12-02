@@ -110,6 +110,7 @@
   min-width: 40px;
   text-align: center;
   font-weight: 600;
+  color: #333;
 }
 
 .remove-btn {
@@ -158,6 +159,11 @@
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.summary-row span {
+  color: #333;
 }
 
 .summary-row.total {
@@ -165,6 +171,10 @@
   padding-bottom: 0;
   font-size: 1.3rem;
   font-weight: 700;
+  color: #667eea;
+}
+
+.summary-row.total span {
   color: #667eea;
 }
 

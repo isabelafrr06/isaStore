@@ -54,17 +54,17 @@
   background: rgba(102, 126, 234, 0.1);
 }
 
-.cart-link {
-  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
+.nav-link.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white !important;
-  border-radius: 25px;
+  border-radius: 8px;
   transition: all 0.3s;
 }
 
-.cart-link:hover {
-  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+.nav-link.active:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
 }
 
 .logout-btn {
@@ -86,7 +86,7 @@
 }
 
 .language-btn {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
   color: white !important;
   border: none;
   cursor: pointer;
@@ -98,8 +98,8 @@
 }
 
 .language-btn:hover {
-  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
 }
 

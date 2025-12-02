@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getCartCount } from '../services/cartService.js'
 import './Header.css'
@@ -7,6 +7,7 @@ import './Header.css'
 function Header({ admin, onAdminLogout }) {
   const [cartCount, setCartCount] = useState(0)
   const { t, language, toggleLanguage } = useLanguage()
+  const location = useLocation()
 
   useEffect(() => {
     // Load cart count on mount
@@ -29,6 +30,13 @@ function Header({ admin, onAdminLogout }) {
     setCartCount(count)
   }
 
+  const isActive = (path) => {
+    if (path === '/') {
+      return location.pathname === '/'
+    }
+    return location.pathname.startsWith(path)
+  }
+
   return (
     <header className="header">
       <div className="header-container">
@@ -36,15 +44,40 @@ function Header({ admin, onAdminLogout }) {
           <h1>IsaStore</h1>
         </Link>
         <nav className="nav">
-          <Link to="/" className="nav-link">{t('home')}</Link>
-          <Link to="/about" className="nav-link">{t('about')}</Link>
-          <Link to="/cart" className="nav-link cart-link">
+          <Link 
+            to="/" 
+            className={`nav-link ${isActive('/') && location.pathname === '/' ? 'active' : ''}`}
+          >
+            {t('home')}
+          </Link>
+          <Link 
+            to="/about" 
+            className={`nav-link ${isActive('/about') ? 'active' : ''}`}
+          >
+            {t('about')}
+          </Link>
+          <Link 
+            to="/cart" 
+            className={`nav-link ${isActive('/cart') ? 'active' : ''}`}
+          >
             <span>{t('cart')} {cartCount > 0 && `(${cartCount})`}</span>
           </Link>
-          {admin && <Link to="/orders" className="nav-link">{t('orders')}</Link>}
+          {admin && (
+            <Link 
+              to="/orders" 
+              className={`nav-link ${isActive('/orders') ? 'active' : ''}`}
+            >
+              {t('orders')}
+            </Link>
+          )}
           {admin && (
             <>
-              <Link to="/admin" className="nav-link">{t('adminPanel')}</Link>
+              <Link 
+                to="/admin" 
+                className={`nav-link ${isActive('/admin') ? 'active' : ''}`}
+              >
+                {t('adminPanel')}
+              </Link>
               <button onClick={onAdminLogout} className="nav-link logout-btn">{t('logout')}</button>
             </>
           )}
