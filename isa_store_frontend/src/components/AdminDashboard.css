@@ -68,7 +68,8 @@
 }
 
 .add-button,
-.manage-categories-button {
+.manage-categories-button,
+.manage-discounts-button {
   padding: 12px 24px;
   background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
   color: white;

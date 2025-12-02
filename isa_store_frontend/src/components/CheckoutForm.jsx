@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import { calculateShipping, calculateTotalWeight } from '../utils/shippingCalculation.js'
+import { calculateBulkDiscount } from '../utils/discountCalculation.js'
 import './CheckoutForm.css'
 
 function CheckoutForm({ onCancel, cartItems, total }) {
@@ -15,6 +16,40 @@ function CheckoutForm({ onCancel, cartItems, total }) {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [discountTiers, setDiscountTiers] = useState(null)
+
+  useEffect(() => {
+    fetchDiscountTiers()
+  }, [])
+
+  const fetchDiscountTiers = async () => {
+    try {
+      const response = await fetch(getApiUrl('/api/discount_tiers'))
+      if (response.ok) {
+        const data = await response.json()
+        const tiers = data.map(tier => ({
+          minQuantity: tier.min_quantity,
+          discountPercent: parseFloat(tier.discount_percent)
+        }))
+        setDiscountTiers(tiers)
+      }
+    } catch (err) {
+      console.error('Error fetching discount tiers:', err)
+    }
+  }
+
+  // Calculate subtotal and total quantity
+  const subtotal = useMemo(() => {
+    return cartItems.reduce((sum, item) => sum + (parseInt(item.price) || 0) * item.quantity, 0)
+  }, [cartItems])
+  
+  const totalQuantity = useMemo(() => {
+    return cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0)
+  }, [cartItems])
+  
+  // Calculate bulk discount (use fetched tiers if available)
+  const discountInfo = useMemo(() => calculateBulkDiscount(totalQuantity, subtotal, discountTiers), [totalQuantity, subtotal, discountTiers])
+  const discountedTotal = discountInfo.finalTotal
 
   // Calculate total weight
   const totalWeight = useMemo(() => calculateTotalWeight(cartItems), [cartItems])
@@ -26,9 +61,9 @@ function CheckoutForm({ onCancel, cartItems, total }) {
   
   // Calculate grand total
   const grandTotal = useMemo(() => {
-    if (shippingCost === null) return total // Uber - price to be determined
-    return total + shippingCost
-  }, [total, shippingCost])
+    if (shippingCost === null) return discountedTotal // Uber - price to be determined
+    return discountedTotal + shippingCost
+  }, [discountedTotal, shippingCost])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -87,6 +122,12 @@ function CheckoutForm({ onCancel, cartItems, total }) {
       `• ${item.name} x${item.quantity} - ₡${formatPrice((parseInt(item.price) || 0) * item.quantity)}`
     ).join('\n')
     
+    // Discount text
+    let discountText = ''
+    if (discountInfo.hasDiscount) {
+      discountText = `${t('bulkDiscount')} (${discountInfo.discountPercent}%): -₡${formatPrice(discountInfo.discountAmount)}\n`
+    }
+    
     // Shipping method text
     let shippingText = ''
     if (formData.shippingMethod === 'pickup') {
@@ -101,9 +142,9 @@ function CheckoutForm({ onCancel, cartItems, total }) {
 
 ${itemsText}
 
-${t('subtotal')}: ₡${formatPrice(total)}
-${shippingText}
-${t('total')}: ₡${formatPrice(shippingCost === null ? total : grandTotal)}
+${t('subtotal')}: ₡${formatPrice(subtotal)}
+${discountText}${shippingText}
+${t('total')}: ₡${formatPrice(shippingCost === null ? discountedTotal : grandTotal)}
 
 ${t('fullName')}: ${formData.name}
 ${t('phone')}: ${formData.phone}
@@ -236,8 +277,14 @@ ${t('address')}: ${formData.address}`
           <div className="order-summary">
             <div className="summary-row">
               <span>{t('subtotal')}:</span>
-              <span>₡{formatPrice(total)}</span>
+              <span>₡{formatPrice(subtotal)}</span>
             </div>
+            {discountInfo.hasDiscount && (
+              <div className="summary-row discount">
+                <span>{t('bulkDiscount')} ({discountInfo.discountPercent}%):</span>
+                <span>-₡{formatPrice(discountInfo.discountAmount)}</span>
+              </div>
+            )}
             <div className="summary-row">
               <span>{t('shipping')}:</span>
               <span>
@@ -248,8 +295,13 @@ ${t('address')}: ${formData.address}`
             </div>
             <div className="summary-row total">
               <span>{t('total')}:</span>
-              <span>₡{formatPrice(shippingCost === null ? total : grandTotal)}</span>
+              <span>₡{formatPrice(shippingCost === null ? discountedTotal : grandTotal)}</span>
             </div>
+            {discountInfo.hasDiscount && (
+              <div className="discount-badge">
+                {t('bulkDiscountApplied').replace('{percent}', discountInfo.discountPercent).replace('{quantity}', discountInfo.minQuantity)}
+              </div>
+            )}
           </div>
 
           <div className="form-actions">

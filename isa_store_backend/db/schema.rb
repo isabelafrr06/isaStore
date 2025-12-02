@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_02_213218) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_01_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_213218) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
     t.index ["position"], name: "index_categories_on_position"
+  end
+
+  create_table "discount_tiers", force: :cascade do |t|
+    t.integer "min_quantity", null: false
+    t.decimal "discount_percent", precision: 5, scale: 2, null: false
+    t.integer "position", default: 0
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_discount_tiers_on_active"
+    t.index ["min_quantity"], name: "index_discount_tiers_on_min_quantity", unique: true
+    t.index ["position"], name: "index_discount_tiers_on_position"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -74,6 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_213218) do
     t.json "images", default: []
     t.string "category"
     t.string "condition", default: "new"
+    t.decimal "weight", precision: 3, scale: 1, default: "0.5", null: false
     t.index ["category"], name: "index_products_on_category"
     t.index ["condition"], name: "index_products_on_condition"
   end

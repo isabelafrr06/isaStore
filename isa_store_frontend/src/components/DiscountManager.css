@@ -1,0 +1,218 @@
+.discount-manager {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.discount-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.discount-manager-header h3 {
+  color: #667eea;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.add-discount-btn {
+  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-discount-btn:hover {
+  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
+}
+
+.discount-form {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.discount-form h4 {
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.discount-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.discount-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.discount-form .form-group input[type="number"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.discount-form .form-group input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.discount-form .form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.discount-tiers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.discount-tiers-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.discount-tiers-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.discount-tiers-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.discount-tiers-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.discount-tiers-table tbody tr.inactive {
+  opacity: 0.6;
+  background: #f5f5f5;
+}
+
+.discount-tiers-table td {
+  padding: 1rem;
+}
+
+.min-quantity {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.discount-percent {
+  font-weight: 600;
+  color: #25D366;
+  font-size: 1.1rem;
+}
+
+.status-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.status-btn.active {
+  background: #25D366;
+  color: white;
+}
+
+.status-btn.inactive {
+  background: #ccc;
+  color: #666;
+}
+
+.status-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.edit-btn {
+  background: #667eea;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.no-tiers {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
+  color: white;
+}
+
+.save-btn:hover {
+  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #e0e0e0;
+}
+

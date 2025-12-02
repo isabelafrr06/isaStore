@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getImageUrl } from '../config.js'
+import { getImageUrl, getApiUrl } from '../config.js'
 import { getCart, removeFromCart as removeFromCartService, updateQuantity as updateQuantityService, clearCart as clearCartService } from '../services/cartService.js'
 import { formatPrice } from '../utils/formatPrice.js'
+import { calculateBulkDiscount } from '../utils/discountCalculation.js'
 import CheckoutForm from './CheckoutForm'
 import './Cart.css'
 
@@ -11,10 +12,12 @@ function Cart() {
   const [cart, setCart] = useState([])
   const [loading, setLoading] = useState(true)
   const [showCheckoutForm, setShowCheckoutForm] = useState(false)
+  const [discountTiers, setDiscountTiers] = useState(null)
   const { t } = useLanguage()
 
   useEffect(() => {
     loadCart()
+    fetchDiscountTiers()
     
     // Listen for cart updates
     const handleCartUpdate = () => {
@@ -27,6 +30,22 @@ function Cart() {
       window.removeEventListener('cartUpdated', handleCartUpdate)
     }
   }, [])
+
+  const fetchDiscountTiers = async () => {
+    try {
+      const response = await fetch(getApiUrl('/api/discount_tiers'))
+      if (response.ok) {
+        const data = await response.json()
+        const tiers = data.map(tier => ({
+          minQuantity: tier.min_quantity,
+          discountPercent: parseFloat(tier.discount_percent)
+        }))
+        setDiscountTiers(tiers)
+      }
+    } catch (err) {
+      console.error('Error fetching discount tiers:', err)
+    }
+  }
 
   const loadCart = () => {
     const cartData = getCart()
@@ -53,7 +72,12 @@ function Cart() {
     setShowCheckoutForm(true)
   }
 
-  const total = cart.reduce((sum, item) => sum + (parseInt(item.price) || 0) * item.quantity, 0)
+  const subtotal = cart.reduce((sum, item) => sum + (parseInt(item.price) || 0) * item.quantity, 0)
+  const totalQuantity = cart.reduce((sum, item) => sum + (item.quantity || 0), 0)
+  
+  // Calculate bulk discount (use fetched tiers if available)
+  const discountInfo = useMemo(() => calculateBulkDiscount(totalQuantity, subtotal, discountTiers), [totalQuantity, subtotal, discountTiers])
+  const total = discountInfo.finalTotal
 
   if (loading) {
     return <div className="loading">{t('loadingCart')}</div>
@@ -99,8 +123,14 @@ function Cart() {
             <h3>{t('orderSummary')}</h3>
             <div className="summary-row">
               <span>{t('subtotal')}:</span>
-              <span>₡{formatPrice(total)}</span>
+              <span>₡{formatPrice(subtotal)}</span>
             </div>
+            {discountInfo.hasDiscount && (
+              <div className="summary-row discount">
+                <span>{t('bulkDiscount')} ({discountInfo.discountPercent}%):</span>
+                <span>-₡{formatPrice(discountInfo.discountAmount)}</span>
+              </div>
+            )}
             <div className="summary-row">
               <span>{t('shipping')}:</span>
               <span>{t('calculatedAtCheckout')}</span>
@@ -109,6 +139,11 @@ function Cart() {
               <span>{t('total')}:</span>
               <span>₡{formatPrice(total)}</span>
             </div>
+            {discountInfo.hasDiscount && (
+              <div className="discount-badge">
+                {t('bulkDiscountApplied').replace('{percent}', discountInfo.discountPercent).replace('{quantity}', discountInfo.minQuantity)}
+              </div>
+            )}
             <button onClick={handleCheckoutClick} className="checkout-btn">
               {t('checkout')}
             </button>
@@ -126,7 +161,7 @@ function Cart() {
             loadCart() // Refresh cart after order
           }}
           cartItems={cart}
-          total={total}
+          total={subtotal}
         />
       )}
     </div>

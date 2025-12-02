@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { getApiUrl, getImageUrl } from '../config.js';
 import CategoryManager from './CategoryManager.jsx';
+import DiscountManager from './DiscountManager.jsx';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 function AdminDashboard({ admin, onLogout }) {
@@ -11,6 +12,7 @@ function AdminDashboard({ admin, onLogout }) {
   const [showForm, setShowForm] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [showCategoryManager, setShowCategoryManager] = useState(false);
+  const [showDiscountManager, setShowDiscountManager] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -304,7 +306,10 @@ function AdminDashboard({ admin, onLogout }) {
           {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
         </button>
         <button onClick={() => setShowCategoryManager(!showCategoryManager)} className="manage-categories-button">
-          {showCategoryManager ? 'Hide Categories' : 'Manage Categories'}
+          {showCategoryManager ? t('hideCategories') : t('manageCategories')}
+        </button>
+        <button onClick={() => setShowDiscountManager(!showDiscountManager)} className="manage-discounts-button">
+          {showDiscountManager ? t('hideDiscounts') : t('manageDiscounts')}
         </button>
       </div>
 
@@ -314,6 +319,14 @@ function AdminDashboard({ admin, onLogout }) {
           onUpdate={() => {
             fetchCategories();
             fetchProducts(); // Refresh products in case category names changed
+          }} 
+        />
+      )}
+
+      {showDiscountManager && (
+        <DiscountManager 
+          onUpdate={() => {
+            // Refresh discount tiers if needed
           }} 
         />
       )}

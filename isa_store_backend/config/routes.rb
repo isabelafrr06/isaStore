@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     # Categories (public)
     resources :categories, only: [:index]
     
+    # Discount tiers (public - for calculation)
+    resources :discount_tiers, only: [:index]
+    
     # Cart operations
     get 'cart', to: 'cart#show'
     post 'cart/add', to: 'cart#add'
@@ -38,6 +41,9 @@ Rails.application.routes.draw do
     # Admin categories management
     resources :admin_categories, path: 'admin/categories', only: [:index, :create, :update, :destroy]
     post 'admin/categories/reorder', to: 'admin_categories#reorder'
+    
+    # Admin discount tiers management
+    resources :admin_discount_tiers, path: 'admin/discount-tiers', only: [:index, :show, :create, :update, :destroy]
     
     # Image upload
     post 'admin/upload-image', to: 'image_upload#upload'

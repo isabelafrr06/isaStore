@@ -166,6 +166,15 @@
   color: #333;
 }
 
+.summary-row.discount {
+  color: #25D366;
+  font-weight: 600;
+}
+
+.summary-row.discount span {
+  color: #25D366;
+}
+
 .summary-row.total {
   border-bottom: none;
   padding-bottom: 0;
@@ -176,6 +185,18 @@
 
 .summary-row.total span {
   color: #667eea;
+}
+
+.discount-badge {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(37, 211, 102, 0.05) 100%);
+  border-radius: 8px;
+  text-align: center;
+  color: #25D366;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(37, 211, 102, 0.2);
 }
 
 .checkout-btn {

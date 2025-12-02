@@ -73,6 +73,23 @@ end
 
 puts "Created #{Product.count} products"
 
+# Create default discount tiers (only if they don't exist)
+discount_tiers = [
+  { min_quantity: 10, discount_percent: 20.0 },
+  { min_quantity: 5, discount_percent: 15.0 },
+  { min_quantity: 3, discount_percent: 10.0 },
+  { min_quantity: 2, discount_percent: 5.0 }
+]
+
+discount_tiers.each do |tier_data|
+  DiscountTier.find_or_create_by(min_quantity: tier_data[:min_quantity]) do |tier|
+    tier.discount_percent = tier_data[:discount_percent]
+    tier.active = true
+  end
+end
+
+puts "Created #{DiscountTier.count} discount tiers"
+
 # Create default admin (uses environment variable for password)
 admin_email = ENV.fetch('ADMIN_EMAIL', 'admin@isastore.com').strip.downcase
 admin_password = ENV.fetch('ADMIN_PASSWORD', 'CHANGE_ME_IN_PRODUCTION')
