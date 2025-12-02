@@ -173,6 +173,12 @@ function ProductList() {
                 <span className={`availability-badge ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
                   {product.stock > 0 ? t('available') : t('outOfStock')}
                 </span>
+                <div className="magnifier-overlay">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M21 21L16.65 16.65" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
               </div>
               <div className="product-info">
                 <h3 className="product-name">{product.name}</h3>

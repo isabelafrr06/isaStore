@@ -318,7 +318,7 @@ function AdminDashboard({ admin, onLogout }) {
           setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5', hide_when_out_of_stock: false });
           setImageFiles([]);
         }} className="add-button">
-          {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
+          {showForm ? t('cancel') : t('addNewProduct')}
         </button>
         <button onClick={() => setShowCategoryManager(!showCategoryManager)} className="manage-categories-button">
           {showCategoryManager ? t('hideCategories') : t('manageCategories')}
@@ -349,7 +349,7 @@ function AdminDashboard({ admin, onLogout }) {
       {showForm && (
         <div className="product-form">
           <h2>
-            {editingProduct ? 'Edit Product' : 'Add New Product'}
+            {editingProduct ? t('editProduct') : t('addNewProduct')}
             <button 
               type="button" 
               className="close-form-button"
@@ -368,14 +368,14 @@ function AdminDashboard({ admin, onLogout }) {
             <div className="form-row">
               <input
                 type="text"
-                placeholder="Product Name"
+                placeholder={t('productName')}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
               />
               <input
                 type="number"
-                placeholder="Price"
+                placeholder={t('price')}
                 min="0"
                 step="1"
                 value={formData.price}
@@ -384,19 +384,19 @@ function AdminDashboard({ admin, onLogout }) {
               />
             </div>
             <textarea
-              placeholder="Descripción"
+              placeholder={t('description')}
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               required
             />
             <div className="form-group">
-              <label>Category</label>
+              <label>{t('category')}</label>
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 className="category-select"
               >
-                <option value="">Select a category</option>
+                <option value="">{t('selectCategory')}</option>
                 {categories.map(cat => (
                   <option key={cat.id} value={cat.name}>
                     {cat.name_en}
@@ -405,18 +405,18 @@ function AdminDashboard({ admin, onLogout }) {
               </select>
             </div>
             <div className="form-group">
-              <label>Condition</label>
+              <label>{t('condition')}</label>
               <select
                 value={formData.condition}
                 onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
                 className="condition-select"
               >
-                <option value="new">New</option>
-                <option value="used">Used</option>
+                <option value="new">{t('new')}</option>
+                <option value="used">{t('used')}</option>
               </select>
             </div>
             <div className="form-group">
-              <label>Images</label>
+              <label>{t('images')}</label>
               <input
                 type="file"
                 accept="image/*"
@@ -426,17 +426,17 @@ function AdminDashboard({ admin, onLogout }) {
               />
               <input
                 type="text"
-                placeholder="O ingresa nombre del archivo de imagen"
+                placeholder={t('enterImageFilename')}
                 value={formData.image}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
               />
               {formData.images && formData.images.length > 0 && (
                 <div className="existing-images">
-                  <p>Existing images:</p>
+                  <p>{t('existingImages')}</p>
                   {formData.images.map((img, index) => (
                     <div key={index} className="image-item">
                       <span>{img}</span>
-                      <button type="button" onClick={() => removeImage(index)}>Remove</button>
+                      <button type="button" onClick={() => removeImage(index)}>{t('remove')}</button>
                     </div>
                   ))}
                 </div>
@@ -444,10 +444,10 @@ function AdminDashboard({ admin, onLogout }) {
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label>Stock</label>
+                <label>{t('stock')}</label>
                 <input
                   type="number"
-                  placeholder="Stock"
+                  placeholder={t('stock')}
                   min="0"
                   value={formData.stock}
                   onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
@@ -455,10 +455,10 @@ function AdminDashboard({ admin, onLogout }) {
                 />
               </div>
               <div className="form-group">
-                <label>Weight (kg)</label>
+                <label>{t('weight')}</label>
                 <input
                   type="number"
-                  placeholder="Weight (kg)"
+                  placeholder={t('weight')}
                   min="0.1"
                   step="0.1"
                   value={formData.weight}
