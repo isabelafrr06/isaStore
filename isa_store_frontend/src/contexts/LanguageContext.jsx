@@ -39,6 +39,9 @@ const translations = {
     calculatedAtCheckout: 'Se calcula en el checkout',
     bulkDiscount: 'Descuento por Volumen',
     bulkDiscountApplied: '🎉 ¡Descuento del {percent}% aplicado por comprar {quantity}+ artículos!',
+    buyXAndSave: 'Compra {quantity}+ y ahorra {percent}%',
+    savePercent: 'Ahorra {percent}%',
+    discountAppliedForQuantity: 'Descuento del {percent}% aplicado por comprar {quantity} artículos',
     total: 'Total',
     checkout: 'Finalizar Compra',
     clearCart: 'Vaciar Carrito',
@@ -345,6 +348,9 @@ const translations = {
     calculatedAtCheckout: 'Calculated at checkout',
     bulkDiscount: 'Bulk Discount',
     bulkDiscountApplied: '🎉 {percent}% discount applied for buying {quantity}+ items!',
+    buyXAndSave: 'Buy {quantity}+ and save {percent}%',
+    savePercent: 'Save {percent}%',
+    discountAppliedForQuantity: '{percent}% discount applied for buying {quantity} items',
     total: 'Total',
     checkout: 'Checkout',
     clearCart: 'Clear Cart',
@@ -628,14 +634,23 @@ const translations = {
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState('es') // Default to Spanish
   
-  const t = (key) => {
+  const t = (key, params = {}) => {
     try {
       if (!key) return ''
       if (!translations[language]) {
         console.warn(`Language '${language}' not found, defaulting to 'es'`)
         return translations['es'][key] || key
       }
-      return translations[language][key] || translations['es'][key] || key
+      let translation = translations[language][key] || translations['es'][key] || key
+      
+      // Handle interpolation with params
+      if (params && Object.keys(params).length > 0) {
+        Object.keys(params).forEach(param => {
+          translation = translation.replace(new RegExp(`\\{${param}\\}`, 'g'), params[param])
+        })
+      }
+      
+      return translation
     } catch (error) {
       console.error('Translation error:', error, 'key:', key, 'language:', language)
       return key

@@ -90,10 +90,72 @@
   color: #333;
 }
 
+.price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .detail-price {
   font-size: 2rem;
   color: #667eea;
   font-weight: 700;
+}
+
+.price-row-detail {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.detail-price.original {
+  font-size: 1.5rem;
+  color: #999;
+  font-weight: 400;
+}
+
+.price-arrow {
+  color: #25D366;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.detail-price.discounted {
+  font-size: 2rem;
+  color: #25D366;
+  font-weight: 700;
+}
+
+.discount-label {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(37, 211, 102, 0.05) 100%);
+  border-radius: 6px;
+  color: #25D366;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.discount-hint {
+  padding: 0.5rem 1rem;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  color: #667eea;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.discount-applied-message {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(37, 211, 102, 0.05) 100%);
+  border-radius: 8px;
+  color: #25D366;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid rgba(37, 211, 102, 0.2);
 }
 
 .product-condition {

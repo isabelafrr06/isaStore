@@ -127,6 +127,7 @@
   text-decoration: none;
   color: inherit;
   display: block;
+  cursor: pointer;
 }
 
 .product-card {
@@ -134,14 +135,39 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
   cursor: pointer;
   height: 100%;
+  border: 2px solid transparent;
+  position: relative;
 }
 
 .product-card-link:hover .product-card {
   transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.25);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.product-card-link:active .product-card {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(61, 219, 200, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.product-card-link:hover .product-card::before {
+  opacity: 1;
 }
 
 .product-image-container {
@@ -200,16 +226,90 @@
 }
 
 .product-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-top: 1rem;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-height: 2rem;
 }
 
 .product-price {
   font-size: 1.5rem;
   font-weight: 700;
   color: #667eea;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.product-price.original {
+  color: #667eea;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.price-arrow {
+  color: #25D366;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.product-price.discounted {
+  color: #25D366;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.discount-badge-small {
+  font-size: 0.75rem;
+  color: #25D366;
+  font-weight: 600;
+  background: rgba(37, 211, 102, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.discounted-price-hover {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.discount-badge-small:hover ~ .discounted-price-hover {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.price-row {
+  position: relative;
+}
+
+.price-arrow,
+.product-price.discounted {
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .view-btn {

@@ -20,44 +20,44 @@ products = [
   {
     name: 'Wireless Headphones',
     description: 'Premium wireless headphones with noise cancellation',
-    price: 149.99,
+    price: 15000,
     image: 'sample-product.jpg',
     stock: 50
   },
   {
     name: 'Smart Watch',
     description: 'Feature-rich smartwatch with health tracking',
-    price: 299.99,
+    price: 100000,
     image: 'smart-watch.jpg',
     stock: 30
   },
   {
     name: 'Laptop Stand',
     description: 'Ergonomic aluminum laptop stand',
-    price: 49.99,
+    price: 5000,
     image: 'laptop-stand.jpg',
-    stock: 100
+    stock: 10
   },
   {
     name: 'Mechanical Keyboard',
     description: 'RGB mechanical keyboard with blue switches',
-    price: 89.99,
+    price: 7000,
     image: 'keyboard.jpg',
-    stock: 75
+    stock: 1
   },
   {
     name: 'USB-C Hub',
     description: '7-in-1 USB-C hub with HDMI and USB 3.0',
-    price: 34.99,
+    price: 20000,
     image: 'usb-hub.jpg',
-    stock: 200
+    stock: 20
   },
   {
     name: 'Wireless Mouse',
     description: 'Ergonomic wireless mouse with long battery life',
-    price: 39.99,
+    price: 5000,
     image: 'mouse.jpg',
-    stock: 150
+    stock: 15
   }
 ]
 

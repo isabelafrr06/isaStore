@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
+import { calculateBulkDiscount } from '../utils/discountCalculation.js'
 import './ProductList.css'
 
 function ProductList() {
@@ -12,11 +13,45 @@ function ProductList() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedCondition, setSelectedCondition] = useState('')
   const [sortBy, setSortBy] = useState('newest')
+  const [discountTiers, setDiscountTiers] = useState(null)
   const { t, language } = useLanguage()
 
   useEffect(() => {
     fetchCategories()
+    fetchDiscountTiers()
   }, [])
+
+  const fetchDiscountTiers = async () => {
+    try {
+      const response = await fetch(getApiUrl('/api/discount_tiers'))
+      if (response.ok) {
+        const data = await response.json()
+        const tiers = data.map(tier => ({
+          minQuantity: tier.min_quantity,
+          discountPercent: parseFloat(tier.discount_percent)
+        }))
+        setDiscountTiers(tiers)
+      }
+    } catch (err) {
+      console.error('Error fetching discount tiers:', err)
+    }
+  }
+
+  // Get the lowest discount tier (for display purposes)
+  const lowestDiscountTier = useMemo(() => {
+    if (!discountTiers || discountTiers.length === 0) return null
+    return discountTiers.sort((a, b) => a.minQuantity - b.minQuantity)[0]
+  }, [discountTiers])
+
+  // Calculate discounted price for a product at minimum discount quantity
+  const getDiscountedPrice = (price) => {
+    if (!lowestDiscountTier) return null
+    const discountInfo = calculateBulkDiscount(lowestDiscountTier.minQuantity, price * lowestDiscountTier.minQuantity, discountTiers)
+    if (discountInfo.hasDiscount) {
+      return discountInfo.finalTotal / lowestDiscountTier.minQuantity
+    }
+    return null
+  }
 
   useEffect(() => {
     fetchProducts()
@@ -143,10 +178,29 @@ function ProductList() {
                 <h3 className="product-name">{product.name}</h3>
                 <p className="product-description">{product.description}</p>
                 <div className="product-footer">
-                  <span className="product-price">₡{formatPrice(product.price)}</span>
-                  <span className="view-btn">
-                    {t('viewDetails')}
-                  </span>
+                  <div className="price-container">
+                    {lowestDiscountTier && product.stock > 1 ? (() => {
+                      const discountedPrice = getDiscountedPrice(product.price)
+                      // Only show discount if stock is at least the minimum quantity required
+                      const canApplyDiscount = product.stock >= lowestDiscountTier.minQuantity
+                      return discountedPrice && canApplyDiscount ? (
+                        <div className="price-row">
+                          <span className="product-price original">₡{formatPrice(product.price)}</span>
+                          <span className="discount-badge-small">
+                            {t('buyXAndSave', { quantity: lowestDiscountTier.minQuantity, percent: lowestDiscountTier.discountPercent })}
+                          </span>
+                          <span className="discounted-price-hover">
+                            <span className="price-arrow">→</span>
+                            <span className="product-price discounted">₡{formatPrice(discountedPrice)}</span>
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="product-price">₡{formatPrice(product.price)}</span>
+                      )
+                    })() : (
+                      <span className="product-price">₡{formatPrice(product.price)}</span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

@@ -104,9 +104,15 @@ function Cart() {
                 </div>
                 <div className="cart-item-controls">
                   <div className="quantity-controls">
-                    <button onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}>-</button>
+                    <button 
+                      onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
+                    >-</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}>+</button>
+                    <button 
+                      onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                      disabled={item.stock !== undefined && item.quantity >= item.stock}
+                    >+</button>
                   </div>
                   <button onClick={() => handleRemoveFromCart(item.id)} className="remove-btn">
                     {t('remove')}

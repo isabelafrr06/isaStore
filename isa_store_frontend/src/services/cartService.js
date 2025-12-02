@@ -29,10 +29,16 @@ const saveCart = (cart) => {
 export const addToCart = (product, quantity = 1) => {
   const cart = getCart();
   const existingItemIndex = cart.findIndex(item => item.productId === product.id);
+  const availableStock = product.stock || 0;
   
   if (existingItemIndex >= 0) {
-    // Update quantity if item already exists
-    cart[existingItemIndex].quantity += quantity;
+    // Update quantity if item already exists, but respect stock limit
+    const newQuantity = cart[existingItemIndex].quantity + quantity;
+    cart[existingItemIndex].quantity = Math.min(newQuantity, availableStock);
+    // Update stock if it changed
+    if (cart[existingItemIndex].stock !== availableStock) {
+      cart[existingItemIndex].stock = availableStock;
+    }
   } else {
     // Add new item
     cart.push({
@@ -42,7 +48,8 @@ export const addToCart = (product, quantity = 1) => {
       price: product.price,
       image: product.image || (product.images && product.images[0]),
       weight: product.weight || 0.5,
-      quantity: quantity
+      stock: availableStock,
+      quantity: Math.min(quantity, availableStock)
     });
   }
   
@@ -68,7 +75,9 @@ export const updateQuantity = (itemId, quantity) => {
       // Remove item if quantity is 0 or less
       return removeFromCart(itemId);
     } else {
-      cart[itemIndex].quantity = quantity;
+      // Limit quantity to available stock
+      const maxQuantity = cart[itemIndex].stock || Infinity;
+      cart[itemIndex].quantity = Math.min(quantity, maxQuantity);
       saveCart(cart);
     }
   }
