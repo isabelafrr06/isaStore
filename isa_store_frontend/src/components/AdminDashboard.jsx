@@ -39,6 +39,18 @@ function AdminDashboard({ admin, onLogout }) {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    // Scroll to form when it's shown
+    if (showForm) {
+      setTimeout(() => {
+        const formElement = document.querySelector('.product-form');
+        if (formElement) {
+          formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [showForm]);
+
   const fetchProducts = async () => {
     try {
       const response = await fetch(getApiUrl('/api/admin/products'), {
@@ -336,7 +348,22 @@ function AdminDashboard({ admin, onLogout }) {
 
       {showForm && (
         <div className="product-form">
-          <h2>{editingProduct ? 'Edit Product' : 'Add New Product'}</h2>
+          <h2>
+            {editingProduct ? 'Edit Product' : 'Add New Product'}
+            <button 
+              type="button" 
+              className="close-form-button"
+              onClick={() => {
+                setShowForm(false);
+                setEditingProduct(null);
+                setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5', hide_from_main_page: false });
+                setImageFiles([]);
+              }}
+              aria-label="Close form"
+            >
+              ×
+            </button>
+          </h2>
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <input
@@ -416,23 +443,29 @@ function AdminDashboard({ admin, onLogout }) {
               )}
             </div>
             <div className="form-row">
-              <input
-                type="number"
-                placeholder="Stock"
-                min="0"
-                value={formData.stock}
-                onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                required
-              />
-              <input
-                type="number"
-                placeholder="Weight (kg)"
-                min="0.1"
-                step="0.1"
-                value={formData.weight}
-                onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
-                required
-              />
+              <div className="form-group">
+                <label>Stock</label>
+                <input
+                  type="number"
+                  placeholder="Stock"
+                  min="0"
+                  value={formData.stock}
+                  onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Weight (kg)</label>
+                <input
+                  type="number"
+                  placeholder="Weight (kg)"
+                  min="0.1"
+                  step="0.1"
+                  value={formData.weight}
+                  onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
+                  required
+                />
+              </div>
             </div>
             <div className="form-group">
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>

@@ -89,76 +89,247 @@
 
 .product-form {
   background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+  position: relative;
 }
 
 .product-form h2 {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: #333;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .product-form form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .product-form input,
 .product-form textarea,
 .product-form select {
-  padding: 12px;
+  padding: 14px 16px;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+  color: #333 !important;
+  font-family: inherit;
+}
+
+.product-form input::placeholder,
+.product-form textarea::placeholder {
+  color: #999 !important;
+  opacity: 1;
+}
+
+.product-form input:focus,
+.product-form textarea:focus,
+.product-form select:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.product-form input:hover,
+.product-form textarea:hover,
+.product-form select:hover {
+  border-color: #c0c0c0;
+  background: white;
 }
 
 .product-form textarea {
-  min-height: 100px;
+  min-height: 120px;
   resize: vertical;
+  line-height: 1.5;
 }
 
 .product-form select {
   background: white;
   cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
 }
 
 .product-form .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .product-form .form-group label {
   font-weight: 600;
-  color: #333;
+  color: #333 !important;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-form .form-group label[style*="flex"] {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 20px;
 }
 
 .form-row:last-child {
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr;
+  justify-items: stretch;
 }
 
 .save-button {
-  padding: 12px 24px;
-  background: #27ae60;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
 }
 
 .save-button:hover {
-  background: #229954;
+  background: linear-gradient(135deg, #229954 0%, #27ae60 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+}
+
+.save-button:active {
+  transform: translateY(0);
+}
+
+.close-form-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 20px;
+  color: #666;
+  padding: 0;
+}
+
+.close-form-button:hover {
+  background: #e0e0e0;
+  color: #333;
+  transform: rotate(90deg);
+}
+
+.file-input {
+  padding: 12px;
+  border: 2px dashed #e0e0e0;
+  border-radius: 10px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input:hover {
+  border-color: #667eea;
+  background: #f0f0f0;
+}
+
+.image-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.image-item span {
+  flex: 1;
+  color: #333 !important;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+.existing-images {
+  margin-top: 10px;
+}
+
+.existing-images p {
+  color: #333 !important;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.image-item button {
+  padding: 6px 12px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.image-item button:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.product-form input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #667eea;
+  margin: 0;
+}
+
+.product-form .form-group label[style*="flex"] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.product-form .form-group label[style*="flex"]:hover {
+  background: #f0f0f0;
+  border-color: #c0c0c0;
+}
+
+.product-form .form-group label[style*="flex"]:has(input:checked) {
+  background: rgba(102, 126, 234, 0.05);
+  border-color: #667eea;
 }
 
 .products-list h2 {
