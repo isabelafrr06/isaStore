@@ -41,6 +41,7 @@ export const addToCart = (product, quantity = 1) => {
       name: product.name,
       price: product.price,
       image: product.image || (product.images && product.images[0]),
+      weight: product.weight || 0.5,
       quantity: quantity
     });
   }

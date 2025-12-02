@@ -20,7 +20,8 @@ function AdminDashboard({ admin, onLogout }) {
     images: [],
     stock: '',
     category: '',
-    condition: 'new'
+    condition: 'new',
+    weight: '0.5'
   });
   const [imageFiles, setImageFiles] = useState([]);
   const [passwordData, setPasswordData] = useState({
@@ -123,6 +124,7 @@ function AdminDashboard({ admin, onLogout }) {
             description: formData.description,
             price: parseInt(formData.price) || formData.price,
             stock: formData.stock,
+            weight: parseFloat(formData.weight) || 0.5,
             category: formData.category || null,
             condition: formData.condition || 'new',
             images: allImages.length > 0 ? allImages : undefined,
@@ -135,7 +137,7 @@ function AdminDashboard({ admin, onLogout }) {
         await fetchProducts();
         setShowForm(false);
         setEditingProduct(null);
-        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new' });
+        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5' });
         setImageFiles([]);
       }
     } catch (err) {
@@ -151,6 +153,7 @@ function AdminDashboard({ admin, onLogout }) {
       price: product.price,
       image: product.image || (product.images && product.images[0]) || '',
       images: product.images || [],
+      weight: product.weight || '0.5',
       stock: product.stock,
       category: product.category || '',
       condition: product.condition || 'new'
@@ -295,7 +298,7 @@ function AdminDashboard({ admin, onLogout }) {
         <button onClick={() => { 
           setShowForm(!showForm); 
           setEditingProduct(null); 
-          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new' });
+          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5' });
           setImageFiles([]);
         }} className="add-button">
           {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
@@ -400,11 +403,22 @@ function AdminDashboard({ admin, onLogout }) {
               <input
                 type="number"
                 placeholder="Stock"
-                min="0"
+                min="1"
                 value={formData.stock}
                 onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
                 required
               />
+              <input
+                type="number"
+                placeholder="Weight (kg)"
+                min="0.1"
+                step="0.1"
+                value={formData.weight}
+                onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
+                required
+              />
+            </div>
+            <div className="form-row">
               <button type="submit" className="save-button">Guardar Producto</button>
             </div>
           </form>

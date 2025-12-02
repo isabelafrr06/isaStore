@@ -103,7 +103,7 @@ function Cart() {
             </div>
             <div className="summary-row">
               <span>{t('shipping')}:</span>
-              <span>{t('free')}</span>
+              <span>{t('calculatedAtCheckout')}</span>
             </div>
             <div className="summary-row total">
               <span>{t('total')}:</span>

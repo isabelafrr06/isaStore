@@ -47,6 +47,7 @@ class Api::ProductsController < ApplicationController
       images: product.all_images, # Array of images
       image: product.primary_image, # First image for backward compatibility
       stock: product.stock,
+      weight: product.weight || 0.5,
       category: product.category,
       condition: product.condition,
       created_at: product.created_at,

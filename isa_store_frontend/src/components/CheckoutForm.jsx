@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
+import { calculateShipping, calculateTotalWeight } from '../utils/shippingCalculation.js'
 import './CheckoutForm.css'
 
 function CheckoutForm({ onCancel, cartItems, total }) {
@@ -9,10 +10,25 @@ function CheckoutForm({ onCancel, cartItems, total }) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    address: ''
+    address: '',
+    shippingMethod: 'pickup'
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Calculate total weight
+  const totalWeight = useMemo(() => calculateTotalWeight(cartItems), [cartItems])
+  
+  // Calculate shipping cost
+  const shippingCost = useMemo(() => {
+    return calculateShipping(formData.shippingMethod, totalWeight, formData.address)
+  }, [formData.shippingMethod, totalWeight, formData.address])
+  
+  // Calculate grand total
+  const grandTotal = useMemo(() => {
+    if (shippingCost === null) return total // Uber - price to be determined
+    return total + shippingCost
+  }, [total, shippingCost])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -71,11 +87,23 @@ function CheckoutForm({ onCancel, cartItems, total }) {
       `• ${item.name} x${item.quantity} - ₡${formatPrice((parseInt(item.price) || 0) * item.quantity)}`
     ).join('\n')
     
+    // Shipping method text
+    let shippingText = ''
+    if (formData.shippingMethod === 'pickup') {
+      shippingText = `${t('shippingMethod')}: ${t('shippingPickup')} (${t('free')})`
+    } else if (formData.shippingMethod === 'correos') {
+      shippingText = `${t('shippingMethod')}: ${t('shippingCorreos')} - ₡${formatPrice(shippingCost)}`
+    } else if (formData.shippingMethod === 'uber') {
+      shippingText = `${t('shippingMethod')}: ${t('shippingUber')} - ${t('requestPriceWhatsApp')}`
+    }
+    
     const message = `${t('whatsAppMessagePrefix')}
 
 ${itemsText}
 
-${t('total')}: ₡${formatPrice(total)}
+${t('subtotal')}: ₡${formatPrice(total)}
+${shippingText}
+${t('total')}: ₡${formatPrice(shippingCost === null ? total : grandTotal)}
 
 ${t('fullName')}: ${formData.name}
 ${t('phone')}: ${formData.phone}
@@ -178,6 +206,50 @@ ${t('address')}: ${formData.address}`
               className={errors.address ? 'error' : ''}
             />
             {errors.address && <span className="error-message">{errors.address}</span>}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="shippingMethod">{t('shippingMethod')} *</label>
+            <select
+              id="shippingMethod"
+              name="shippingMethod"
+              value={formData.shippingMethod}
+              onChange={handleChange}
+              className={errors.shippingMethod ? 'error' : ''}
+            >
+              <option value="pickup">{t('shippingPickup')} - {t('free')}</option>
+              <option value="correos">{t('shippingCorreos')} - ₡{shippingCost !== null && shippingCost !== undefined ? formatPrice(shippingCost) : '...'}</option>
+              <option value="uber">{t('shippingUber')} - {t('requestPriceWhatsApp')}</option>
+            </select>
+            {formData.shippingMethod === 'correos' && (
+              <p className="shipping-info">
+                {t('shippingCorreosInfo').replace('{weight}', totalWeight.toFixed(1)).replace('{cost}', formatPrice(shippingCost))}
+              </p>
+            )}
+            {formData.shippingMethod === 'uber' && (
+              <p className="shipping-info">
+                {t('shippingUberInfo')}
+              </p>
+            )}
+          </div>
+
+          <div className="order-summary">
+            <div className="summary-row">
+              <span>{t('subtotal')}:</span>
+              <span>₡{formatPrice(total)}</span>
+            </div>
+            <div className="summary-row">
+              <span>{t('shipping')}:</span>
+              <span>
+                {shippingCost === null ? t('requestPriceWhatsApp') : 
+                 shippingCost === 0 ? t('free') : 
+                 `₡${formatPrice(shippingCost)}`}
+              </span>
+            </div>
+            <div className="summary-row total">
+              <span>{t('total')}:</span>
+              <span>₡{formatPrice(shippingCost === null ? total : grandTotal)}</span>
+            </div>
           </div>
 
           <div className="form-actions">

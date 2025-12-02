@@ -36,6 +36,7 @@ const translations = {
     subtotal: 'Subtotal',
     shipping: 'Envío',
     free: 'Gratis',
+    calculatedAtCheckout: 'Se calcula en el checkout',
     total: 'Total',
     checkout: 'Finalizar Compra',
     clearCart: 'Vaciar Carrito',
@@ -209,6 +210,13 @@ const translations = {
     warrantyUsed: '📦 Artículos usados: 1 mes de garantía',
     warrantyNew: '✨ Artículos nuevos: 3 meses de garantía',
     shippingInfo: 'Información de Envío',
+    shippingMethod: 'Método de Envío',
+    shippingPickup: 'Recogida en Tienda (Belén)',
+    shippingCorreos: 'Correos de Costa Rica',
+    shippingUber: 'Uber Flash',
+    requestPriceWhatsApp: 'Solicitar precio por WhatsApp',
+    shippingCorreosInfo: 'Peso total: {weight} kg - Costo: ₡{cost}',
+    shippingUberInfo: 'El precio de envío se cotizará y confirmará por WhatsApp',
     
     // Returns Page
     returnsTitle: 'Política de Devoluciones',
@@ -313,6 +321,7 @@ const translations = {
     subtotal: 'Subtotal',
     shipping: 'Shipping',
     free: 'Free',
+    calculatedAtCheckout: 'Calculated at checkout',
     total: 'Total',
     checkout: 'Checkout',
     clearCart: 'Clear Cart',
@@ -486,6 +495,13 @@ const translations = {
     warrantyUsed: '📦 Used items: 1 month warranty',
     warrantyNew: '✨ New items: 3 months warranty',
     shippingInfo: 'Shipping Information',
+    shippingMethod: 'Shipping Method',
+    shippingPickup: 'Store Pickup (Belén)',
+    shippingCorreos: 'Correos de Costa Rica',
+    shippingUber: 'Uber Flash',
+    requestPriceWhatsApp: 'Request price via WhatsApp',
+    shippingCorreosInfo: 'Total weight: {weight} kg - Cost: ₡{cost}',
+    shippingUberInfo: 'Shipping price will be quoted and confirmed via WhatsApp',
     
     // Returns Page
     returnsTitle: 'Returns Policy',
