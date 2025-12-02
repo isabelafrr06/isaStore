@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
@@ -15,11 +15,18 @@ function ProductList() {
   const [sortBy, setSortBy] = useState('newest')
   const [discountTiers, setDiscountTiers] = useState(null)
   const { t, language } = useLanguage()
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
     fetchCategories()
     fetchDiscountTiers()
   }, [])
+
+  // Read category from URL params on mount and when URL changes
+  useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    setSelectedCategory(categoryParam || '')
+  }, [searchParams])
 
   const fetchDiscountTiers = async () => {
     try {

@@ -5,9 +5,13 @@ import './FloatingWhatsApp.css'
 function FloatingWhatsApp() {
   const { t } = useLanguage()
   
+  const defaultMessage = t('whatsAppGreeting') || 'Hola, me gustaría obtener más información sobre sus productos.'
+  const encodedMessage = encodeURIComponent(defaultMessage)
+  const whatsappUrl = `https://wa.me/${t('whatsAppPhone')}?text=${encodedMessage}`
+  
   return (
     <a 
-      href={`https://wa.me/${t('whatsAppPhone')}`} 
+      href={whatsappUrl} 
       target="_blank" 
       rel="noopener noreferrer" 
       className="floating-whatsapp-btn"

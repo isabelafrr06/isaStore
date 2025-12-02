@@ -49,20 +49,41 @@
   margin-bottom: 1rem;
 }
 
-.features-list {
-  list-style: none;
-  padding: 0;
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
 
-.features-list li {
-  color: #555;
-  font-size: 1.1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+.category-card {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
-.features-list li:last-child {
-  border-bottom: none;
+.category-card:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.category-icon {
+  font-size: 1.2rem;
+}
+
+.category-name {
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .benefits-grid {
@@ -96,23 +117,58 @@
 }
 
 .contact-info {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 2rem;
+  border-radius: 12px;
   margin-top: 1rem;
+  border: 1px solid #e0e0e0;
 }
 
-.contact-info p {
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateX(5px);
+}
+
+.contact-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.contact-label {
+  color: #667eea;
+  font-weight: 600;
+  min-width: 80px;
+  font-size: 1rem;
+}
+
+.contact-info a {
   color: #333;
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.contact-info a:hover {
+  color: #667eea;
+  text-decoration: underline;
 }
 
 .about-map-buttons {
   display: flex;
   gap: 1rem;
-  justify-content: center;
-  margin-top: 1rem;
+  justify-content: flex-start;
+  margin-top: 1.5rem;
   flex-wrap: wrap;
 }
 
@@ -159,6 +215,24 @@
   
   .benefits-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .contact-label {
+    min-width: auto;
+  }
+  
+  .about-map-buttons {
+    justify-content: center;
   }
 }
 

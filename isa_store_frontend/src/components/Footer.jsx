@@ -66,30 +66,30 @@ function Footer() {
 
           <div className="footer-section">
             <h4>{t('contactInfo')}</h4>
-            <div className="contact-info">
-              <p>📧 {t('storeEmail')}</p>
-              <p>📞 {t('storePhone')}</p>
-              <p>📍 {t('contactAddress')}</p>
-              <div className="footer-map-buttons">
-                <a 
-                  href={googleMapsUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="footer-map-link"
-                  title={t('openInGoogleMaps')}
-                >
-                  <GoogleMapsIcon size={24} />
-                </a>
-                <a 
-                  href={wazeUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="footer-map-link"
-                  title={t('openInWaze')}
-                >
-                  <WazeIcon size={32} />
-                </a>
-              </div>
+            <ul className="footer-links">
+              <li><a href={`mailto:${t('storeEmail')}`}>{t('storeEmail')}</a></li>
+              <li><a href={`tel:${t('storePhone').replace(/\s/g, '')}`}>{t('storePhone')}</a></li>
+              <li><a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">{t('contactAddress')}</a></li>
+            </ul>
+            <div className="footer-map-buttons">
+              <a 
+                href={googleMapsUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="footer-map-link"
+                title={t('openInGoogleMaps')}
+              >
+                <GoogleMapsIcon size={24} />
+              </a>
+              <a 
+                href={wazeUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="footer-map-link"
+                title={t('openInWaze')}
+              >
+                <WazeIcon size={32} />
+              </a>
             </div>
           </div>
         </div>

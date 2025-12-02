@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getGoogleMapsUrl, getWazeUrl } from '../config.js'
 import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
@@ -39,11 +40,6 @@ function About() {
         
         <div className="about-content">
           <div className="about-section">
-            <h2>{t('ourStory')}</h2>
-            <p>{t('ourStoryText')}</p>
-          </div>
-
-          <div className="about-section">
             <h2>{t('ourMission')}</h2>
             <p>{t('ourMissionText')}</p>
           </div>
@@ -53,13 +49,18 @@ function About() {
             {loadingCategories ? (
               <p>{t('loading')}...</p>
             ) : categories.length > 0 ? (
-              <ul className="features-list">
+              <div className="categories-grid">
                 {categories.map((category) => (
-                  <li key={category.id}>
-                    {language === 'es' ? category.name_es : category.name_en}
-                  </li>
+                  <Link 
+                    key={category.id} 
+                    to={`/?category=${encodeURIComponent(category.name || category.name_en)}`}
+                    className="category-card"
+                  >
+                    <span className="category-icon">📦</span>
+                    <span className="category-name">{language === 'es' ? category.name_es : category.name_en}</span>
+                  </Link>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p>{t('noCategories')}</p>
             )}
@@ -91,9 +92,18 @@ function About() {
             <h2>{t('contactUs')}</h2>
             <p>{t('contactUsText')}</p>
             <div className="contact-info">
-              <p>{t('contactEmail')}</p>
-              <p>{t('contactPhone')}</p>
-              <p>{t('contactAddress')}</p>
+              <div className="contact-item">
+                <span className="contact-label">{t('email')}:</span>
+                <a href={`mailto:${t('storeEmail')}`}>{t('storeEmail')}</a>
+              </div>
+              <div className="contact-item">
+                <span className="contact-label">{t('phone')}:</span>
+                <a href={`tel:${t('storePhone').replace(/\s/g, '')}`}>{t('storePhone')}</a>
+              </div>
+              <div className="contact-item">
+                <span className="contact-label">{t('address')}:</span>
+                <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">{t('storeAddress')}</a>
+              </div>
               <div className="about-map-buttons">
                 <a 
                   href={googleMapsUrl} 

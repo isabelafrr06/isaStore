@@ -15,6 +15,25 @@ if Rails.env.development?
   OrderItem.destroy_all
 end
 
+# Ensure categories exist (they should be created by migration, but ensure they exist)
+categories_data = [
+  { name: 'Chargers', name_en: 'Chargers', name_es: 'Cargadores', position: 1 },
+  { name: 'Laptops', name_en: 'Laptops', name_es: 'Laptops', position: 2 },
+  { name: 'iPads', name_en: 'iPads', name_es: 'iPads', position: 3 },
+  { name: 'Accessories', name_en: 'Accessories', name_es: 'Accesorios', position: 4 },
+  { name: 'Other', name_en: 'Other', name_es: 'Otros', position: 5 }
+]
+
+categories_data.each do |cat_data|
+  Category.find_or_create_by(name: cat_data[:name]) do |category|
+    category.name_en = cat_data[:name_en]
+    category.name_es = cat_data[:name_es]
+    category.position = cat_data[:position]
+  end
+end
+
+puts "Ensured #{Category.count} categories exist"
+
 # Create sample products (only if they don't exist)
 products = [
   {
@@ -22,52 +41,78 @@ products = [
     description: 'Premium wireless headphones with noise cancellation',
     price: 15000,
     image: 'sample-product.jpg',
-    stock: 50
+    stock: 50,
+    category: 'Accessories',
+    condition: 'new',
+    weight: 0.3
   },
   {
     name: 'Smart Watch',
     description: 'Feature-rich smartwatch with health tracking',
     price: 100000,
     image: 'smart-watch.jpg',
-    stock: 30
+    stock: 30,
+    category: 'Accessories',
+    condition: 'new',
+    weight: 0.2
   },
   {
     name: 'Laptop Stand',
     description: 'Ergonomic aluminum laptop stand',
     price: 5000,
     image: 'laptop-stand.jpg',
-    stock: 10
+    stock: 10,
+    category: 'Accessories',
+    condition: 'new',
+    weight: 1.2
   },
   {
     name: 'Mechanical Keyboard',
     description: 'RGB mechanical keyboard with blue switches',
     price: 7000,
     image: 'keyboard.jpg',
-    stock: 1
+    stock: 1,
+    category: 'Accessories',
+    condition: 'new',
+    weight: 0.8
   },
   {
     name: 'USB-C Hub',
     description: '7-in-1 USB-C hub with HDMI and USB 3.0',
     price: 20000,
     image: 'usb-hub.jpg',
-    stock: 20
+    stock: 20,
+    category: 'Accessories',
+    condition: 'new',
+    weight: 0.1
   },
   {
     name: 'Wireless Mouse',
     description: 'Ergonomic wireless mouse with long battery life',
     price: 5000,
     image: 'mouse.jpg',
-    stock: 15
+    stock: 15,
+    category: 'Accessories',
+    condition: 'new',
+    weight: 0.1
   }
 ]
 
 products.each do |product_data|
   # Only create if product doesn't exist (check by name)
-  Product.find_or_create_by(name: product_data[:name]) do |product|
-    product.description = product_data[:description]
-    product.price = product_data[:price]
-    product.image = product_data[:image]
-    product.stock = product_data[:stock]
+  product = Product.find_or_create_by(name: product_data[:name]) do |p|
+    p.description = product_data[:description]
+    p.price = product_data[:price]
+    p.image = product_data[:image]
+    p.stock = product_data[:stock]
+    p.category = product_data[:category]
+    p.condition = product_data[:condition]
+    p.weight = product_data[:weight]
+  end
+  
+  # Update category if product already exists but doesn't have one
+  if product.persisted? && product.category.blank?
+    product.update(category: product_data[:category])
   end
 end
 
