@@ -2,26 +2,30 @@ class Api::ProductsController < ApplicationController
   def index
     @products = Product.all
     
+    # Filter out products that should be hidden from main page
+    @products = @products.where("hide_from_main_page = false OR hide_from_main_page IS NULL")
+    
     # Apply filters
     @products = @products.by_category(params[:category]) if params[:category].present?
     @products = @products.by_condition(params[:condition]) if params[:condition].present?
     
-    # Apply sorting
+    # Apply sorting - always show available products first, then apply user's sort preference
     @products = case params[:sort_by]
                 when 'price_asc'
-                  @products.order_by_price_asc
+                  @products.order(Arel.sql("CASE WHEN stock > 0 THEN 0 ELSE 1 END, price ASC"))
                 when 'price_desc'
-                  @products.order_by_price_desc
+                  @products.order(Arel.sql("CASE WHEN stock > 0 THEN 0 ELSE 1 END, price DESC"))
                 when 'name_asc'
-                  @products.order_by_name_asc
+                  @products.order(Arel.sql("CASE WHEN stock > 0 THEN 0 ELSE 1 END, name ASC"))
                 when 'name_desc'
-                  @products.order_by_name_desc
+                  @products.order(Arel.sql("CASE WHEN stock > 0 THEN 0 ELSE 1 END, name DESC"))
                 when 'newest'
-                  @products.order_by_newest
+                  @products.order(Arel.sql("CASE WHEN stock > 0 THEN 0 ELSE 1 END, created_at DESC"))
                 when 'oldest'
-                  @products.order_by_oldest
+                  @products.order(Arel.sql("CASE WHEN stock > 0 THEN 0 ELSE 1 END, created_at ASC"))
                 else
-                  @products.order_by_newest # Default sorting
+                  # Default: available first, then by newest
+                  @products.order(Arel.sql("CASE WHEN stock > 0 THEN 0 ELSE 1 END, created_at DESC"))
                 end
     
     render json: @products.map { |p| serialize_product(p) }

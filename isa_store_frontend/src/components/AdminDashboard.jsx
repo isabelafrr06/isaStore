@@ -23,7 +23,8 @@ function AdminDashboard({ admin, onLogout }) {
     stock: '',
     category: '',
     condition: 'new',
-    weight: '0.5'
+    weight: '0.5',
+    hide_from_main_page: false
   });
   const [imageFiles, setImageFiles] = useState([]);
   const [passwordData, setPasswordData] = useState({
@@ -129,6 +130,7 @@ function AdminDashboard({ admin, onLogout }) {
             weight: parseFloat(formData.weight) || 0.5,
             category: formData.category || null,
             condition: formData.condition || 'new',
+            hide_from_main_page: formData.hide_from_main_page === true,
             images: allImages.length > 0 ? allImages : undefined,
             image: allImages.length > 0 ? allImages[0] : formData.image // First image for backward compatibility
           }
@@ -139,7 +141,7 @@ function AdminDashboard({ admin, onLogout }) {
         await fetchProducts();
         setShowForm(false);
         setEditingProduct(null);
-        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5' });
+        setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5', hide_when_out_of_stock: false });
         setImageFiles([]);
       }
     } catch (err) {
@@ -158,7 +160,8 @@ function AdminDashboard({ admin, onLogout }) {
       weight: product.weight || '0.5',
       stock: product.stock,
       category: product.category || '',
-      condition: product.condition || 'new'
+      condition: product.condition || 'new',
+      hide_from_main_page: product.hide_from_main_page || false
     });
     setImageFiles([]);
     setShowForm(true);
@@ -300,7 +303,7 @@ function AdminDashboard({ admin, onLogout }) {
         <button onClick={() => { 
           setShowForm(!showForm); 
           setEditingProduct(null); 
-          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5' });
+          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5', hide_when_out_of_stock: false });
           setImageFiles([]);
         }} className="add-button">
           {showForm ? 'Cancelar' : 'Agregar Nuevo Producto'}
@@ -430,6 +433,16 @@ function AdminDashboard({ admin, onLogout }) {
                 onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
                 required
               />
+            </div>
+            <div className="form-group">
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={formData.hide_from_main_page || false}
+                  onChange={(e) => setFormData({ ...formData, hide_from_main_page: e.target.checked })}
+                />
+                <span>{t('hideWhenOutOfStock')}</span>
+              </label>
             </div>
             <div className="form-row">
               <button type="submit" className="save-button">Guardar Producto</button>

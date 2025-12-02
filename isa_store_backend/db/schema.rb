@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_01_000001) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_01_000002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,8 +87,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_01_000001) do
     t.string "category"
     t.string "condition", default: "new"
     t.decimal "weight", precision: 3, scale: 1, default: "0.5", null: false
+    t.boolean "hide_from_main_page", default: false, null: false
     t.index ["category"], name: "index_products_on_category"
     t.index ["condition"], name: "index_products_on_condition"
+    t.index ["hide_from_main_page"], name: "index_products_on_hide_from_main_page"
   end
 
   create_table "reviews", force: :cascade do |t|

@@ -46,7 +46,7 @@ class Api::AdminProductsController < ApplicationController
   
   def product_params
     # Allow images as array and single image for backward compatibility
-    params.require(:product).permit(:name, :description, :price, :image, :stock, :weight, :category, :condition, images: [])
+    params.require(:product).permit(:name, :description, :price, :image, :stock, :weight, :category, :condition, :hide_from_main_page, images: [])
   end
   
   def check_auth
