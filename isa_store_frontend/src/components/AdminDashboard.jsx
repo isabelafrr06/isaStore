@@ -419,7 +419,7 @@ function AdminDashboard({ admin, onLogout }) {
               <input
                 type="number"
                 placeholder="Stock"
-                min="1"
+                min="0"
                 value={formData.stock}
                 onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
                 required
