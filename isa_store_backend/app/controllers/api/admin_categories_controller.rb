@@ -99,13 +99,15 @@ class Api::AdminCategoriesController < ApplicationController
     end
 
     begin
-      decoded = JWT.decode(admin_token, Rails.application.credentials.secret_key_base || 'fallback_secret', true, { algorithm: 'HS256' })
+      decoded = JWT.decode(admin_token, Rails.application.secret_key_base)
       @current_admin = Admin.find_by(id: decoded[0]['admin_id'])
       
       unless @current_admin
         render json: { error: 'Invalid token' }, status: :unauthorized
       end
     rescue JWT::DecodeError => e
+      render json: { error: 'Invalid token', details: e.message }, status: :unauthorized
+    rescue => e
       render json: { error: 'Invalid token', details: e.message }, status: :unauthorized
     end
   end
