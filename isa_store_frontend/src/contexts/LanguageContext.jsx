@@ -186,6 +186,7 @@ const translations = {
     invalidEmail: 'Correo electrónico inválido',
     invalidPhone: 'El teléfono debe tener exactamente 8 dígitos',
     phoneWithDigits: 'Teléfono * (8 dígitos)',
+    phone8Digits: '8 dígitos',
     completePurchase: 'Completar Compra',
     
     // Cart Messages
@@ -196,24 +197,6 @@ const translations = {
     completeViaWhatsApp: 'Completar por WhatsApp',
     whatsAppPhone: '50683047863',
     whatsAppMessagePrefix: 'Hola! Me gustaría realizar el siguiente pedido:',
-    
-    // Reviews
-    reviews: 'Reseñas',
-    writeReview: 'Escribir Reseña',
-    submitReview: 'Enviar Reseña',
-    yourName: 'Tu Nombre',
-    yourReview: 'Tu Reseña',
-    reviewPlaceholder: 'Comparte tu experiencia...',
-    loadingReviews: 'Cargando reseñas...',
-    noReviewsYet: 'Aún no hay reseñas. ¡Sé el primero en dejar una reseña!',
-    verifiedReview: 'Reseña Verificada',
-    authenticateToReview: 'Por favor autentícate con Google o Facebook para escribir una reseña',
-    pleaseAuthenticate: 'Por favor autentícate con Google o Facebook primero',
-    pleaseSelectRating: 'Por favor selecciona una calificación',
-    errorGoogleAuth: 'Error al autenticarse con Google',
-    errorFacebookAuth: 'Error al autenticarse con Facebook',
-    errorSubmittingReview: 'Error al enviar la reseña',
-    submitting: 'Enviando...',
     
     // Contact Page
     contactTitle: 'Contáctanos',
@@ -247,6 +230,7 @@ const translations = {
     requestPriceWhatsApp: 'Solicitar precio por WhatsApp',
     shippingCorreosInfo: 'Peso total: {weight} kg - Costo: ₡{cost}',
     shippingUberInfo: 'El precio de envío se cotizará y confirmará por WhatsApp',
+    freeShippingConditions: '💡 Envío puede ser GRATIS en GAM para pedidos sobre ₡75,000. Condiciones aplican.',
     
     // Returns Page
     returnsTitle: 'Política de Devoluciones',
@@ -500,6 +484,7 @@ const translations = {
     invalidEmail: 'Invalid email address',
     invalidPhone: 'Phone must have exactly 8 digits',
     phoneWithDigits: 'Phone * (8 digits)',
+    phone8Digits: '8 digits',
     completePurchase: 'Complete Purchase',
     
     // Cart Messages
@@ -510,24 +495,6 @@ const translations = {
     completeViaWhatsApp: 'Complete via WhatsApp',
     whatsAppPhone: '50683047863',
     whatsAppMessagePrefix: 'Hello! I would like to place the following order:',
-    
-    // Reviews
-    reviews: 'Reviews',
-    writeReview: 'Write a Review',
-    submitReview: 'Submit Review',
-    yourName: 'Your Name',
-    yourReview: 'Your Review',
-    reviewPlaceholder: 'Share your experience...',
-    loadingReviews: 'Loading reviews...',
-    noReviewsYet: 'No reviews yet. Be the first to leave a review!',
-    verifiedReview: 'Verified Review',
-    authenticateToReview: 'Please authenticate with Google or Facebook to write a review',
-    pleaseAuthenticate: 'Please authenticate with Google or Facebook first',
-    pleaseSelectRating: 'Please select a rating',
-    errorGoogleAuth: 'Error authenticating with Google',
-    errorFacebookAuth: 'Error authenticating with Facebook',
-    errorSubmittingReview: 'Error submitting review',
-    submitting: 'Submitting...',
     
     // Contact Page
     contactTitle: 'Contact Us',
@@ -561,6 +528,7 @@ const translations = {
     requestPriceWhatsApp: 'Request price via WhatsApp',
     shippingCorreosInfo: 'Total weight: {weight} kg - Cost: ₡{cost}',
     shippingUberInfo: 'Shipping price will be quoted and confirmed via WhatsApp',
+    freeShippingConditions: '💡 Delivery may be FREE in GAM for orders over ₡75,000. Conditions apply.',
     
     // Returns Page
     returnsTitle: 'Returns Policy',

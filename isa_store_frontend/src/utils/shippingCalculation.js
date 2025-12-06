@@ -3,7 +3,7 @@
  * @param {string} method - Shipping method: 'pickup', 'correos', 'uber'
  * @param {number} totalWeight - Total weight in kilograms
  * @param {string} address - Customer address (for pickup check)
- * @returns {number} Shipping cost in colones
+ * @returns {number|null} Shipping cost in colones, or null for Uber
  */
 export function calculateShipping(method, totalWeight, address = '') {
   // Free pickup in Belén de Heredia

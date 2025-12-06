@@ -14,7 +14,6 @@ import Returns from './components/Returns'
 import FAQ from './components/FAQ'
 import Privacy from './components/Privacy'
 import Terms from './components/Terms'
-import Reviews from './components/Reviews'
 import AdminLogin from './components/AdminLogin'
 import AdminDashboard from './components/AdminDashboard'
 import Footer from './components/Footer'
@@ -62,7 +61,6 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
-              <Route path="/reviews" element={<Reviews />} />
               <Route 
                 path="/admin/login" 
                 element={admin ? <Navigate to="/admin" replace /> : <AdminLogin onLogin={handleAdminLogin} />} 

@@ -136,6 +136,9 @@ function CheckoutForm({ onCancel, cartItems, total }) {
       shippingText = `${t('shippingMethod')}: ${t('shippingCorreos')} - ₡${formatPrice(shippingCost)}`
     } else if (formData.shippingMethod === 'uber') {
       shippingText = `${t('shippingMethod')}: ${t('shippingUber')} - ${t('requestPriceWhatsApp')}`
+      if (discountedTotal >= 75000) {
+        shippingText += `\n${t('freeShippingConditions')}`
+      }
     }
     
     const message = `${t('whatsAppMessagePrefix')}
@@ -221,7 +224,10 @@ ${t('address')}: ${formData.address}`
           </div>
 
           <div className="form-group">
-            <label htmlFor="phone">{t('phoneWithDigits')}</label>
+            <label htmlFor="phone" className="label-with-help">
+              {t('phone')} *
+              <span className="help-icon" title={t('phone8Digits')}>?</span>
+            </label>
             <input
               type="tel"
               id="phone"
@@ -231,7 +237,6 @@ ${t('address')}: ${formData.address}`
               className={errors.phone ? 'error' : ''}
               maxLength={8}
               pattern="[0-9]{8}"
-              placeholder="83047863"
             />
             {errors.phone && <span className="error-message">{errors.phone}</span>}
           </div>
@@ -270,6 +275,11 @@ ${t('address')}: ${formData.address}`
             {formData.shippingMethod === 'uber' && (
               <p className="shipping-info">
                 {t('shippingUberInfo')}
+                {discountedTotal >= 75000 && (
+                  <span style={{ display: 'block', marginTop: '0.5rem', color: '#25d366', fontSize: '0.9rem' }}>
+                    {t('freeShippingConditions')}
+                  </span>
+                )}
               </p>
             )}
           </div>
