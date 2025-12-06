@@ -8,7 +8,8 @@ function CategoryManager({ categories, onUpdate }) {
   const [formData, setFormData] = useState({
     name: '',
     name_en: '',
-    name_es: ''
+    name_es: '',
+    position: 0
   });
 
   const handleSubmit = async (e) => {
@@ -19,23 +20,36 @@ function CategoryManager({ categories, onUpdate }) {
         ? getApiUrl(`/api/admin/categories/${editingCategory.id}`)
         : getApiUrl('/api/admin/categories');
 
+      // Set position for new categories (use highest position + 1)
+      const categoryData = { ...formData };
+      if (!editingCategory) {
+        const maxPosition = categories.length > 0 
+          ? Math.max(...categories.map(cat => cat.position || 0))
+          : -1;
+        categoryData.position = maxPosition + 1;
+      }
+
       const response = await fetch(url, {
         method: editingCategory ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         },
-        body: JSON.stringify({ category: formData })
+        body: JSON.stringify({ category: categoryData })
       });
 
       if (response.ok) {
-        setFormData({ name: '', name_en: '', name_es: '' });
+        setFormData({ name: '', name_en: '', name_es: '', position: 0 });
         setEditingCategory(null);
         setShowAddForm(false);
         onUpdate(); // Refresh categories
       } else {
-        const error = await response.json();
-        alert(error.errors?.join(', ') || 'Error saving category');
+        const errorData = await response.json().catch(() => ({ errors: ['Unknown error'] }));
+        const errorMessage = errorData.errors ? 
+          (Array.isArray(errorData.errors) ? errorData.errors.join(', ') : errorData.errors) :
+          (errorData.error || 'Error saving category');
+        alert(errorMessage);
+        console.error('Category save error:', errorData);
       }
     } catch (err) {
       console.error('Error saving category:', err);
@@ -48,7 +62,8 @@ function CategoryManager({ categories, onUpdate }) {
     setFormData({
       name: category.name,
       name_en: category.name_en,
-      name_es: category.name_es
+      name_es: category.name_es,
+      position: category.position || 0
     });
     setShowAddForm(true);
   };
@@ -86,7 +101,7 @@ function CategoryManager({ categories, onUpdate }) {
   const cancelEdit = () => {
     setEditingCategory(null);
     setShowAddForm(false);
-    setFormData({ name: '', name_en: '', name_es: '' });
+    setFormData({ name: '', name_en: '', name_es: '', position: 0 });
   };
 
   return (

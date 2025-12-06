@@ -15,6 +15,8 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1)
   const [message, setMessage] = useState('')
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxImageIndex, setLightboxImageIndex] = useState(0)
   const [discountTiers, setDiscountTiers] = useState(null)
 
   useEffect(() => {
@@ -30,6 +32,17 @@ function ProductDetail() {
       })
     fetchDiscountTiers()
   }, [id])
+
+  // Close lightbox on ESC key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && lightboxOpen) {
+        setLightboxOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [lightboxOpen])
 
   const fetchDiscountTiers = async () => {
     try {
@@ -112,11 +125,14 @@ function ProductDetail() {
             
             return (
               <>
-                <div className="main-image-wrapper">
+                <div className="main-image-wrapper" onClick={() => {
+                  setLightboxImageIndex(selectedImageIndex);
+                  setLightboxOpen(true);
+                }}>
                   <img 
                     src={getImageUrl(allImages[selectedImageIndex] || allImages[0])} 
                     alt={product.name} 
-                    className="detail-image" 
+                    className="detail-image clickable-image" 
                   />
                 </div>
                 {allImages.length > 1 && (
@@ -127,9 +143,53 @@ function ProductDetail() {
                         src={getImageUrl(img)}
                         alt={`${product.name} - Image ${index + 1}`}
                         className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
-                        onClick={() => setSelectedImageIndex(index)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedImageIndex(index);
+                          setLightboxImageIndex(index);
+                          setLightboxOpen(true);
+                        }}
                       />
                     ))}
+                  </div>
+                )}
+                {lightboxOpen && (
+                  <div className="lightbox-overlay" onClick={() => setLightboxOpen(false)}>
+                    <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+                      <button className="lightbox-close" onClick={() => setLightboxOpen(false)}>×</button>
+                      {allImages.length > 1 && (
+                        <>
+                          <button 
+                            className="lightbox-nav lightbox-prev"
+                            onClick={() => {
+                              const prevIndex = lightboxImageIndex > 0 ? lightboxImageIndex - 1 : allImages.length - 1;
+                              setLightboxImageIndex(prevIndex);
+                            }}
+                          >
+                            ‹
+                          </button>
+                          <button 
+                            className="lightbox-nav lightbox-next"
+                            onClick={() => {
+                              const nextIndex = lightboxImageIndex < allImages.length - 1 ? lightboxImageIndex + 1 : 0;
+                              setLightboxImageIndex(nextIndex);
+                            }}
+                          >
+                            ›
+                          </button>
+                        </>
+                      )}
+                      <img 
+                        src={getImageUrl(allImages[lightboxImageIndex])} 
+                        alt={`${product.name} - Image ${lightboxImageIndex + 1}`}
+                        className="lightbox-image"
+                      />
+                      {allImages.length > 1 && (
+                        <div className="lightbox-counter">
+                          {lightboxImageIndex + 1} / {allImages.length}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </>
