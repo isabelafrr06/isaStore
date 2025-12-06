@@ -1,9 +1,17 @@
 import React from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { getGoogleMapsUrl, getWazeUrl } from '../config.js'
+import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
+import WazeIcon from './icons/WazeIcon.jsx'
 import './Shipping.css'
 
 function Shipping() {
   const { t } = useLanguage()
+  
+  // Address for maps from context
+  const address = t('storeAddress')
+  const googleMapsUrl = getGoogleMapsUrl(address)
+  const wazeUrl = getWazeUrl(address)
   
   return (
     <div className="shipping">
@@ -24,7 +32,31 @@ function Shipping() {
           <div className="shipping-section">
             <h2>{t('pickupTitle')}</h2>
             <p>{t('pickupDescription')}</p>
-            <p className="pickup-location">{t('contactAddress')}</p>
+            <p className="pickup-location">
+              <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">{t('contactAddress')}</a>
+            </p>
+            <div className="shipping-map-buttons">
+              <a 
+                href={googleMapsUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="shipping-map-link"
+                title={t('openInGoogleMaps')}
+              >
+                <GoogleMapsIcon size={24} />
+                <span>{t('openInGoogleMaps')}</span>
+              </a>
+              <a 
+                href={wazeUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="shipping-map-link"
+                title={t('openInWaze')}
+              >
+                <WazeIcon size={24} />
+                <span>{t('openInWaze')}</span>
+              </a>
+            </div>
           </div>
 
           <div className="shipping-section">

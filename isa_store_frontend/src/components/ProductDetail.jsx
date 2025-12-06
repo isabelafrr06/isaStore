@@ -100,30 +100,41 @@ function ProductDetail() {
       
       <div className="product-detail-container">
         <div className="product-image-container">
-          {product.images && product.images.length > 0 ? (
-            <>
-              <img 
-                src={getImageUrl(product.images[selectedImageIndex] || product.image)} 
-                alt={product.name} 
-                className="detail-image" 
-              />
-              {product.images.length > 1 && (
-                <div className="product-image-thumbnails">
-                  {product.images.map((img, index) => (
-                    <img
-                      key={index}
-                      src={getImageUrl(img)}
-                      alt={`${product.name} - Image ${index + 1}`}
-                      className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
-                      onClick={() => setSelectedImageIndex(index)}
-                    />
-                  ))}
+          {(() => {
+            // Get all images - prefer images array, fallback to image field
+            const allImages = (product.images && product.images.length > 0) 
+              ? product.images 
+              : (product.image ? [product.image] : []);
+            
+            if (allImages.length === 0) {
+              return <div className="no-image">No image available</div>;
+            }
+            
+            return (
+              <>
+                <div className="main-image-wrapper">
+                  <img 
+                    src={getImageUrl(allImages[selectedImageIndex] || allImages[0])} 
+                    alt={product.name} 
+                    className="detail-image" 
+                  />
                 </div>
-              )}
-            </>
-          ) : (
-            <img src={getImageUrl(product.image)} alt={product.name} className="detail-image" />
-          )}
+                {allImages.length > 1 && (
+                  <div className="product-image-thumbnails">
+                    {allImages.map((img, index) => (
+                      <img
+                        key={index}
+                        src={getImageUrl(img)}
+                        alt={`${product.name} - Image ${index + 1}`}
+                        className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
+                        onClick={() => setSelectedImageIndex(index)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
         
         <div className="product-details">

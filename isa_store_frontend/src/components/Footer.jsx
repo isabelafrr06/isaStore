@@ -40,20 +40,20 @@ function Footer() {
           <div className="footer-section">
             <h4>{t('quickLinks')}</h4>
             <ul className="footer-links">
-              <li><Link to="/">{t('home')}</Link></li>
-              <li><Link to="/about">{t('about')}</Link></li>
-              <li><Link to="/cart">{t('cart')}</Link></li>
-              <li><Link to="/admin/login">{t('adminLogin')}</Link></li>
+              <li><Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('home')}</Link></li>
+              <li><Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('about')}</Link></li>
+              <li><Link to="/cart" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('cart')}</Link></li>
+              <li><Link to="/admin/login" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('adminLogin')}</Link></li>
             </ul>
           </div>
 
           <div className="footer-section">
             <h4>{t('support')}</h4>
             <ul className="footer-links">
-              <li><Link to="/contact">{t('contactUs')}</Link></li>
-              <li><Link to="/shipping">{t('shippingInfo')}</Link></li>
-              <li><Link to="/returns">{t('returns')}</Link></li>
-              <li><Link to="/faq">{t('faq')}</Link></li>
+              <li><Link to="/contact" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('contactUs')}</Link></li>
+              <li><Link to="/shipping" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('shippingInfo')}</Link></li>
+              <li><Link to="/returns" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('returns')}</Link></li>
+              <li><Link to="/faq" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('faq')}</Link></li>
             </ul>
           </div>
 
@@ -90,8 +90,8 @@ function Footer() {
         <div className="footer-bottom">
           <p>&copy; 2025 IsaStore. {t('allRightsReserved')}</p>
           <div className="footer-bottom-links">
-            <Link to="/privacy">{t('privacyPolicy')}</Link>
-            <Link to="/terms">{t('termsOfService')}</Link>
+            <Link to="/privacy" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('privacyPolicy')}</Link>
+            <Link to="/terms" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('termsOfService')}</Link>
           </div>
         </div>
       </div>

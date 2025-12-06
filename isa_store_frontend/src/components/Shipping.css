@@ -99,6 +99,57 @@
   margin-top: 1rem;
 }
 
+.pickup-location a {
+  color: #0d47a1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.pickup-location a:hover {
+  color: #2196F3;
+  text-decoration: underline;
+}
+
+.shipping-map-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.shipping-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  color: white;
+}
+
+.shipping-map-link:first-child {
+  background: linear-gradient(135deg, #4285F4 0%, #357AE8 100%);
+}
+
+.shipping-map-link:last-child {
+  background: linear-gradient(135deg, #33CCFF 0%, #0066FF 100%);
+}
+
+.shipping-map-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.shipping-map-link:first-child:hover {
+  background: linear-gradient(135deg, #357AE8 0%, #4285F4 100%);
+}
+
+.shipping-map-link:last-child:hover {
+  background: linear-gradient(135deg, #0066FF 0%, #33CCFF 100%);
+}
+
 @media (max-width: 768px) {
   .shipping-times {
     grid-template-columns: 1fr;

@@ -8,6 +8,7 @@ import { useLanguage } from '../contexts/LanguageContext.jsx';
 function AdminDashboard({ admin, onLogout }) {
   const { t } = useLanguage();
   const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
@@ -52,6 +53,7 @@ function AdminDashboard({ admin, onLogout }) {
   }, [showForm]);
 
   const fetchProducts = async () => {
+    setLoadingProducts(true);
     try {
       const response = await fetch(getApiUrl('/api/admin/products'), {
         headers: {
@@ -64,6 +66,8 @@ function AdminDashboard({ admin, onLogout }) {
       }
     } catch (err) {
       console.error('Error fetching products:', err);
+    } finally {
+      setLoadingProducts(false);
     }
   };
 
@@ -485,21 +489,27 @@ function AdminDashboard({ admin, onLogout }) {
       )}
 
       <div className="products-list">
-        <h2>Products</h2>
-        <div className="products-grid">
-          {products.map(product => (
-            <div key={product.id} className="product-card-admin">
-              <img src={getImageUrl(product.image)} alt={product.name} />
-              <h3>{product.name}</h3>
-              <p className="price">₡{parseInt(product.price) || product.price}</p>
-              <p className="stock">Stock: {product.stock}</p>
-              <div className="product-actions">
-                <button onClick={() => handleEdit(product)} className="edit-button">Editar</button>
-                <button onClick={() => handleDelete(product.id)} className="delete-button">Eliminar</button>
+        <h2>{t('products') || 'Products'}</h2>
+        {loadingProducts ? (
+          <div className="loading-message">{t('loadingProducts')}</div>
+        ) : products.length === 0 ? (
+          <div className="no-products-message">{t('noProducts')}</div>
+        ) : (
+          <div className="products-grid">
+            {products.map(product => (
+              <div key={product.id} className="product-card-admin">
+                <img src={getImageUrl(product.image)} alt={product.name} />
+                <h3>{product.name}</h3>
+                <p className="price">₡{parseInt(product.price) || product.price}</p>
+                <p className="stock">Stock: {product.stock}</p>
+                <div className="product-actions">
+                  <button onClick={() => handleEdit(product)} className="edit-button">Editar</button>
+                  <button onClick={() => handleDelete(product.id)} className="delete-button">Eliminar</button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

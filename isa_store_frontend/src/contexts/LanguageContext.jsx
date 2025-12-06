@@ -167,6 +167,7 @@ const translations = {
     details: 'Detalles',
     product: 'Producto',
     products: 'Productos',
+    noProducts: 'No hay productos',
     
     // Orders
     myOrders: 'Mis Pedidos',
@@ -465,6 +466,7 @@ const translations = {
     details: 'Details',
     product: 'Product',
     products: 'Products',
+    noProducts: 'No products',
     
     // Orders
     myOrders: 'My Orders',
