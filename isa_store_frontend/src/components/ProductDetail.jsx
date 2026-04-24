@@ -5,6 +5,7 @@ import { getApiUrl, getImageUrl } from '../config.js'
 import { addToCart as addToCartService } from '../services/cartService.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import { calculateBulkDiscount } from '../utils/discountCalculation.js'
+import { useDiscountTiers } from '../hooks/useDiscountTiers.js'
 import './ProductDetail.css'
 
 function ProductDetail() {
@@ -17,7 +18,7 @@ function ProductDetail() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxImageIndex, setLightboxImageIndex] = useState(0)
-  const [discountTiers, setDiscountTiers] = useState(null)
+  const discountTiers = useDiscountTiers()
 
   useEffect(() => {
     fetch(getApiUrl(`/api/products/${id}`))
@@ -30,7 +31,6 @@ function ProductDetail() {
         console.error('Error fetching product:', err)
         setLoading(false)
       })
-    fetchDiscountTiers()
   }, [id])
 
   // Close lightbox on ESC key
@@ -43,22 +43,6 @@ function ProductDetail() {
     window.addEventListener('keydown', handleEscape)
     return () => window.removeEventListener('keydown', handleEscape)
   }, [lightboxOpen])
-
-  const fetchDiscountTiers = async () => {
-    try {
-      const response = await fetch(getApiUrl('/api/discount_tiers'))
-      if (response.ok) {
-        const data = await response.json()
-        const tiers = data.map(tier => ({
-          minQuantity: tier.min_quantity,
-          discountPercent: parseFloat(tier.discount_percent)
-        }))
-        setDiscountTiers(tiers)
-      }
-    } catch (err) {
-      console.error('Error fetching discount tiers:', err)
-    }
-  }
 
   // Calculate discount for current quantity
   const discountInfo = useMemo(() => {

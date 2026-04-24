@@ -65,7 +65,7 @@ function Orders() {
               <div className="order-items">
                 {Array.isArray(order.items) && order.items.map((item, index) => (
                   <div key={index} className="order-item">
-                    <img src={getImageUrl(item.image)} alt={item.name} className="order-item-image" />
+                    <img src={getImageUrl(item.image)} alt={item.name} className="order-item-image" loading="lazy" />
                     <div className="order-item-info">
                       <h4>{item.name}</h4>
                       <p>{t('quantity')}: {item.quantity}</p>

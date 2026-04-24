@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './CategoryManager.css';
 import { getApiUrl } from '../config.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 function CategoryManager({ categories, onUpdate }) {
+  const { t } = useLanguage();
   const [editingCategory, setEditingCategory] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -53,7 +55,7 @@ function CategoryManager({ categories, onUpdate }) {
       }
     } catch (err) {
       console.error('Error saving category:', err);
-      alert('Error saving category');
+      alert(t('errorSavingCategory'));
     }
   };
 
@@ -70,11 +72,11 @@ function CategoryManager({ categories, onUpdate }) {
 
   const handleDelete = async (category) => {
     if (category.product_count > 0) {
-      alert(`Cannot delete "${category.name_en}" because it has ${category.product_count} product(s). Please reassign or delete the products first.`);
+      alert(t('cannotDeleteCategory', { name: category.name_en, count: category.product_count }));
       return;
     }
 
-    if (!window.confirm(`Are you sure you want to delete "${category.name_en}"?`)) {
+    if (!window.confirm(t('confirmDeleteCategory', { name: category.name_en }))) {
       return;
     }
 
@@ -90,11 +92,11 @@ function CategoryManager({ categories, onUpdate }) {
         onUpdate(); // Refresh categories
       } else {
         const error = await response.json();
-        alert(error.error || 'Error deleting category');
+        alert(error.error || t('errorDeletingCategory'));
       }
     } catch (err) {
       console.error('Error deleting category:', err);
-      alert('Error deleting category');
+      alert(t('errorDeletingCategory'));
     }
   };
 
@@ -107,22 +109,22 @@ function CategoryManager({ categories, onUpdate }) {
   return (
     <div className="category-manager">
       <div className="category-manager-header">
-        <h3>Category Management</h3>
+        <h3>{t('categoryManagement')}</h3>
         {!showAddForm && (
           <button onClick={() => setShowAddForm(true)} className="add-category-btn">
-            + Add Category
+            + {t('addCategory')}
           </button>
         )}
       </div>
 
       {showAddForm && (
         <div className="category-form">
-          <h4>{editingCategory ? 'Edit Category' : 'Add New Category'}</h4>
+          <h4>{editingCategory ? t('editCategory') : t('addNewCategory')}</h4>
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <input
                 type="text"
-                placeholder="Category ID (e.g., Laptops)"
+                placeholder={t('categoryIdPlaceholder')}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
@@ -132,14 +134,14 @@ function CategoryManager({ categories, onUpdate }) {
             <div className="form-row">
               <input
                 type="text"
-                placeholder="English Name"
+                placeholder={t('englishName')}
                 value={formData.name_en}
                 onChange={(e) => setFormData({ ...formData, name_en: e.target.value })}
                 required
               />
               <input
                 type="text"
-                placeholder="Spanish Name"
+                placeholder={t('spanishName')}
                 value={formData.name_es}
                 onChange={(e) => setFormData({ ...formData, name_es: e.target.value })}
                 required
@@ -147,10 +149,10 @@ function CategoryManager({ categories, onUpdate }) {
             </div>
             <div className="form-actions">
               <button type="submit" className="save-btn">
-                {editingCategory ? 'Update' : 'Create'}
+                {editingCategory ? t('update') : t('create')}
               </button>
               <button type="button" onClick={cancelEdit} className="cancel-btn">
-                Cancel
+                {t('cancel')}
               </button>
             </div>
           </form>
@@ -161,11 +163,11 @@ function CategoryManager({ categories, onUpdate }) {
         <table className="categories-table">
           <thead>
             <tr>
-              <th>Category ID</th>
-              <th>English Name</th>
-              <th>Spanish Name</th>
-              <th>Products</th>
-              <th>Actions</th>
+              <th>{t('categoryId')}</th>
+              <th>{t('englishName')}</th>
+              <th>{t('spanishName')}</th>
+              <th>{t('products')}</th>
+              <th>{t('actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -176,18 +178,18 @@ function CategoryManager({ categories, onUpdate }) {
                 <td>{category.name_es}</td>
                 <td className="product-count">{category.product_count}</td>
                 <td className="actions">
-                  <button 
-                    onClick={() => handleEdit(category)} 
+                  <button
+                    onClick={() => handleEdit(category)}
                     className="edit-btn"
                   >
-                    Edit
+                    {t('edit')}
                   </button>
-                  <button 
-                    onClick={() => handleDelete(category)} 
+                  <button
+                    onClick={() => handleDelete(category)}
                     className="delete-btn"
                     disabled={category.product_count > 0}
                   >
-                    Delete
+                    {t('delete')}
                   </button>
                 </td>
               </tr>

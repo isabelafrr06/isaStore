@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getImageUrl, getApiUrl } from '../config.js'
+import { getImageUrl } from '../config.js'
 import { getCart, removeFromCart as removeFromCartService, updateQuantity as updateQuantityService, clearCart as clearCartService } from '../services/cartService.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import { calculateBulkDiscount } from '../utils/discountCalculation.js'
+import { useDiscountTiers } from '../hooks/useDiscountTiers.js'
 import CheckoutForm from './CheckoutForm'
 import './Cart.css'
 
@@ -12,13 +13,12 @@ function Cart() {
   const [cart, setCart] = useState([])
   const [loading, setLoading] = useState(true)
   const [showCheckoutForm, setShowCheckoutForm] = useState(false)
-  const [discountTiers, setDiscountTiers] = useState(null)
+  const discountTiers = useDiscountTiers()
   const { t } = useLanguage()
 
   useEffect(() => {
     loadCart()
-    fetchDiscountTiers()
-    
+
     // Listen for cart updates
     const handleCartUpdate = () => {
       loadCart()
@@ -30,22 +30,6 @@ function Cart() {
       window.removeEventListener('cartUpdated', handleCartUpdate)
     }
   }, [])
-
-  const fetchDiscountTiers = async () => {
-    try {
-      const response = await fetch(getApiUrl('/api/discount_tiers'))
-      if (response.ok) {
-        const data = await response.json()
-        const tiers = data.map(tier => ({
-          minQuantity: tier.min_quantity,
-          discountPercent: parseFloat(tier.discount_percent)
-        }))
-        setDiscountTiers(tiers)
-      }
-    } catch (err) {
-      console.error('Error fetching discount tiers:', err)
-    }
-  }
 
   const loadCart = () => {
     const cartData = getCart()
@@ -64,6 +48,7 @@ function Cart() {
   }
 
   const handleClearCart = () => {
+    if (!window.confirm(t('confirmClearCart'))) return
     clearCartService()
     loadCart()
   }
@@ -97,7 +82,7 @@ function Cart() {
           <div className="cart-items">
             {cart.map(item => (
               <div key={item.id} className="cart-item">
-                <img src={getImageUrl(item.image)} alt={item.name} className="cart-item-image" />
+                <img src={getImageUrl(item.image)} alt={item.name} className="cart-item-image" loading="lazy" />
                 <div className="cart-item-info">
                   <h3>{item.name}</h3>
                   <p className="cart-item-price">₡{formatPrice(item.price)}</p>

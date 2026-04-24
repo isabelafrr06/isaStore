@@ -3,7 +3,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     # Allow localhost for development and your Vercel frontend for production
     origins 'http://localhost:3000',
             'http://localhost:5173',
-            /https:\/\/.*\.vercel\.app$/  # This allows all Vercel preview deployments
+            'https://isastorecr.vercel.app'
     
     resource '*',
       headers: :any,

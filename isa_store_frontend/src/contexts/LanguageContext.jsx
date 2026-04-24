@@ -130,7 +130,7 @@ const translations = {
     addNewProduct: 'Agregar Nuevo Producto',
     editProduct: 'Editar Producto',
     cancel: 'Cancelar',
-    hideWhenOutOfStock: 'Ocultar de la página principal cuando esté agotado',
+    hideFromMainPage: 'Ocultar de la página principal',
     saveProduct: 'Guardar Producto',
     edit: 'Editar',
     delete: 'Eliminar',
@@ -309,7 +309,45 @@ const translations = {
     limitationOfLiability: 'Limitación de Responsabilidad',
     limitationOfLiabilityDescription: 'IsaStore no será responsable por daños indirectos, incidentales o consecuentes que surjan del uso de nuestros productos o servicios, más allá del valor del producto comprado.',
     contactTerms: 'Contáctanos sobre los Términos',
-    contactTermsText: 'Si tienes preguntas sobre estos términos de servicio, contáctanos en:'
+    contactTermsText: 'Si tienes preguntas sobre estos términos de servicio, contáctanos en:',
+
+    // Admin - Password
+    currentPassword: 'Contraseña Actual',
+    newPassword: 'Nueva Contraseña',
+    confirmNewPassword: 'Confirmar Nueva Contraseña',
+    passwordChangedSuccess: 'Contraseña cambiada exitosamente',
+    errorChangingPassword: 'Error al cambiar la contraseña',
+    confirmDeleteProduct: '¿Estás seguro de que deseas eliminar este producto?',
+
+    // Category Manager
+    categoryManagement: 'Gestión de Categorías',
+    addCategory: 'Agregar Categoría',
+    editCategory: 'Editar Categoría',
+    addNewCategory: 'Agregar Nueva Categoría',
+    categoryIdPlaceholder: 'ID de Categoría (ej., Laptops)',
+    englishName: 'Nombre en Inglés',
+    spanishName: 'Nombre en Español',
+    categoryId: 'ID de Categoría',
+    errorSavingCategory: 'Error al guardar categoría',
+    cannotDeleteCategory: 'No se puede eliminar "{name}" porque tiene {count} producto(s). Reasigna o elimina los productos primero.',
+    confirmDeleteCategory: '¿Estás seguro de que deseas eliminar "{name}"?',
+    errorDeletingCategory: 'Error al eliminar categoría',
+
+    // Discount Manager - errors
+    errorSavingDiscount: 'Error al guardar nivel de descuento',
+    errorDeletingDiscount: 'Error al eliminar nivel de descuento',
+
+    // Confirm clear cart
+    confirmClearCart: '¿Estás seguro de que deseas vaciar el carrito?',
+
+    // Error Boundary
+    errorBoundaryTitle: 'Algo salió mal',
+    errorBoundaryMessage: 'Ocurrió un error inesperado. Por favor recarga la página.',
+    errorBoundaryReload: 'Recargar Página',
+
+    // Free server banner
+    freeServerBanner: 'Este sitio usa un servidor gratuito. Los productos pueden tardar ~10 segundos en cargar. Si no cargan, recarga la página manualmente.',
+    freeServerError: 'No se pudo conectar con el servidor. Este sitio usa un servidor gratuito que puede estar inactivo. Por favor, recarga la página en unos segundos.',
   },
   en: {
     // Navigation
@@ -429,7 +467,7 @@ const translations = {
     addNewProduct: 'Add New Product',
     editProduct: 'Edit Product',
     cancel: 'Cancel',
-    hideWhenOutOfStock: 'Hide from main page when out of stock',
+    hideFromMainPage: 'Hide from main page',
     saveProduct: 'Save Product',
     edit: 'Edit',
     delete: 'Delete',
@@ -608,7 +646,45 @@ const translations = {
     limitationOfLiability: 'Limitation of Liability',
     limitationOfLiabilityDescription: 'IsaStore will not be liable for indirect, incidental, or consequential damages arising from the use of our products or services, beyond the value of the purchased product.',
     contactTerms: 'Contact Us About Terms',
-    contactTermsText: 'If you have questions about these terms of service, contact us at:'
+    contactTermsText: 'If you have questions about these terms of service, contact us at:',
+
+    // Admin - Password
+    currentPassword: 'Current Password',
+    newPassword: 'New Password',
+    confirmNewPassword: 'Confirm New Password',
+    passwordChangedSuccess: 'Password changed successfully',
+    errorChangingPassword: 'Error changing password',
+    confirmDeleteProduct: 'Are you sure you want to delete this product?',
+
+    // Category Manager
+    categoryManagement: 'Category Management',
+    addCategory: 'Add Category',
+    editCategory: 'Edit Category',
+    addNewCategory: 'Add New Category',
+    categoryIdPlaceholder: 'Category ID (e.g., Laptops)',
+    englishName: 'English Name',
+    spanishName: 'Spanish Name',
+    categoryId: 'Category ID',
+    errorSavingCategory: 'Error saving category',
+    cannotDeleteCategory: 'Cannot delete "{name}" because it has {count} product(s). Please reassign or delete the products first.',
+    confirmDeleteCategory: 'Are you sure you want to delete "{name}"?',
+    errorDeletingCategory: 'Error deleting category',
+
+    // Discount Manager - errors
+    errorSavingDiscount: 'Error saving discount tier',
+    errorDeletingDiscount: 'Error deleting discount tier',
+
+    // Confirm clear cart
+    confirmClearCart: 'Are you sure you want to clear the cart?',
+
+    // Error Boundary
+    errorBoundaryTitle: 'Something went wrong',
+    errorBoundaryMessage: 'An unexpected error occurred. Please reload the page.',
+    errorBoundaryReload: 'Reload Page',
+
+    // Free server banner
+    freeServerBanner: 'This site uses a free server. Products may take ~10 seconds to load. If they don\'t load, please reload the page manually.',
+    freeServerError: 'Could not connect to the server. This site uses a free server that may be inactive. Please reload the page in a few seconds.',
   }
 }
 

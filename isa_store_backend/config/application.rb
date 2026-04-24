@@ -12,6 +12,9 @@ module IsaStore
 
     # Configuration for the API application
     config.api_only = true
+
+    # Rate limiting
+    config.middleware.use Rack::Attack
     
     # Enable serving static files for images
     config.public_file_server.enabled = true

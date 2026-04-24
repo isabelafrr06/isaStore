@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useAdmin } from '../contexts/AdminContext.jsx'
 import { getCartCount } from '../services/cartService.js'
 import './Header.css'
 
-function Header({ admin, onAdminLogout }) {
+function Header() {
+  const { admin, logout } = useAdmin()
   const [cartCount, setCartCount] = useState(0)
   const { t, language, toggleLanguage } = useLanguage()
   const location = useLocation()
@@ -78,7 +80,7 @@ function Header({ admin, onAdminLogout }) {
               >
                 {t('adminPanel')}
               </Link>
-              <button onClick={onAdminLogout} className="nav-link logout-btn">{t('logout')}</button>
+              <button onClick={logout} className="nav-link logout-btn">{t('logout')}</button>
             </>
           )}
           <button onClick={toggleLanguage} className="nav-link language-btn">

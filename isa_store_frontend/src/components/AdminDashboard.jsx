@@ -4,9 +4,11 @@ import { getApiUrl, getImageUrl } from '../config.js';
 import CategoryManager from './CategoryManager.jsx';
 import DiscountManager from './DiscountManager.jsx';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
+import { useAdmin } from '../contexts/AdminContext.jsx';
 
-function AdminDashboard({ admin, onLogout }) {
+function AdminDashboard() {
   const { t } = useLanguage();
+  const { admin, logout } = useAdmin();
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [categories, setCategories] = useState([]);
@@ -190,7 +192,7 @@ function AdminDashboard({ admin, onLogout }) {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
+    if (!window.confirm(t('confirmDeleteProduct'))) return;
 
     try {
       const response = await fetch(getApiUrl(`/api/admin/products/${id}`), {
@@ -208,9 +210,7 @@ function AdminDashboard({ admin, onLogout }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('admin');
-    onLogout();
+    logout();
   };
 
   const handlePasswordChange = async (e) => {
@@ -230,7 +230,7 @@ function AdminDashboard({ admin, onLogout }) {
       const data = await response.json();
 
       if (response.ok) {
-        setPasswordMessage('Contraseña cambiada exitosamente');
+        setPasswordMessage(t('passwordChangedSuccess'));
         setPasswordData({
           current_password: '',
           new_password: '',
@@ -241,11 +241,11 @@ function AdminDashboard({ admin, onLogout }) {
           setPasswordMessage('');
         }, 2000);
       } else {
-        setPasswordMessage(data.error || data.errors?.join(', ') || 'Error al cambiar la contraseña');
+        setPasswordMessage(data.error || data.errors?.join(', ') || t('errorChangingPassword'));
       }
     } catch (err) {
       console.error('Error changing password:', err);
-      setPasswordMessage('Error al cambiar la contraseña');
+      setPasswordMessage(t('errorChangingPassword'));
     }
   };
 
@@ -263,10 +263,10 @@ function AdminDashboard({ admin, onLogout }) {
 
       {showPasswordForm && (
         <div className="password-form">
-          <h2>Cambiar Contraseña</h2>
+          <h2>{t('changePassword')}</h2>
           <form onSubmit={handlePasswordChange}>
             <div className="form-group">
-              <label>Contraseña Actual</label>
+              <label>{t('currentPassword')}</label>
               <input
                 type="password"
                 value={passwordData.current_password}
@@ -275,7 +275,7 @@ function AdminDashboard({ admin, onLogout }) {
               />
             </div>
             <div className="form-group">
-              <label>Nueva Contraseña</label>
+              <label>{t('newPassword')}</label>
               <input
                 type="password"
                 value={passwordData.new_password}
@@ -285,7 +285,7 @@ function AdminDashboard({ admin, onLogout }) {
               />
             </div>
             <div className="form-group">
-              <label>Confirmar Nueva Contraseña</label>
+              <label>{t('confirmNewPassword')}</label>
               <input
                 type="password"
                 value={passwordData.new_password_confirmation}
@@ -295,12 +295,12 @@ function AdminDashboard({ admin, onLogout }) {
               />
             </div>
             {passwordMessage && (
-              <div className={passwordMessage.includes('exitosamente') ? 'success-message' : 'error-message'}>
+              <div className={passwordMessage === t('passwordChangedSuccess') ? 'success-message' : 'error-message'}>
                 {passwordMessage}
               </div>
             )}
             <div className="form-actions">
-              <button type="submit" className="save-button">Cambiar Contraseña</button>
+              <button type="submit" className="save-button">{t('changePassword')}</button>
               <button type="button" onClick={() => {
                 setShowPasswordForm(false);
                 setPasswordData({
@@ -309,7 +309,7 @@ function AdminDashboard({ admin, onLogout }) {
                   new_password_confirmation: ''
                 });
                 setPasswordMessage('');
-              }} className="cancel-button">Cancelar</button>
+              }} className="cancel-button">{t('cancel')}</button>
             </div>
           </form>
         </div>
@@ -478,11 +478,11 @@ function AdminDashboard({ admin, onLogout }) {
                   checked={formData.hide_from_main_page || false}
                   onChange={(e) => setFormData({ ...formData, hide_from_main_page: e.target.checked })}
                 />
-                <span>{t('hideWhenOutOfStock')}</span>
+                <span>{t('hideFromMainPage')}</span>
               </label>
             </div>
             <div className="form-row">
-              <button type="submit" className="save-button">Guardar Producto</button>
+              <button type="submit" className="save-button">{t('saveProduct')}</button>
             </div>
           </form>
         </div>
@@ -503,8 +503,8 @@ function AdminDashboard({ admin, onLogout }) {
                 <p className="price">₡{parseInt(product.price) || product.price}</p>
                 <p className="stock">Stock: {product.stock}</p>
                 <div className="product-actions">
-                  <button onClick={() => handleEdit(product)} className="edit-button">Editar</button>
-                  <button onClick={() => handleDelete(product.id)} className="delete-button">Eliminar</button>
+                  <button onClick={() => handleEdit(product)} className="edit-button">{t('edit')}</button>
+                  <button onClick={() => handleDelete(product.id)} className="delete-button">{t('delete')}</button>
                 </div>
               </div>
             ))}

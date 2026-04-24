@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useAdmin } from '../contexts/AdminContext.jsx'
 import './Breadcrumb.css'
 
-function Breadcrumb({ admin, onAdminLogout }) {
+function Breadcrumb() {
+  const { admin, logout } = useAdmin()
   const location = useLocation()
   const { t, language, toggleLanguage } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -135,7 +137,7 @@ function Breadcrumb({ admin, onAdminLogout }) {
                 <Link to="/admin" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
                   {t('adminPanel')}
                 </Link>
-                <button onClick={() => { onAdminLogout(); setIsMenuOpen(false); }} className="mobile-menu-link logout-btn">
+                <button onClick={() => { logout(); setIsMenuOpen(false); }} className="mobile-menu-link logout-btn">
                   {t('logout')}
                 </button>
               </>

@@ -100,12 +100,12 @@ class Api::ReviewsController < ApplicationController
       else
         nil
       end
-    rescue => e
+    rescue StandardError => e
       Rails.logger.error "Google token verification error: #{e.message}"
       nil
     end
   end
-  
+
   def verify_facebook_token(token)
     # Verify Facebook OAuth token
     begin
@@ -133,7 +133,7 @@ class Api::ReviewsController < ApplicationController
       else
         nil
       end
-    rescue => e
+    rescue StandardError => e
       Rails.logger.error "Facebook token verification error: #{e.message}"
       nil
     end

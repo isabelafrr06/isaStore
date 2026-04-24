@@ -62,11 +62,11 @@ function DiscountManager({ onUpdate }) {
         if (onUpdate) onUpdate();
       } else {
         const error = await response.json();
-        alert(error.errors?.join(', ') || 'Error saving discount tier');
+        alert(error.errors?.join(', ') || t('errorSavingDiscount'));
       }
     } catch (err) {
       console.error('Error saving discount tier:', err);
-      alert('Error saving discount tier');
+      alert(t('errorSavingDiscount'));
     }
   };
 
@@ -101,11 +101,11 @@ function DiscountManager({ onUpdate }) {
         if (onUpdate) onUpdate();
       } else {
         const error = await response.json();
-        alert(error.error || 'Error deleting discount tier');
+        alert(error.error || t('errorDeletingDiscount'));
       }
     } catch (err) {
       console.error('Error deleting discount tier:', err);
-      alert('Error deleting discount tier');
+      alert(t('errorDeletingDiscount'));
     }
   };
 

@@ -4,22 +4,23 @@ import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import { calculateBulkDiscount } from '../utils/discountCalculation.js'
+import { useDiscountTiers } from '../hooks/useDiscountTiers.js'
 import './ProductList.css'
 
 function ProductList() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedCondition, setSelectedCondition] = useState('')
   const [sortBy, setSortBy] = useState('newest')
-  const [discountTiers, setDiscountTiers] = useState(null)
+  const discountTiers = useDiscountTiers()
   const { t, language } = useLanguage()
   const [searchParams] = useSearchParams()
 
   useEffect(() => {
     fetchCategories()
-    fetchDiscountTiers()
   }, [])
 
   // Read category from URL params on mount and when URL changes
@@ -27,22 +28,6 @@ function ProductList() {
     const categoryParam = searchParams.get('category')
     setSelectedCategory(categoryParam || '')
   }, [searchParams])
-
-  const fetchDiscountTiers = async () => {
-    try {
-      const response = await fetch(getApiUrl('/api/discount_tiers'))
-      if (response.ok) {
-        const data = await response.json()
-        const tiers = data.map(tier => ({
-          minQuantity: tier.min_quantity,
-          discountPercent: parseFloat(tier.discount_percent)
-        }))
-        setDiscountTiers(tiers)
-      }
-    } catch (err) {
-      console.error('Error fetching discount tiers:', err)
-    }
-  }
 
   // Get the lowest discount tier (for display purposes)
   const lowestDiscountTier = useMemo(() => {
@@ -83,6 +68,7 @@ function ProductList() {
     
     const url = getApiUrl(`/api/products?${params.toString()}`)
     
+    setFetchError(false)
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -91,7 +77,7 @@ function ProductList() {
       })
       .catch(err => {
         console.error('Error fetching products:', err)
-        setLoading(false)
+        setFetchError(true)
       })
   }
 
@@ -110,8 +96,21 @@ function ProductList() {
     setLoading(true)
   }
 
+  if (fetchError) {
+    return (
+      <div className="loading-container">
+        <p className="free-server-notice">{t('freeServerError')}</p>
+      </div>
+    )
+  }
+
   if (loading) {
-    return <div className="loading">{t('loadingProducts')}</div>
+    return (
+      <div className="loading-container">
+        <div className="loading">{t('loadingProducts')}</div>
+        <p className="free-server-notice">{t('freeServerBanner')}</p>
+      </div>
+    )
   }
 
   return (
@@ -176,7 +175,7 @@ function ProductList() {
           <Link to={`/product/${product.id}`} key={product.id} className="product-card-link">
             <div className="product-card">
               <div className="product-image-container">
-                <img src={getImageUrl(product.image)} alt={product.name} className="product-image" />
+                <img src={getImageUrl(product.image)} alt={product.name} className="product-image" loading="lazy" />
                 <span className={`availability-badge ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
                   {product.stock > 0 ? t('available') : t('outOfStock')}
                 </span>

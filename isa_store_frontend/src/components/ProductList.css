@@ -10,11 +10,21 @@
   -webkit-text-fill-color: white !important;
 }
 
+.loading-container {
+  text-align: center;
+  padding: 3rem;
+}
+
 .loading {
   text-align: center;
   color: white;
   font-size: 1.5rem;
-  padding: 3rem;
+}
+
+.free-server-notice {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  margin-top: 1rem;
 }
 
 .filters-container {

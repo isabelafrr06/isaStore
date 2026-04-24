@@ -1,9 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import { getApiUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import { calculateShipping, calculateTotalWeight } from '../utils/shippingCalculation.js'
 import { calculateBulkDiscount } from '../utils/discountCalculation.js'
+import { useDiscountTiers } from '../hooks/useDiscountTiers.js'
 import './CheckoutForm.css'
 
 function CheckoutForm({ onCancel, cartItems, total }) {
@@ -16,27 +17,7 @@ function CheckoutForm({ onCancel, cartItems, total }) {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [discountTiers, setDiscountTiers] = useState(null)
-
-  useEffect(() => {
-    fetchDiscountTiers()
-  }, [])
-
-  const fetchDiscountTiers = async () => {
-    try {
-      const response = await fetch(getApiUrl('/api/discount_tiers'))
-      if (response.ok) {
-        const data = await response.json()
-        const tiers = data.map(tier => ({
-          minQuantity: tier.min_quantity,
-          discountPercent: parseFloat(tier.discount_percent)
-        }))
-        setDiscountTiers(tiers)
-      }
-    } catch (err) {
-      console.error('Error fetching discount tiers:', err)
-    }
-  }
+  const discountTiers = useDiscountTiers()
 
   // Calculate subtotal and total quantity
   const subtotal = useMemo(() => {

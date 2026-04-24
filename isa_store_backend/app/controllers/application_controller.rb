@@ -9,7 +9,12 @@ class ApplicationController < ActionController::API
     begin
       decoded = JWT.decode(admin_token, Rails.application.secret_key_base)
       @current_admin = Admin.find(decoded[0]['admin_id'])
-    rescue
+    rescue JWT::ExpiredSignature
+      render json: { error: 'Token expired' }, status: :unauthorized
+    rescue JWT::DecodeError
+      render json: { error: 'Invalid token' }, status: :unauthorized
+    rescue StandardError => e
+      Rails.logger.error "Auth error: #{e.message}"
       render json: { error: 'Unauthorized' }, status: :unauthorized
     end
   end

@@ -105,10 +105,13 @@ class Api::AdminCategoriesController < ApplicationController
       unless @current_admin
         render json: { error: 'Invalid token' }, status: :unauthorized
       end
-    rescue JWT::DecodeError => e
-      render json: { error: 'Invalid token', details: e.message }, status: :unauthorized
-    rescue => e
-      render json: { error: 'Invalid token', details: e.message }, status: :unauthorized
+    rescue JWT::ExpiredSignature
+      render json: { error: 'Token expired' }, status: :unauthorized
+    rescue JWT::DecodeError
+      render json: { error: 'Invalid token' }, status: :unauthorized
+    rescue StandardError => e
+      Rails.logger.error "Auth error: #{e.message}"
+      render json: { error: 'Invalid token' }, status: :unauthorized
     end
   end
 end
