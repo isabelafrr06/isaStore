@@ -7,10 +7,34 @@ import { calculateBulkDiscount } from '../utils/discountCalculation.js'
 import { useDiscountTiers } from '../hooks/useDiscountTiers.js'
 import './ProductList.css'
 
+const PRODUCTS_CACHE_KEY = 'isastore_products'
+const CATEGORIES_CACHE_KEY = 'isastore_categories'
+const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
+
+function getCached(key) {
+  try {
+    const raw = localStorage.getItem(key)
+    if (!raw) return null
+    const { data, timestamp } = JSON.parse(raw)
+    if (Date.now() - timestamp > CACHE_TTL) return null
+    return data
+  } catch {
+    return null
+  }
+}
+
+function setCache(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }))
+  } catch {
+    // localStorage full or unavailable
+  }
+}
+
 function ProductList() {
-  const [products, setProducts] = useState([])
-  const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [allProducts, setAllProducts] = useState(() => getCached(PRODUCTS_CACHE_KEY) || [])
+  const [categories, setCategories] = useState(() => getCached(CATEGORIES_CACHE_KEY) || [])
+  const [loading, setLoading] = useState(!getCached(PRODUCTS_CACHE_KEY))
   const [fetchError, setFetchError] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedCondition, setSelectedCondition] = useState('')
@@ -20,7 +44,9 @@ function ProductList() {
   const { t, language } = useLanguage()
   const [searchParams] = useSearchParams()
 
+  // Fetch all products once
   useEffect(() => {
+    fetchProducts()
     fetchCategories()
   }, [])
 
@@ -29,6 +55,76 @@ function ProductList() {
     const categoryParam = searchParams.get('category')
     setSelectedCategory(categoryParam || '')
   }, [searchParams])
+
+  const fetchCategories = () => {
+    fetch(getApiUrl('/api/categories'))
+      .then(res => res.json())
+      .then(data => {
+        const cats = data.categories || []
+        setCategories(cats)
+        setCache(CATEGORIES_CACHE_KEY, cats)
+      })
+      .catch(err => {
+        console.error('Error fetching categories:', err)
+      })
+  }
+
+  const fetchProducts = () => {
+    setFetchError(false)
+    fetch(getApiUrl('/api/products'))
+      .then(res => res.json())
+      .then(data => {
+        setAllProducts(data)
+        setCache(PRODUCTS_CACHE_KEY, data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Error fetching products:', err)
+        if (!getCached(PRODUCTS_CACHE_KEY)) {
+          setFetchError(true)
+          setTimeout(() => window.location.reload(), 10000)
+        } else {
+          setLoading(false)
+        }
+      })
+  }
+
+  // Filter and sort client-side
+  const products = useMemo(() => {
+    let filtered = allProducts
+
+    if (selectedCategory) {
+      filtered = filtered.filter(p => p.category === selectedCategory)
+    }
+
+    if (selectedCondition) {
+      filtered = filtered.filter(p => p.condition === selectedCondition)
+    }
+
+    const sorted = [...filtered]
+    switch (sortBy) {
+      case 'newest':
+        sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        break
+      case 'oldest':
+        sorted.sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+        break
+      case 'price_asc':
+        sorted.sort((a, b) => a.price - b.price)
+        break
+      case 'price_desc':
+        sorted.sort((a, b) => b.price - a.price)
+        break
+      case 'name_asc':
+        sorted.sort((a, b) => a.name.localeCompare(b.name))
+        break
+      case 'name_desc':
+        sorted.sort((a, b) => b.name.localeCompare(a.name))
+        break
+    }
+
+    return sorted
+  }, [allProducts, selectedCategory, selectedCondition, sortBy])
 
   // Get the lowest discount tier (for display purposes)
   const lowestDiscountTier = useMemo(() => {
@@ -46,56 +142,16 @@ function ProductList() {
     return null
   }
 
-  useEffect(() => {
-    fetchProducts()
-  }, [selectedCategory, selectedCondition, sortBy])
-
-  const fetchCategories = () => {
-    fetch(getApiUrl('/api/categories'))
-      .then(res => res.json())
-      .then(data => {
-        setCategories(data.categories || [])
-      })
-      .catch(err => {
-        console.error('Error fetching categories:', err)
-      })
-  }
-
-  const fetchProducts = () => {
-    const params = new URLSearchParams()
-    if (selectedCategory) params.append('category', selectedCategory)
-    if (selectedCondition) params.append('condition', selectedCondition)
-    if (sortBy) params.append('sort_by', sortBy)
-    
-    const url = getApiUrl(`/api/products?${params.toString()}`)
-    
-    setFetchError(false)
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error('Error fetching products:', err)
-        setFetchError(true)
-        setTimeout(() => window.location.reload(), 10000)
-      })
-  }
-
   const handleCategoryChange = (category) => {
     setSelectedCategory(category)
-    setLoading(true)
   }
 
   const handleConditionChange = (condition) => {
     setSelectedCondition(condition)
-    setLoading(true)
   }
 
   const handleSortChange = (sort) => {
     setSortBy(sort)
-    setLoading(true)
   }
 
   if (fetchError) {
@@ -126,7 +182,7 @@ function ProductList() {
   return (
     <div className="product-list">
       <h2 className="page-title">{t('ourProducts')}</h2>
-      
+
       <div className="filters-container">
         <div className="category-filter">
           <button
@@ -185,8 +241,8 @@ function ProductList() {
         <div className="filter-controls">
           <div className="filter-group">
             <label>{t('condition')}:</label>
-            <select 
-              value={selectedCondition} 
+            <select
+              value={selectedCondition}
               onChange={(e) => handleConditionChange(e.target.value)}
               className="filter-select"
             >
@@ -198,8 +254,8 @@ function ProductList() {
 
           <div className="filter-group">
             <label>{t('sortBy')}:</label>
-            <select 
-              value={sortBy} 
+            <select
+              value={sortBy}
               onChange={(e) => handleSortChange(e.target.value)}
               className="filter-select"
             >
@@ -213,7 +269,7 @@ function ProductList() {
           </div>
         </div>
       </div>
-      
+
       <div className="products-grid">
         {products.map(product => (
           <Link to={`/product/${product.id}`} key={product.id} className="product-card-link">
