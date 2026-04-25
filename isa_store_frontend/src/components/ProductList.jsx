@@ -15,6 +15,7 @@ function ProductList() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedCondition, setSelectedCondition] = useState('')
   const [sortBy, setSortBy] = useState('newest')
+  const [showAllCategories, setShowAllCategories] = useState(false)
   const discountTiers = useDiscountTiers()
   const { t, language } = useLanguage()
   const [searchParams] = useSearchParams()
@@ -128,23 +129,57 @@ function ProductList() {
       
       <div className="filters-container">
         <div className="category-filter">
-          <button 
+          <button
             className={`category-btn ${selectedCategory === '' ? 'active' : ''}`}
             onClick={() => handleCategoryChange('')}
           >
             {t('allProducts')}
           </button>
-          {categories.map(category => (
-            <button 
-              key={category.id}
-              className={`category-btn ${selectedCategory === category.name ? 'active' : ''} ${category.product_count === 0 ? 'disabled' : ''}`}
-              onClick={() => category.product_count > 0 && handleCategoryChange(category.name)}
-              disabled={category.product_count === 0}
-            >
-              {language === 'es' ? category.name_es : category.name_en}
-              {category.product_count === 0 && ' (0)'}
-            </button>
-          ))}
+          {(() => {
+            const withProducts = categories.filter(c => c.product_count > 0)
+            const empty = categories.filter(c => c.product_count === 0)
+            const visible = showAllCategories ? withProducts : withProducts.slice(0, 3)
+            const hiddenCount = (withProducts.length - visible.length) + empty.length
+
+            return (
+              <>
+                {visible.map(category => (
+                  <button
+                    key={category.id}
+                    className={`category-btn ${selectedCategory === category.name ? 'active' : ''}`}
+                    onClick={() => handleCategoryChange(category.name)}
+                  >
+                    {language === 'es' ? category.name_es : category.name_en}
+                  </button>
+                ))}
+                {!showAllCategories && hiddenCount > 0 && (
+                  <button
+                    className="category-btn more-btn"
+                    onClick={() => setShowAllCategories(true)}
+                  >
+                    +{hiddenCount} {t('more')}
+                  </button>
+                )}
+                {showAllCategories && empty.map(category => (
+                  <button
+                    key={category.id}
+                    className="category-btn disabled"
+                    disabled
+                  >
+                    {language === 'es' ? category.name_es : category.name_en} (0)
+                  </button>
+                ))}
+                {showAllCategories && (
+                  <button
+                    className="category-btn more-btn"
+                    onClick={() => setShowAllCategories(false)}
+                  >
+                    {t('showLess')}
+                  </button>
+                )}
+              </>
+            )
+          })()}
         </div>
 
         <div className="filter-controls">

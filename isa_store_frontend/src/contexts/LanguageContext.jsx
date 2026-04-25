@@ -48,6 +48,8 @@ const translations = {
     
     // Categories
     allProducts: 'Todos los Productos',
+    more: 'más',
+    showLess: 'Ver menos',
     chargers: 'Cargadores',
     laptops: 'Laptops',
     ipads: 'iPads',
@@ -386,6 +388,8 @@ const translations = {
     
     // Categories
     allProducts: 'All Products',
+    more: 'more',
+    showLess: 'Show less',
     chargers: 'Chargers',
     laptops: 'Laptops',
     ipads: 'iPads',
