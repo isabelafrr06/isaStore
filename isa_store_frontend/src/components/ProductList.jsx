@@ -79,6 +79,7 @@ function ProductList() {
       .catch(err => {
         console.error('Error fetching products:', err)
         setFetchError(true)
+        setTimeout(() => window.location.reload(), 10000)
       })
   }
 
@@ -117,7 +118,6 @@ function ProductList() {
         <div className="loading-card">
           <div className="loading-spinner" />
           <p className="loading-message">{t('loadingProducts')}</p>
-          <p className="loading-hint">{t('freeServerBanner')}</p>
         </div>
       </div>
     )
