@@ -99,7 +99,13 @@ function ProductList() {
   if (fetchError) {
     return (
       <div className="loading-container">
-        <p className="free-server-notice">{t('freeServerError')}</p>
+        <div className="loading-card">
+          <div className="loading-icon error-icon">!</div>
+          <p className="loading-message">{t('freeServerError')}</p>
+          <button className="reload-btn" onClick={() => window.location.reload()}>
+            {t('errorBoundaryReload')}
+          </button>
+        </div>
       </div>
     )
   }
@@ -107,8 +113,11 @@ function ProductList() {
   if (loading) {
     return (
       <div className="loading-container">
-        <div className="loading">{t('loadingProducts')}</div>
-        <p className="free-server-notice">{t('freeServerBanner')}</p>
+        <div className="loading-card">
+          <div className="loading-spinner" />
+          <p className="loading-message">{t('loadingProducts')}</p>
+          <p className="loading-hint">{t('freeServerBanner')}</p>
+        </div>
       </div>
     )
   }
