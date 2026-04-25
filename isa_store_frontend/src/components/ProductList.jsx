@@ -89,8 +89,8 @@ function ProductList() {
       })
   }
 
-  // Filter and sort client-side
-  const products = useMemo(() => {
+  // Track which product IDs are visible (for CSS hiding)
+  const visibleIds = useMemo(() => {
     let filtered = allProducts
 
     if (selectedCategory) {
@@ -101,7 +101,12 @@ function ProductList() {
       filtered = filtered.filter(p => p.condition === selectedCondition)
     }
 
-    const sorted = [...filtered]
+    return new Set(filtered.map(p => p.id))
+  }, [allProducts, selectedCategory, selectedCondition])
+
+  // Sort all products once (order stays stable, visibility toggles via CSS)
+  const sortedProducts = useMemo(() => {
+    const sorted = [...allProducts]
     switch (sortBy) {
       case 'newest':
         sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
@@ -122,9 +127,8 @@ function ProductList() {
         sorted.sort((a, b) => b.name.localeCompare(a.name))
         break
     }
-
     return sorted
-  }, [allProducts, selectedCategory, selectedCondition, sortBy])
+  }, [allProducts, sortBy])
 
   // Get the lowest discount tier (for display purposes)
   const lowestDiscountTier = useMemo(() => {
@@ -271,8 +275,8 @@ function ProductList() {
       </div>
 
       <div className="products-grid">
-        {products.map(product => (
-          <Link to={`/product/${product.id}`} key={product.id} className="product-card-link">
+        {sortedProducts.map(product => (
+          <Link to={`/product/${product.id}`} key={product.id} className="product-card-link" style={{ display: visibleIds.has(product.id) ? '' : 'none' }}>
             <div className="product-card">
               <div className="product-image-container">
                 <img src={getImageUrl(product.image)} alt={product.name} className="product-image" loading="lazy" />
