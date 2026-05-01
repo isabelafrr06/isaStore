@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext.jsx'
 import { AdminProvider, useAdmin } from './contexts/AdminContext.jsx'
+import { CategoriesProvider } from './contexts/CategoriesContext.jsx'
 import ErrorBoundary from './components/ErrorBoundary'
 import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb'
@@ -77,9 +78,11 @@ function App() {
     <LanguageProvider>
       <ErrorBoundary>
         <AdminProvider>
-          <Router>
-            <AppRoutes />
-          </Router>
+          <CategoriesProvider>
+            <Router>
+              <AppRoutes />
+            </Router>
+          </CategoriesProvider>
         </AdminProvider>
       </ErrorBoundary>
     </LanguageProvider>

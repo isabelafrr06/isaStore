@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useCategories } from '../contexts/CategoriesContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import { calculateBulkDiscount } from '../utils/discountCalculation.js'
@@ -8,7 +9,6 @@ import { useDiscountTiers } from '../hooks/useDiscountTiers.js'
 import './ProductList.css'
 
 const PRODUCTS_CACHE_KEY = 'isastore_products'
-const CATEGORIES_CACHE_KEY = 'isastore_categories'
 const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
 
 function getCached(key) {
@@ -33,7 +33,7 @@ function setCache(key, data) {
 
 function ProductList() {
   const [allProducts, setAllProducts] = useState(() => getCached(PRODUCTS_CACHE_KEY) || [])
-  const [categories, setCategories] = useState(() => getCached(CATEGORIES_CACHE_KEY) || [])
+  const categories = useCategories()
   const [loading, setLoading] = useState(!getCached(PRODUCTS_CACHE_KEY))
   const [fetchError, setFetchError] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -47,7 +47,6 @@ function ProductList() {
   // Fetch all products once
   useEffect(() => {
     fetchProducts()
-    fetchCategories()
   }, [])
 
   // Read category from URL params on mount and when URL changes
@@ -55,19 +54,6 @@ function ProductList() {
     const categoryParam = searchParams.get('category')
     setSelectedCategory(categoryParam || '')
   }, [searchParams])
-
-  const fetchCategories = () => {
-    fetch(getApiUrl('/api/categories'))
-      .then(res => res.json())
-      .then(data => {
-        const cats = data.categories || []
-        setCategories(cats)
-        setCache(CATEGORIES_CACHE_KEY, cats)
-      })
-      .catch(err => {
-        console.error('Error fetching categories:', err)
-      })
-  }
 
   const fetchProducts = () => {
     setFetchError(false)

@@ -1,30 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
-import { getApiUrl, getGoogleMapsUrl, getWazeUrl } from '../config.js'
+import { useCategories } from '../contexts/CategoriesContext.jsx'
+import { getGoogleMapsUrl, getWazeUrl } from '../config.js'
 import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
 import WazeIcon from './icons/WazeIcon.jsx'
 import './About.css'
 
 function About() {
   const { t, language } = useLanguage()
-  const [categories, setCategories] = useState([])
-  const [loadingCategories, setLoadingCategories] = useState(true)
+  const categories = useCategories()
 
-  // Address for maps from context
   const address = t('storeAddress')
   const googleMapsUrl = getGoogleMapsUrl(address)
   const wazeUrl = getWazeUrl(address)
-
-  useEffect(() => {
-    fetch(getApiUrl('/api/categories'))
-      .then(res => res.json())
-      .then(data => {
-        setCategories(data.categories || [])
-        setLoadingCategories(false)
-      })
-      .catch(() => setLoadingCategories(false))
-  }, [])
 
   return (
     <div className="about">
@@ -39,9 +28,7 @@ function About() {
 
           <div className="about-section">
             <h2>{t('whatWeOffer')}</h2>
-            {loadingCategories ? (
-              <p>{t('loading')}...</p>
-            ) : categories.length > 0 ? (
+            {categories.length > 0 ? (
               <div className="categories-grid">
                 {categories.map((category) => (
                   <Link

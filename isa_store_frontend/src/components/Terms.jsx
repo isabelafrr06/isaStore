@@ -1,18 +1,19 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext.jsx'
 import './Terms.css'
 
 function Terms() {
   const { t } = useLanguage()
-  
+
   return (
     <div className="terms">
       <div className="terms-container">
         <h1 className="page-title">{t('termsTitle')}</h1>
-        
+
         <div className="terms-content">
           <div className="terms-section">
-            <p className="last-updated">{t('lastUpdated')}: {new Date().toLocaleDateString()}</p>
+            <p className="last-updated">{t('lastUpdated')}: 1 mayo 2026</p>
           </div>
 
           <div className="terms-section">
@@ -42,8 +43,23 @@ function Terms() {
           </div>
 
           <div className="terms-section">
+            <h2>{t('shippingReturnsTerms')}</h2>
+            <p>
+              {t('shippingReturnsTermsDescription')}{' '}
+              <Link to="/shipping">{t('shipping')}</Link>
+              {' '}&{' '}
+              <Link to="/returns">{t('returns')}</Link>.
+            </p>
+          </div>
+
+          <div className="terms-section">
             <h2>{t('limitationOfLiability')}</h2>
             <p>{t('limitationOfLiabilityDescription')}</p>
+          </div>
+
+          <div className="terms-section">
+            <h2>{t('governingLaw')}</h2>
+            <p>{t('governingLawDescription')}</p>
           </div>
 
           <div className="terms-section">
@@ -58,4 +74,3 @@ function Terms() {
 }
 
 export default Terms
-
