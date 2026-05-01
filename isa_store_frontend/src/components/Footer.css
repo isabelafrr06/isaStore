@@ -169,6 +169,22 @@
   color: white;
 }
 
+.footer-developer {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.footer-developer a {
+  color: rgba(162, 166, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-developer a:hover {
+  color: white;
+}
+
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr;

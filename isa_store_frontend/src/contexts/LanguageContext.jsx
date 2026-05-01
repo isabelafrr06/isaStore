@@ -124,6 +124,7 @@ const translations = {
     privacyPolicy: 'Política de Privacidad',
     termsOfService: 'Términos de Servicio',
     allRightsReserved: 'Todos los derechos reservados',
+    developedBy: 'Desarrollado por',
     
     // Admin
     adminDashboard: 'Panel de Administración',
@@ -463,6 +464,7 @@ const translations = {
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
     allRightsReserved: 'All rights reserved',
+    developedBy: 'Developed by',
     
     // Admin
     adminDashboard: 'Admin Dashboard',

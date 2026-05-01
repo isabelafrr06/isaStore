@@ -93,6 +93,12 @@ function Footer() {
             <Link to="/privacy" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('privacyPolicy')}</Link>
             <Link to="/terms" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('termsOfService')}</Link>
           </div>
+          <p className="footer-developer">
+            {t('developedBy')}{' '}
+            <a href="https://isabelarodriguezr.vercel.app" target="_blank" rel="noopener noreferrer">
+              IRR
+            </a>
+          </p>
         </div>
       </div>
     </footer>
