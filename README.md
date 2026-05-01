@@ -14,90 +14,84 @@ A full-stack web store built with Ruby on Rails and React.
 
 ### Prerequisites
 
-- **Ruby 3.4.7** - If you don't have it installed, use rbenv
-- **PostgreSQL 16** - See backend README for setup instructions
-- **Node.js** (for the frontend)
-- **Bundler** gem - `gem install bundler`
+- **Ruby 3.4.7** - use rbenv to install
+- **PostgreSQL 16**
+- **Node.js**
+- **Bundler** — `gem install bundler`
+
+### PostgreSQL Setup (macOS)
+
+```bash
+brew install postgresql@16
+brew services start postgresql@16
+# Add to PATH if needed:
+echo 'export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
+
+Common commands:
+```bash
+brew services start postgresql@16   # start
+brew services stop postgresql@16    # stop
+psql postgres                        # connect
+```
 
 ### Backend Setup
 
-1. Navigate to the backend directory:
 ```bash
 cd isa_store_backend
-```
-
-2. Install dependencies:
-```bash
 bundle install
-```
-
-3. Set up the database:
-```bash
 rails db:create
 rails db:migrate
 rails db:seed
-```
-
-4. Run the server:
-```bash
 rails server -p 3001
 ```
 
-The backend API will be available at `http://localhost:3001`
+API available at `http://localhost:3001`
 
 ### Frontend Setup
 
-1. Navigate to the frontend directory:
 ```bash
 cd isa_store_frontend
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Run the development server:
-```bash
 npm run dev
 ```
 
-The frontend will be available at `http://localhost:3000`
+Frontend available at `http://localhost:3000`
 
 ## Features
 
-- **Products**: Browse and view product details
-- **Shopping Cart**: Add items, update quantities, and remove items
-- **Orders**: View order history
-- **Modern UI**: Beautiful, responsive design
-- **RESTful API**: Clean API endpoints for all operations
+- Product browsing with category filtering
+- Shopping cart (add, update, remove)
+- Order history
+- Admin dashboard (products, categories, discounts)
+- Product reviews with Google/Facebook OAuth
+- WhatsApp checkout integration
+- Responsive UI
 
 ## Tech Stack
 
 - **Backend**: Ruby on Rails 7.1, PostgreSQL
-- **Frontend**: React, React Router
-- **Styling**: CSS3 with modern gradients and animations
-- **Build Tool**: Vite
+- **Frontend**: React, React Router, Vite
+- **Styling**: CSS3
 
 ## API Endpoints
 
-- `GET /api/products` - Get all products
-- `GET /api/products/:id` - Get single product
-- `GET /api/cart` - Get cart contents
-- `POST /api/cart/add` - Add item to cart
-- `DELETE /api/cart/remove/:id` - Remove item from cart
-- `PUT /api/cart/update/:id` - Update cart item quantity
-- `DELETE /api/cart/clear` - Clear cart
-- `GET /api/orders` - Get all orders
-- `POST /api/orders` - Create new order
+```
+GET    /api/products            List products
+GET    /api/products/:id        Single product
+GET    /api/categories          List categories
+GET    /api/cart                Cart contents
+POST   /api/cart/add            Add to cart
+PUT    /api/cart/update/:id     Update quantity
+DELETE /api/cart/remove/:id     Remove item
+DELETE /api/cart/clear          Clear cart
+GET    /api/orders              Order history
+POST   /api/orders              Create order
+GET    /api/reviews             Approved reviews
+POST   /api/reviews             Submit review (OAuth required)
+POST   /api/admin/upload-image  Upload product image (admin)
+```
 
-## Data Storage
+## Deployment
 
-The backend uses PostgreSQL database with the following tables:
-- `products` - Product catalog
-- `cart_items` - Shopping cart items
-- `orders` - Order history
-- `order_items` - Order line items
-- `admins` - Admin users
-
-See [isa_store_backend/README.md](./isa_store_backend/README.md) for PostgreSQL setup instructions.
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for Railway (backend) and Vercel (frontend) deployment instructions.
