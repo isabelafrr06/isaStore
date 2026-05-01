@@ -11,17 +11,24 @@ export const useAdmin = () => {
   return context
 }
 
+const SESSION_FLAG = 'isastore_admin'
+
 export const AdminProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null)
 
   useEffect(() => {
+    if (!sessionStorage.getItem(SESSION_FLAG)) return
     fetch(getApiUrl('/api/admin/me'), { credentials: 'include' })
       .then(res => res.ok ? res.json() : null)
-      .then(data => { if (data?.admin) setAdmin(data.admin) })
+      .then(data => {
+        if (data?.admin) setAdmin(data.admin)
+        else sessionStorage.removeItem(SESSION_FLAG)
+      })
       .catch(() => {})
   }, [])
 
   const login = (data) => {
+    sessionStorage.setItem(SESSION_FLAG, '1')
     setAdmin(data.admin)
   }
 
@@ -32,6 +39,7 @@ export const AdminProvider = ({ children }) => {
         credentials: 'include'
       })
     } catch {}
+    sessionStorage.removeItem(SESSION_FLAG)
     setAdmin(null)
   }
 
