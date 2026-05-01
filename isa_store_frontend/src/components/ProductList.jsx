@@ -127,6 +127,8 @@ function ProductList() {
         sorted.sort((a, b) => b.name.localeCompare(a.name))
         break
     }
+    // Always push out-of-stock products to the end
+    sorted.sort((a, b) => (a.stock > 0 ? 0 : 1) - (b.stock > 0 ? 0 : 1))
     return sorted
   }, [allProducts, sortBy])
 
