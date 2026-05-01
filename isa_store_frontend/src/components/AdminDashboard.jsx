@@ -98,9 +98,7 @@ function AdminDashboard() {
         
         const uploadResponse = await fetch(getApiUrl('/api/admin/upload-image'), {
           method: 'POST',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-          },
+          credentials: 'include',
           body: formDataUpload
         });
         
