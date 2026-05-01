@@ -88,7 +88,7 @@ function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2025 IsaStore. {t('allRightsReserved')}</p>
+          <p>&copy; {new Date().getFullYear()} IsaStore. {t('allRightsReserved')}</p>
           <div className="footer-bottom-links">
             <Link to="/privacy" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('privacyPolicy')}</Link>
             <Link to="/terms" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('termsOfService')}</Link>
