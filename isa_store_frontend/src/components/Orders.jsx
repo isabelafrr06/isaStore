@@ -10,12 +10,8 @@ function Orders() {
   const { t } = useLanguage()
 
   useEffect(() => {
-    const adminToken = localStorage.getItem('adminToken')
-    
     fetch(getApiUrl('/api/orders'), {
-      headers: {
-        'Authorization': `Bearer ${adminToken}`
-      }
+      credentials: 'include'
     })
       .then(res => {
         if (!res.ok) {

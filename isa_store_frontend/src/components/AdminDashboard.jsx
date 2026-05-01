@@ -58,9 +58,7 @@ function AdminDashboard() {
     setLoadingProducts(true);
     try {
       const response = await fetch(getApiUrl('/api/admin/products'), {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
+        credentials: 'include'
       });
       if (response.ok) {
         const data = await response.json();
@@ -76,9 +74,7 @@ function AdminDashboard() {
   const fetchCategories = async () => {
     try {
       const response = await fetch(getApiUrl('/api/admin/categories'), {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
+        credentials: 'include'
       });
       if (response.ok) {
         const data = await response.json();
@@ -103,7 +99,7 @@ function AdminDashboard() {
         const uploadResponse = await fetch(getApiUrl('/api/admin/upload-image'), {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+            'X-Requested-With': 'XMLHttpRequest'
           },
           body: formDataUpload
         });
@@ -136,10 +132,10 @@ function AdminDashboard() {
       const response = await fetch(url, {
         method: editingProduct ? 'PUT' : 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
+        credentials: 'include',
+        body: JSON.stringify({
           product: {
             name: formData.name,
             description: formData.description,
@@ -197,9 +193,7 @@ function AdminDashboard() {
     try {
       const response = await fetch(getApiUrl(`/api/admin/products/${id}`), {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
+        credentials: 'include'
       });
       if (response.ok) {
         await fetchProducts();
@@ -221,9 +215,9 @@ function AdminDashboard() {
       const response = await fetch(getApiUrl('/api/admin/change-password'), {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(passwordData)
       });
 

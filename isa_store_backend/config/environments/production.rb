@@ -14,7 +14,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Set secret_key_base from environment variable
   # Railway should set SECRET_KEY_BASE as an environment variable
@@ -46,7 +46,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { getApiUrl } from '../config.js'
 
 const AdminContext = createContext()
 
@@ -14,25 +15,23 @@ export const AdminProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null)
 
   useEffect(() => {
-    const adminToken = localStorage.getItem('adminToken')
-    const adminData = localStorage.getItem('admin')
-    if (adminToken && adminData) {
-      try {
-        setAdmin(JSON.parse(adminData))
-      } catch {
-        localStorage.removeItem('adminToken')
-        localStorage.removeItem('admin')
-      }
-    }
+    fetch(getApiUrl('/api/admin/me'), { credentials: 'include' })
+      .then(res => res.ok ? res.json() : null)
+      .then(data => { if (data?.admin) setAdmin(data.admin) })
+      .catch(() => {})
   }, [])
 
   const login = (data) => {
     setAdmin(data.admin)
   }
 
-  const logout = () => {
-    localStorage.removeItem('adminToken')
-    localStorage.removeItem('admin')
+  const logout = async () => {
+    try {
+      await fetch(getApiUrl('/api/admin/logout'), {
+        method: 'POST',
+        credentials: 'include'
+      })
+    } catch {}
     setAdmin(null)
   }
 

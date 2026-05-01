@@ -19,16 +19,6 @@ module IsaStore
     # Enable serving static files for images
     config.public_file_server.enabled = true
     
-    # CORS configuration
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*',
-          headers: :any,
-          methods: [:get, :post, :put, :delete, :options, :head]
-      end
-    end
-
     # Autoload paths
     config.autoload_paths += %W(#{config.root}/app)
   end

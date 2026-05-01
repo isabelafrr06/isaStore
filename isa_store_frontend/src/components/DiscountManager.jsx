@@ -23,8 +23,9 @@ function DiscountManager({ onUpdate }) {
     try {
       const response = await fetch(getApiUrl('/api/admin/discount-tiers'), {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
       });
       if (response.ok) {
         const data = await response.json();
@@ -48,9 +49,9 @@ function DiscountManager({ onUpdate }) {
       const response = await fetch(url, {
         method: editingTier ? 'PUT' : 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ discount_tier: formData })
       });
 
@@ -92,8 +93,9 @@ function DiscountManager({ onUpdate }) {
       const response = await fetch(getApiUrl(`/api/admin/discount-tiers/${tier.id}`), {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
       });
 
       if (response.ok) {
@@ -114,9 +116,9 @@ function DiscountManager({ onUpdate }) {
       const response = await fetch(getApiUrl(`/api/admin/discount-tiers/${tier.id}`), {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ discount_tier: { ...tier, active: !tier.active } })
       });
 

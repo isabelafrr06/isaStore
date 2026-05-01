@@ -1,6 +1,6 @@
 class Api::AdminCategoriesController < ApplicationController
-  before_action :check_auth
-  before_action :set_category, only: [:update, :destroy, :reorder]
+  before_action :authenticate_admin
+  before_action :set_category, only: [:update, :destroy]
 
   def index
     categories = Category.all.map do |cat|
@@ -20,7 +20,7 @@ class Api::AdminCategoriesController < ApplicationController
 
   def create
     category = Category.new(category_params)
-    
+
     if category.save
       render json: {
         id: category.id,
@@ -37,12 +37,11 @@ class Api::AdminCategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      # Update all products with old category name to new category name
       if category_params[:name] && category_params[:name] != @category.name
         old_name = @category.name
         Product.where(category: old_name).update_all(category: category_params[:name])
       end
-      
+
       render json: {
         id: @category.id,
         name: @category.name,
@@ -58,10 +57,10 @@ class Api::AdminCategoriesController < ApplicationController
 
   def destroy
     product_count = Product.where(category: @category.name).count
-    
+
     if product_count > 0
-      render json: { 
-        error: "Cannot delete category with #{product_count} product(s). Please reassign or delete the products first." 
+      render json: {
+        error: "Cannot delete category with #{product_count} product(s). Please reassign or delete the products first."
       }, status: :unprocessable_entity
     else
       @category.destroy
@@ -70,12 +69,14 @@ class Api::AdminCategoriesController < ApplicationController
   end
 
   def reorder
-    # Expects params: { categories: [{ id: 1, position: 0 }, { id: 2, position: 1 }, ...] }
-    params[:categories].each do |cat_data|
+    categories_data = params[:categories]
+    return render json: { error: 'Too many items' }, status: :bad_request if categories_data.length > 100
+
+    categories_data.each do |cat_data|
       category = Category.find_by(id: cat_data[:id])
       category.update(position: cat_data[:position]) if category
     end
-    
+
     render json: { message: 'Categories reordered successfully' }
   end
 
@@ -90,29 +91,4 @@ class Api::AdminCategoriesController < ApplicationController
   def category_params
     params.require(:category).permit(:name, :name_en, :name_es, :position)
   end
-
-  def check_auth
-    admin_token = request.headers['Authorization']&.split(' ')&.last
-    unless admin_token
-      render json: { error: 'Missing token' }, status: :unauthorized
-      return
-    end
-
-    begin
-      decoded = JWT.decode(admin_token, Rails.application.secret_key_base)
-      @current_admin = Admin.find_by(id: decoded[0]['admin_id'])
-      
-      unless @current_admin
-        render json: { error: 'Invalid token' }, status: :unauthorized
-      end
-    rescue JWT::ExpiredSignature
-      render json: { error: 'Token expired' }, status: :unauthorized
-    rescue JWT::DecodeError
-      render json: { error: 'Invalid token' }, status: :unauthorized
-    rescue StandardError => e
-      Rails.logger.error "Auth error: #{e.message}"
-      render json: { error: 'Invalid token' }, status: :unauthorized
-    end
-  end
 end
-

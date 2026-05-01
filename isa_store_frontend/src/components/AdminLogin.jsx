@@ -14,16 +14,13 @@ function AdminLogin({ onLogin }) {
     try {
       const response = await fetch(getApiUrl('/api/admin/login'), {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('adminToken', data.token);
-        localStorage.setItem('admin', JSON.stringify(data.admin));
         onLogin(data);
       } else {
         const data = await response.json();
@@ -66,13 +63,3 @@ function AdminLogin({ onLogin }) {
 }
 
 export default AdminLogin;
-
-
-
-
-
-
-
-
-
-

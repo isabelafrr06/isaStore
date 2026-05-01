@@ -34,9 +34,9 @@ function CategoryManager({ categories, onUpdate }) {
       const response = await fetch(url, {
         method: editingCategory ? 'PUT' : 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ category: categoryData })
       });
 
@@ -84,8 +84,9 @@ function CategoryManager({ categories, onUpdate }) {
       const response = await fetch(getApiUrl(`/api/admin/categories/${category.id}`), {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
       });
 
       if (response.ok) {

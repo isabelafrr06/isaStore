@@ -5,6 +5,7 @@ class Admin < ApplicationRecord
   
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
+  validates :password, length: { minimum: 8 }, if: -> { password.present? }
   
   private
   

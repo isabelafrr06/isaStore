@@ -137,7 +137,11 @@ puts "Created #{DiscountTier.count} discount tiers"
 
 # Create default admin (uses environment variable for password)
 admin_email = ENV.fetch('ADMIN_EMAIL', 'admin@isastore.com').strip.downcase
-admin_password = ENV.fetch('ADMIN_PASSWORD', 'CHANGE_ME_IN_PRODUCTION')
+admin_password = if Rails.env.development?
+  ENV.fetch('ADMIN_PASSWORD', 'dev_password_local_only')
+else
+  ENV.fetch('ADMIN_PASSWORD') { raise 'ADMIN_PASSWORD must be set in production' }
+end
 admin_name = ENV.fetch('ADMIN_NAME', 'Admin User')
 
 # Normalize email to lowercase for consistent lookup
@@ -158,13 +162,7 @@ if admin.persisted?
   
   # Save will update password_digest if password changed
   if admin.save
-    if admin_password == 'CHANGE_ME_IN_PRODUCTION'
-      puts "Created/updated admin user with email: #{admin.email}"
-      puts "⚠️  WARNING: Using default password! Set ADMIN_PASSWORD in production!"
-      puts "   Default password is: CHANGE_ME_IN_PRODUCTION"
-    else
-      puts "Created/updated admin user with email: #{admin.email} (password set from ADMIN_PASSWORD)"
-    end
+    puts "Created/updated admin user with email: #{admin.email}"
   else
     puts "ERROR: Failed to update admin user: #{admin.errors.full_messages.join(', ')}"
   end
