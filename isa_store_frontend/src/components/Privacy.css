@@ -107,7 +107,7 @@
   text-decoration: underline;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .cookies-table thead {
     display: none;
   }

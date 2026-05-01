@@ -204,13 +204,13 @@
 }
 
 /* Show breadcrumb only on small screens */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .breadcrumb {
     display: block;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .breadcrumb-logo h1 {
     font-size: 1.2rem;
   }
