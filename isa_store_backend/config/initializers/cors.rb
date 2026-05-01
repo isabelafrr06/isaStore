@@ -1,10 +1,16 @@
+allowed_origins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  /\Ahttps:\/\/[a-zA-Z0-9-]+\.vercel\.app\z/
+]
+
+if ENV['FRONTEND_URL'].present?
+  allowed_origins << ENV['FRONTEND_URL']
+end
+
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # Allow localhost for development and your Vercel frontend for production
-    origins 'http://localhost:3000',
-            'http://localhost:5173',
-            'https://isastorecr.vercel.app'
-    
+    origins(*allowed_origins)
     resource '*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
