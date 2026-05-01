@@ -177,10 +177,10 @@
 
 .category-btn.disabled,
 .category-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
-  border-color: #666;
-  color: #999;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .category-btn.disabled:hover,
