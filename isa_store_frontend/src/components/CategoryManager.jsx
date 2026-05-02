@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './CategoryManager.css';
-import { getApiUrl } from '../config.js';
+import { getApiUrl, adminFetch } from '../config.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 function CategoryManager({ categories, onUpdate }) {
@@ -31,12 +31,11 @@ function CategoryManager({ categories, onUpdate }) {
         categoryData.position = maxPosition + 1;
       }
 
-      const response = await fetch(url, {
+      const response = await adminFetch(url, {
         method: editingCategory ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify({ category: categoryData })
       });
 
@@ -81,12 +80,11 @@ function CategoryManager({ categories, onUpdate }) {
     }
 
     try {
-      const response = await fetch(getApiUrl(`/api/admin/categories/${category.id}`), {
+      const response = await adminFetch(getApiUrl(`/api/admin/categories/${category.id}`), {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
-        },
-        credentials: 'include'
+        }
       });
 
       if (response.ok) {

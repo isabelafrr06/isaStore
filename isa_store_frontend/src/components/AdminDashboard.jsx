@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
-import { getApiUrl, getImageUrl } from '../config.js';
+import { getApiUrl, getImageUrl, adminFetch } from '../config.js';
 import CategoryManager from './CategoryManager.jsx';
 import DiscountManager from './DiscountManager.jsx';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
@@ -57,9 +57,7 @@ function AdminDashboard() {
   const fetchProducts = async () => {
     setLoadingProducts(true);
     try {
-      const response = await fetch(getApiUrl('/api/admin/products'), {
-        credentials: 'include'
-      });
+      const response = await adminFetch(getApiUrl('/api/admin/products'));
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
@@ -73,9 +71,7 @@ function AdminDashboard() {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(getApiUrl('/api/admin/categories'), {
-        credentials: 'include'
-      });
+      const response = await adminFetch(getApiUrl('/api/admin/categories'));
       if (response.ok) {
         const data = await response.json();
         setCategories(data.categories || []);
@@ -96,9 +92,8 @@ function AdminDashboard() {
         const formDataUpload = new FormData();
         formDataUpload.append('image', file);
         
-        const uploadResponse = await fetch(getApiUrl('/api/admin/upload-image'), {
+        const uploadResponse = await adminFetch(getApiUrl('/api/admin/upload-image'), {
           method: 'POST',
-          credentials: 'include',
           body: formDataUpload
         });
         
@@ -127,12 +122,11 @@ function AdminDashboard() {
       : getApiUrl('/api/admin/products');
 
     try {
-      const response = await fetch(url, {
+      const response = await adminFetch(url, {
         method: editingProduct ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify({
           product: {
             name: formData.name,
@@ -189,9 +183,8 @@ function AdminDashboard() {
     if (!window.confirm(t('confirmDeleteProduct'))) return;
 
     try {
-      const response = await fetch(getApiUrl(`/api/admin/products/${id}`), {
-        method: 'DELETE',
-        credentials: 'include'
+      const response = await adminFetch(getApiUrl(`/api/admin/products/${id}`), {
+        method: 'DELETE'
       });
       if (response.ok) {
         await fetchProducts();
@@ -210,12 +203,11 @@ function AdminDashboard() {
     setPasswordMessage('');
 
     try {
-      const response = await fetch(getApiUrl('/api/admin/change-password'), {
+      const response = await adminFetch(getApiUrl('/api/admin/change-password'), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify(passwordData)
       });
 
@@ -246,9 +238,12 @@ function AdminDashboard() {
       <div className="dashboard-header">
         <h1>{t('adminDashboard')}</h1>
         <div className="header-actions">
-          <span>{t('welcomeAdmin')}, {admin?.name}</span>
+          <span className="admin-welcome">{t('welcomeAdmin')}, {admin?.name}</span>
           <button onClick={() => setShowPasswordForm(!showPasswordForm)} className="change-password-btn">
             {t('changePassword')}
+          </button>
+          <button onClick={handleLogout} className="logout-button">
+            {t('logout')}
           </button>
         </div>
       </div>

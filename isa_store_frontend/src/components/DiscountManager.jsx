@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DiscountManager.css';
-import { getApiUrl } from '../config.js';
+import { getApiUrl, adminFetch } from '../config.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 function DiscountManager({ onUpdate }) {
@@ -21,11 +21,10 @@ function DiscountManager({ onUpdate }) {
 
   const fetchDiscountTiers = async () => {
     try {
-      const response = await fetch(getApiUrl('/api/admin/discount-tiers'), {
+      const response = await adminFetch(getApiUrl('/api/admin/discount-tiers'), {
         headers: {
           'Content-Type': 'application/json'
-        },
-        credentials: 'include'
+        }
       });
       if (response.ok) {
         const data = await response.json();
@@ -46,12 +45,11 @@ function DiscountManager({ onUpdate }) {
         ? getApiUrl(`/api/admin/discount-tiers/${editingTier.id}`)
         : getApiUrl('/api/admin/discount-tiers');
 
-      const response = await fetch(url, {
+      const response = await adminFetch(url, {
         method: editingTier ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify({ discount_tier: formData })
       });
 
@@ -90,12 +88,11 @@ function DiscountManager({ onUpdate }) {
     }
 
     try {
-      const response = await fetch(getApiUrl(`/api/admin/discount-tiers/${tier.id}`), {
+      const response = await adminFetch(getApiUrl(`/api/admin/discount-tiers/${tier.id}`), {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
-        },
-        credentials: 'include'
+        }
       });
 
       if (response.ok) {
@@ -113,12 +110,11 @@ function DiscountManager({ onUpdate }) {
 
   const toggleActive = async (tier) => {
     try {
-      const response = await fetch(getApiUrl(`/api/admin/discount-tiers/${tier.id}`), {
+      const response = await adminFetch(getApiUrl(`/api/admin/discount-tiers/${tier.id}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify({ discount_tier: { ...tier, active: !tier.active } })
       });
 

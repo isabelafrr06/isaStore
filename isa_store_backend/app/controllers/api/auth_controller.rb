@@ -26,7 +26,8 @@ class Api::AuthController < ApplicationController
           id: admin.id,
           name: admin.name,
           email: admin.email
-        }
+        },
+        token: token
       }
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized

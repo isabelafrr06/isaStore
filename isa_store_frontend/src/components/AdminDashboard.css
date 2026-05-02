@@ -8,6 +8,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 30px;
   background: white;
   padding: 20px;
@@ -23,7 +25,31 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-welcome {
+  white-space: nowrap;
+}
+
+/* Navbar is visible above 1024px */
+@media (min-width: 1025px) {
+  .logout-button {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-welcome {
+    display: none;
+  }
+
+  .change-password-btn,
+  .logout-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
 }
 
 .change-password-btn {

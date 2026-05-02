@@ -3,6 +3,18 @@
 // In production, use full backend URL from environment variable
 const API_BASE_URL = import.meta.env.VITE_API_URL || ''
 
+const TOKEN_KEY = 'isastore_admin_token'
+export const getAdminToken = () => sessionStorage.getItem(TOKEN_KEY)
+export const setAdminToken = (token) => sessionStorage.setItem(TOKEN_KEY, token)
+export const clearAdminToken = () => sessionStorage.removeItem(TOKEN_KEY)
+
+export const adminFetch = (url, options = {}) => {
+  const token = getAdminToken()
+  const headers = { ...(options.headers || {}) }
+  if (token) headers['Authorization'] = `Bearer ${token}`
+  return fetch(url, { ...options, headers, credentials: 'include' })
+}
+
 export const getApiUrl = (path) => {
   // If VITE_API_URL is set, use it (production)
   // Otherwise, use relative path (development with proxy)

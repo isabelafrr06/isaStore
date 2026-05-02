@@ -2,7 +2,13 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
 
   def authenticate_admin
-    admin_token = cookies[:admin_token]
+    auth_header = request.headers['Authorization']
+    admin_token = if auth_header&.start_with?('Bearer ')
+      auth_header.split(' ', 2).last
+    else
+      cookies[:admin_token]
+    end
+
     unless admin_token
       render json: { error: 'Missing token' }, status: :unauthorized
       return
