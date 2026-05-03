@@ -74,8 +74,8 @@ function Header() {
           )}
           {admin && (
             <>
-              <Link 
-                to="/admin" 
+              <Link
+                to="/admin"
                 className={`nav-link ${isActive('/admin') ? 'active' : ''}`}
               >
                 {t('adminPanel')}

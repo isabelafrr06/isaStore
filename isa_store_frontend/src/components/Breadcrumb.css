@@ -108,13 +108,14 @@
   box-shadow: 0 3px 8px rgba(61, 219, 200, 0.3);
 }
 
+
 .menu-toggle {
   background: rgba(102, 126, 234, 0.1);
   color: #667eea;
   border: 1.5px solid rgba(102, 126, 234, 0.3);
   cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 6px;
   transition: all 0.2s ease;
   line-height: 1;
@@ -181,13 +182,6 @@
   color: #667eea;
 }
 
-.mobile-menu-link.logout-btn {
-  color: #dc3545;
-}
-
-.mobile-menu-link.logout-btn:hover {
-  color: #c82333;
-}
 
 .menu-cart-badge {
   background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
@@ -223,5 +217,11 @@
   .menu-toggle {
     padding: 0.3rem 0.55rem;
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .breadcrumb-item:not(:last-child) {
+    display: none;
   }
 }

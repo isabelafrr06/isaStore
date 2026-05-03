@@ -156,7 +156,7 @@ function Breadcrumb() {
                 <Link to="/admin" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
                   {t('adminPanel')}
                 </Link>
-                <button onClick={() => { logout(); setIsMenuOpen(false); }} className="mobile-menu-link logout-btn">
+                <button onClick={() => { logout(); setIsMenuOpen(false); }} className="mobile-menu-link">
                   {t('logout')}
                 </button>
               </>

@@ -8,7 +8,7 @@ import { useAdmin } from '../contexts/AdminContext.jsx';
 
 function AdminDashboard() {
   const { t } = useLanguage();
-  const { admin, logout } = useAdmin();
+  const { admin } = useAdmin();
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [categories, setCategories] = useState([]);
@@ -194,11 +194,7 @@ function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-  };
-
-  const handlePasswordChange = async (e) => {
+const handlePasswordChange = async (e) => {
     e.preventDefault();
     setPasswordMessage('');
 
@@ -241,9 +237,6 @@ function AdminDashboard() {
           <span className="admin-welcome">{t('welcomeAdmin')}, {admin?.name}</span>
           <button onClick={() => setShowPasswordForm(!showPasswordForm)} className="change-password-btn">
             {t('changePassword')}
-          </button>
-          <button onClick={handleLogout} className="logout-button">
-            {t('logout')}
           </button>
         </div>
       </div>
