@@ -345,6 +345,11 @@ const translations = {
     passwordChangedSuccess: 'Contraseña cambiada exitosamente',
     errorChangingPassword: 'Error al cambiar la contraseña',
     confirmDeleteProduct: '¿Estás seguro de que deseas eliminar este producto?',
+    productCreated: 'Producto creado exitosamente',
+    productUpdated: 'Producto actualizado exitosamente',
+    productDeleted: 'Producto eliminado exitosamente',
+    errorSavingProduct: 'Error al guardar el producto',
+    errorDeletingProduct: 'Error al eliminar el producto',
 
     // Category Manager
     categoryManagement: 'Gestión de Categorías',
@@ -709,6 +714,11 @@ const translations = {
     passwordChangedSuccess: 'Password changed successfully',
     errorChangingPassword: 'Error changing password',
     confirmDeleteProduct: 'Are you sure you want to delete this product?',
+    productCreated: 'Product created successfully',
+    productUpdated: 'Product updated successfully',
+    productDeleted: 'Product deleted successfully',
+    errorSavingProduct: 'Error saving product',
+    errorDeletingProduct: 'Error deleting product',
 
     // Category Manager
     categoryManagement: 'Category Management',

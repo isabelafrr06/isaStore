@@ -1,7 +1,7 @@
 class Api::ImageUploadController < ApplicationController
   before_action :authenticate_admin
 
-  ALLOWED_MIME_TYPES = %w[image/jpeg image/png image/webp image/gif].freeze
+  ALLOWED_MIME_TYPES = %w[image/jpeg image/png image/webp image/gif image/avif].freeze
   MAX_FILE_SIZE = 5.megabytes
 
   def upload
@@ -13,7 +13,7 @@ class Api::ImageUploadController < ApplicationController
     uploaded_file = params[:image]
 
     unless ALLOWED_MIME_TYPES.include?(uploaded_file.content_type)
-      render json: { error: 'Invalid file type. Allowed types: JPEG, PNG, WebP, GIF' }, status: :bad_request
+      render json: { error: 'Invalid file type. Allowed types: JPEG, PNG, WebP, GIF, AVIF' }, status: :bad_request
       return
     end
 

@@ -12,6 +12,7 @@ function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [categories, setCategories] = useState([]);
+  const [toast, setToast] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [showCategoryManager, setShowCategoryManager] = useState(false);
@@ -36,6 +37,11 @@ function AdminDashboard() {
     new_password_confirmation: ''
   });
   const [passwordMessage, setPasswordMessage] = useState('');
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -149,9 +155,13 @@ function AdminDashboard() {
         setEditingProduct(null);
         setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5', hide_when_out_of_stock: false });
         setImageFiles([]);
+        showToast(editingProduct ? t('productUpdated') : t('productCreated'));
+      } else {
+        showToast(t('errorSavingProduct'), 'error');
       }
     } catch (err) {
       console.error('Error saving product:', err);
+      showToast(t('errorSavingProduct'), 'error');
     }
   };
 
@@ -188,9 +198,13 @@ function AdminDashboard() {
       });
       if (response.ok) {
         await fetchProducts();
+        showToast(t('productDeleted'));
+      } else {
+        showToast(t('errorDeletingProduct'), 'error');
       }
     } catch (err) {
       console.error('Error deleting product:', err);
+      showToast(t('errorDeletingProduct'), 'error');
     }
   };
 
@@ -231,6 +245,11 @@ const handlePasswordChange = async (e) => {
 
   return (
     <div className="admin-dashboard">
+      {toast && (
+        <div className={`admin-toast admin-toast--${toast.type}`}>
+          {toast.message}
+        </div>
+      )}
       <div className="dashboard-header">
         <h1>{t('adminDashboard')}</h1>
         <div className="header-actions">
@@ -403,7 +422,7 @@ const handlePasswordChange = async (e) => {
               <label>{t('images')}</label>
               <input
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
                 multiple
                 onChange={(e) => setImageFiles(Array.from(e.target.files))}
                 className="file-input"
@@ -478,7 +497,12 @@ const handlePasswordChange = async (e) => {
           <div className="products-grid">
             {products.map(product => (
               <div key={product.id} className="product-card-admin">
-                <img src={getImageUrl(product.image)} alt={product.name} />
+                <div className="product-image-wrapper">
+                  <img src={getImageUrl(product.image)} alt={product.name} />
+                  {product.images?.length > 1 && (
+                    <span className="image-count-badge">⧉ {product.images.length}</span>
+                  )}
+                </div>
                 <h3>{product.name}</h3>
                 <p className="price">₡{parseInt(product.price) || product.price}</p>
                 <p className="stock">Stock: {product.stock}</p>

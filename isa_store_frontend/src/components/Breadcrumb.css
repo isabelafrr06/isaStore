@@ -149,7 +149,8 @@
 .mobile-menu-content {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 1rem 1rem;
+  padding: 0.75rem;
+  gap: 0.25rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -158,27 +159,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #333;
+  color: #444;
   text-decoration: none;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: none;
   font-weight: 500;
   font-size: 1rem;
-  transition: color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   background: none;
-  border-left: none;
-  border-right: none;
-  border-top: none;
   cursor: pointer;
   text-align: left;
   width: 100%;
 }
 
-.mobile-menu-link:last-child {
-  border-bottom: none;
-}
-
 .mobile-menu-link:hover {
+  background: rgba(102, 126, 234, 0.08);
   color: #667eea;
 }
 
