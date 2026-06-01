@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import './FAQ.css'
 
 function FAQ() {

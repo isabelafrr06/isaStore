@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './DiscountManager.css';
 import { getApiUrl, adminFetch } from '../config.js';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
+import { useLanguage } from '../contexts/useLanguage.js';
 
 function DiscountManager({ onUpdate }) {
   const { t } = useLanguage();

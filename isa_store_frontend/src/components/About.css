@@ -1,73 +1,140 @@
 .about {
   min-height: 100vh;
-  padding: 2rem 0;
+  padding: 2rem 0 3rem;
 }
 
 .about-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
+}
+
+.about-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
 }
 
 .about-title {
-  text-align: center;
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 2.5rem;
+  font-size: 2.6rem;
+  font-weight: 800;
   color: white;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
+
 
 .about-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 .about-section {
   background: white;
   padding: 2rem 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
 }
 
-.about-section h2 {
+.about-section-title {
   color: #667eea;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid rgba(102, 126, 234, 0.12);
+  margin: 0 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.about-section-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 1.3em;
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+  border-radius: 2px;
+  flex-shrink: 0;
 }
 
 .about-section > p {
   color: #555;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 0;
 }
 
-/* Categories */
+.about-services-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.about-services-section .about-section-title {
+  color: white;
+}
+
+.about-services-section .about-section-title::before {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.about-services-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.about-services-body p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.about-services-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.7rem 1.5rem;
+  background: white;
+  color: #667eea;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-services-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.75rem;
-  margin-top: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.25rem;
 }
 
 .category-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.65rem 1rem;
-  background: #f5f6ff;
+  padding: 0.6rem 1rem;
+  background: #f8f8ff;
   border-radius: 25px;
-  border: 2px solid rgba(102, 126, 234, 0.15);
+  border: 1.5px solid rgba(102, 126, 234, 0.2);
   text-decoration: none;
   color: #667eea;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 600;
   text-align: center;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
 
 .category-card:hover {
@@ -78,59 +145,62 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
 }
 
-/* Benefits */
 .benefits-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.25rem;
-  margin-top: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 0.25rem;
 }
 
 .benefit-card {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 1.75rem 1.25rem;
+  padding: 1.5rem 1.25rem;
   border-radius: 14px;
-  text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .benefit-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
 }
 
 .benefit-card h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .benefit-card p {
   color: rgba(255, 255, 255, 0.85);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
 }
 
-/* Contact */
+.about-contact-intro {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 0 0 1rem;
+}
+
 .contact-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  margin: 1.25rem 0;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid #eee;
+  border: 1px solid rgba(102, 126, 234, 0.12);
+  margin-bottom: 1.25rem;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.9rem 1.25rem;
+  padding: 0.85rem 1.25rem;
   background: white;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.07);
   transition: background 0.2s ease;
 }
 
@@ -139,21 +209,23 @@
 }
 
 .contact-item:hover {
-  background: #f8f9ff;
+  background: #f8f8ff;
 }
 
 .contact-label {
-  color: #667eea;
-  font-weight: 600;
-  font-size: 0.9rem;
-  min-width: 70px;
+  color: #3DBCDB;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-width: 72px;
   flex-shrink: 0;
 }
 
 .contact-item a {
   color: #444;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   transition: color 0.2s ease;
 }
 
@@ -161,25 +233,23 @@
   color: #667eea;
 }
 
-/* Map buttons */
 .about-map-buttons {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
-  margin-top: 1.25rem;
 }
 
 .about-map-button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.25rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.25s;
+  font-size: 0.875rem;
   color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .about-map-button.google-maps-btn {
@@ -209,18 +279,19 @@
     padding: 1.5rem;
   }
 
-  .categories-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .about-services-section {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .benefits-grid {
+  .categories-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .contact-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25rem;
+    gap: 0.2rem;
   }
 
   .about-map-buttons {
@@ -234,7 +305,7 @@
   }
 
   .about-title {
-    font-size: 1.6rem;
+    font-size: 1.75rem;
   }
 
   .about-section {
@@ -243,10 +314,5 @@
 
   .benefits-grid {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .benefit-card {
-    padding: 1.25rem 1rem;
   }
 }

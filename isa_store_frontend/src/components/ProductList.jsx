@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { useCategories } from '../contexts/CategoriesContext.jsx'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
@@ -173,6 +173,15 @@ function ProductList() {
 
   return (
     <div className="product-list">
+      <div className="services-promo-banner">
+        <div className="services-promo-content">
+          <h3>{t('servicesPromoTitle')}</h3>
+          <p>{t('servicesPromoText')}</p>
+        </div>
+        <Link to="/services" className="services-promo-btn">
+          {t('servicesPromoCta')}
+        </Link>
+      </div>
       <h2 className="page-title">{t('ourProducts')}</h2>
 
       <div className="filters-container">

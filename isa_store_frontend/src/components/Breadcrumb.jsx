@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { useAdmin } from '../contexts/AdminContext.jsx'
 import { getCartCount } from '../services/cartService.js'
 import './Breadcrumb.css'
@@ -44,6 +44,9 @@ function Breadcrumb() {
       switch (segment) {
         case 'about':
           name = t('about')
+          break
+        case 'services':
+          name = t('services')
           break
         case 'cart':
           name = t('cart')
@@ -143,6 +146,9 @@ function Breadcrumb() {
             </Link>
             <Link to="/about" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
               {t('about')}
+            </Link>
+            <Link to="/services" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
+              {t('services')}
             </Link>
             <Link to="/cart" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
               <span>{t('cart')}</span>

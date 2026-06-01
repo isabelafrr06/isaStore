@@ -3,7 +3,7 @@ import './AdminDashboard.css';
 import { getApiUrl, getImageUrl, adminFetch } from '../config.js';
 import CategoryManager from './CategoryManager.jsx';
 import DiscountManager from './DiscountManager.jsx';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
+import { useLanguage } from '../contexts/useLanguage.js';
 import { useAdmin } from '../contexts/AdminContext.jsx';
 
 function AdminDashboard() {

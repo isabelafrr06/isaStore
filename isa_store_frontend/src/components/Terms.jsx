@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import './Terms.css'
 
 function Terms() {

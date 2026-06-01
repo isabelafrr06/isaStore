@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import './Orders.css'

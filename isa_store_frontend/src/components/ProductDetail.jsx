@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { getApiUrl, getImageUrl } from '../config.js'
 import { addToCart as addToCartService } from '../services/cartService.js'
 import { formatPrice } from '../utils/formatPrice.js'

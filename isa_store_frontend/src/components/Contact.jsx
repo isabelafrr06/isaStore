@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { getGoogleMapsUrl, getWazeUrl } from '../config.js'
 import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
 import WazeIcon from './icons/WazeIcon.jsx'

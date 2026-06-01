@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { getGoogleMapsUrl, getWazeUrl } from '../config.js'
 import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
 import WazeIcon from './icons/WazeIcon.jsx'
@@ -42,6 +42,7 @@ function Footer() {
             <ul className="footer-links">
               <li><Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('home')}</Link></li>
               <li><Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('about')}</Link></li>
+              <li><Link to="/services" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('services')}</Link></li>
               <li><Link to="/cart" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('cart')}</Link></li>
               <li><Link to="/admin/login" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>{t('adminLogin')}</Link></li>
             </ul>

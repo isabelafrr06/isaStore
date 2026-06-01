@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import './FloatingWhatsApp.css'
 
 function FloatingWhatsApp() {

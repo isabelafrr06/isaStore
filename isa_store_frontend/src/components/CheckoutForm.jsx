@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { getApiUrl } from '../config.js'
 import { formatPrice } from '../utils/formatPrice.js'
 import { calculateShipping, calculateTotalWeight } from '../utils/shippingCalculation.js'

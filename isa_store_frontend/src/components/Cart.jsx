@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { getImageUrl } from '../config.js'
 import { getCart, removeFromCart as removeFromCartService, updateQuantity as updateQuantityService, clearCart as clearCartService } from '../services/cartService.js'
 import { formatPrice } from '../utils/formatPrice.js'

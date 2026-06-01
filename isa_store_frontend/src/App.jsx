@@ -10,6 +10,7 @@ import ProductList from './components/ProductList'
 import ProductDetail from './components/ProductDetail'
 import Cart from './components/Cart'
 import About from './components/About'
+import Services from './components/Services'
 import Contact from './components/Contact'
 import Shipping from './components/Shipping'
 import Returns from './components/Returns'
@@ -49,6 +50,7 @@ function AppRoutes() {
                 element={admin ? <Orders /> : <Navigate to="/" replace />}
               />
               <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/shipping" element={<Shipping />} />
               <Route path="/returns" element={<Returns />} />

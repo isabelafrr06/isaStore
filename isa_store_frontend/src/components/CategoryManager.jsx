@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CategoryManager.css';
 import { getApiUrl, adminFetch } from '../config.js';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
+import { useLanguage } from '../contexts/useLanguage.js';
 
 function CategoryManager({ categories, onUpdate }) {
   const { t } = useLanguage();

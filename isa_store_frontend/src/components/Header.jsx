@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useLanguage } from '../contexts/LanguageContext.jsx'
+import { useLanguage } from '../contexts/useLanguage.js'
 import { useAdmin } from '../contexts/AdminContext.jsx'
 import { getCartCount } from '../services/cartService.js'
 import './Header.css'
@@ -57,6 +57,12 @@ function Header() {
             className={`nav-link ${isActive('/about') ? 'active' : ''}`}
           >
             {t('about')}
+          </Link>
+          <Link 
+            to="/services" 
+            className={`nav-link ${isActive('/services') ? 'active' : ''}`}
+          >
+            {t('services')}
           </Link>
           <Link 
             to="/cart" 
