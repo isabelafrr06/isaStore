@@ -24,7 +24,7 @@
 }
 
 .logo h1 {
-  color: #667eea;
+  color: var(--clr-primary);
   font-size: 2rem;
   font-weight: 700;
 }
@@ -50,25 +50,25 @@
 }
 
 .nav-link:hover {
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
+  color: var(--clr-primary);
+  background: rgba(var(--clr-primary-rgb), 0.1);
 }
 
 .nav-link.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
   color: white !important;
   border-radius: 8px;
   transition: all 0.3s;
 }
 
 .nav-link.active:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: linear-gradient(135deg, var(--clr-secondary) 0%, var(--clr-primary) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 8px rgba(var(--clr-primary-rgb), 0.3);
 }
 
 .logout-btn {
-  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
+  background: linear-gradient(135deg, var(--clr-teal) 0%, var(--clr-teal-dark) 100%);
   color: white !important;
   border: none;
   cursor: pointer;
@@ -80,13 +80,13 @@
 }
 
 .logout-btn:hover {
-  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  background: linear-gradient(135deg, var(--clr-teal-dark) 0%, var(--clr-teal) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
+  box-shadow: 0 4px 8px rgba(var(--clr-teal-rgb), 0.3);
 }
 
 .language-btn {
-  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
+  background: linear-gradient(135deg, var(--clr-teal) 0%, var(--clr-teal-dark) 100%);
   color: white !important;
   border: none;
   cursor: pointer;
@@ -98,8 +98,8 @@
 }
 
 .language-btn:hover {
-  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  background: linear-gradient(135deg, var(--clr-teal-dark) 0%, var(--clr-teal) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
+  box-shadow: 0 4px 8px rgba(var(--clr-teal-rgb), 0.3);
 }
 

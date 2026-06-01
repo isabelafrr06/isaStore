@@ -50,7 +50,7 @@
   content: "✓";
   position: absolute;
   left: 0;
-  color: #667eea;
+  color: var(--clr-primary);
   font-weight: bold;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .time-card h3 {
-  color: #667eea;
+  color: var(--clr-primary);
   margin-bottom: 1rem;
   font-size: 1.3rem;
 }

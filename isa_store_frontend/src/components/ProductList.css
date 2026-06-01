@@ -11,7 +11,7 @@
   max-width: 1100px;
   margin: 0 auto 2rem;
   padding: 1.25rem 1.5rem;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(var(--clr-primary-rgb), 0.95) 0%, rgba(var(--clr-secondary-rgb), 0.95) 100%);
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
@@ -35,7 +35,7 @@
   flex-shrink: 0;
   padding: 0.65rem 1.25rem;
   background: white;
-  color: #667eea;
+  color: var(--clr-primary);
   font-weight: 600;
   border-radius: 8px;
   text-decoration: none;
@@ -171,7 +171,7 @@
 
 .filter-select {
   padding: 0.5rem 1rem;
-  border: 2px solid #3DDBC8;
+  border: 2px solid var(--clr-teal);
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border-radius: 8px;
@@ -183,13 +183,13 @@
 
 .filter-select:hover {
   background: rgba(255, 255, 255, 0.15);
-  border-color: #3DBCDB;
+  border-color: var(--clr-teal-dark);
 }
 
 .filter-select:focus {
   outline: none;
-  border-color: #3DDBC8;
-  box-shadow: 0 0 0 3px rgba(61, 219, 200, 0.2);
+  border-color: var(--clr-teal);
+  box-shadow: 0 0 0 3px rgba(var(--clr-teal-rgb), 0.2);
 }
 
 .filter-select option {
@@ -199,7 +199,7 @@
 
 .category-btn {
   padding: 0.75rem 1.5rem;
-  border: 2px solid #3DDBC8;
+  border: 2px solid var(--clr-teal);
   background: transparent;
   color: white;
   border-radius: 25px;
@@ -210,14 +210,14 @@
 }
 
 .category-btn:hover {
-  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  background: linear-gradient(135deg, var(--clr-teal-dark) 0%, var(--clr-teal) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
+  box-shadow: 0 4px 8px rgba(var(--clr-teal-rgb), 0.3);
 }
 
 .category-btn.active {
-  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
-  box-shadow: 0 4px 12px rgba(61, 219, 200, 0.4);
+  background: linear-gradient(135deg, var(--clr-teal-dark) 0%, var(--clr-teal) 100%);
+  box-shadow: 0 4px 12px rgba(var(--clr-teal-rgb), 0.4);
 }
 
 .category-btn.disabled,
@@ -289,13 +289,13 @@
 
 .product-card-link:hover .product-card {
   transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(102, 126, 234, 0.3);
-  border-color: rgba(61, 219, 200, 0.6);
+  box-shadow: 0 16px 32px rgba(var(--clr-primary-rgb), 0.3);
+  border-color: rgba(var(--clr-teal-rgb), 0.6);
 }
 
 .product-card-link:active .product-card {
   transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 8px 16px rgba(var(--clr-primary-rgb), 0.2);
 }
 
 .product-card::before {
@@ -305,7 +305,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(61, 219, 200, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(var(--clr-primary-rgb), 0.05) 0%, rgba(var(--clr-teal-rgb), 0.05) 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -335,7 +335,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  background: rgba(102, 126, 234, 0.9);
+  background: rgba(var(--clr-primary-rgb), 0.9);
   border-radius: 50%;
   width: 64px;
   height: 64px;
@@ -426,13 +426,13 @@
 .product-price {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #667eea;
+  color: var(--clr-primary);
   line-height: 1.2;
   white-space: nowrap;
 }
 
 .product-price.original {
-  color: #667eea;
+  color: var(--clr-primary);
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
@@ -493,7 +493,7 @@
 }
 
 .view-btn {
-  background: linear-gradient(135deg, #3DDBC8 0%, #3DBCDB 100%);
+  background: linear-gradient(135deg, var(--clr-teal) 0%, var(--clr-teal-dark) 100%);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -504,8 +504,8 @@
 }
 
 .product-card-link:hover .view-btn {
-  background: linear-gradient(135deg, #3DBCDB 0%, #3DDBC8 100%);
+  background: linear-gradient(135deg, var(--clr-teal-dark) 0%, var(--clr-teal) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(61, 219, 200, 0.3);
+  box-shadow: 0 4px 8px rgba(var(--clr-teal-rgb), 0.3);
 }
 

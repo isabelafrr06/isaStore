@@ -58,14 +58,14 @@
   content: "•";
   position: absolute;
   left: 0;
-  color: #667eea;
+  color: var(--clr-primary);
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .terms-section a {
-  color: #667eea;
+  color: var(--clr-primary);
   text-decoration: none;
 }
 

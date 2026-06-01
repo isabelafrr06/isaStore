@@ -38,7 +38,7 @@
 }
 
 .about-section-title {
-  color: #667eea;
+  color: var(--clr-primary);
   font-size: 1.35rem;
   font-weight: 700;
   margin: 0 0 1.25rem;
@@ -52,7 +52,7 @@
   display: block;
   width: 4px;
   height: 1.3em;
-  background: linear-gradient(to bottom, #667eea, #764ba2);
+  background: linear-gradient(to bottom, var(--clr-primary), var(--clr-secondary));
   border-radius: 2px;
   flex-shrink: 0;
 }
@@ -65,7 +65,7 @@
 }
 
 .about-services-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -99,7 +99,7 @@
   gap: 0.35rem;
   padding: 0.7rem 1.5rem;
   background: white;
-  color: #667eea;
+  color: var(--clr-primary);
   border-radius: 9px;
   font-weight: 700;
   font-size: 0.9rem;
@@ -126,11 +126,11 @@
   align-items: center;
   justify-content: center;
   padding: 0.6rem 1rem;
-  background: #f8f8ff;
+  background: var(--clr-surface);
   border-radius: 25px;
-  border: 1.5px solid rgba(102, 126, 234, 0.2);
+  border: 1.5px solid rgba(var(--clr-primary-rgb), 0.2);
   text-decoration: none;
-  color: #667eea;
+  color: var(--clr-primary);
   font-size: 0.875rem;
   font-weight: 600;
   text-align: center;
@@ -138,11 +138,11 @@
 }
 
 .category-card:hover {
-  background: #667eea;
+  background: var(--clr-primary);
   color: white;
-  border-color: #667eea;
+  border-color: var(--clr-primary);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+  box-shadow: 0 4px 12px rgba(var(--clr-primary-rgb), 0.25);
 }
 
 .benefits-grid {
@@ -153,7 +153,7 @@
 }
 
 .benefit-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
   color: white;
   padding: 1.5rem 1.25rem;
   border-radius: 14px;
@@ -162,7 +162,7 @@
 
 .benefit-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 24px rgba(var(--clr-primary-rgb), 0.3);
 }
 
 .benefit-card h3 {
@@ -190,7 +190,7 @@
   flex-direction: column;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(102, 126, 234, 0.12);
+  border: 1px solid rgba(var(--clr-primary-rgb), 0.12);
   margin-bottom: 1.25rem;
 }
 
@@ -200,7 +200,7 @@
   gap: 1rem;
   padding: 0.85rem 1.25rem;
   background: white;
-  border-bottom: 1px solid rgba(102, 126, 234, 0.07);
+  border-bottom: 1px solid rgba(var(--clr-primary-rgb), 0.07);
   transition: background 0.2s ease;
 }
 
@@ -209,11 +209,11 @@
 }
 
 .contact-item:hover {
-  background: #f8f8ff;
+  background: var(--clr-surface);
 }
 
 .contact-label {
-  color: #3DBCDB;
+  color: var(--clr-teal-dark);
   font-weight: 700;
   font-size: 0.78rem;
   text-transform: uppercase;
@@ -230,7 +230,7 @@
 }
 
 .contact-item a:hover {
-  color: #667eea;
+  color: var(--clr-primary);
 }
 
 .about-map-buttons {
