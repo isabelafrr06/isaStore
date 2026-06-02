@@ -33,6 +33,13 @@ function AppRoutes() {
 
   return (
     <div className="App">
+      <div className="bg-shapes" aria-hidden="true">
+        <div className="bg-shape bg-shape-1" />
+        <div className="bg-shape bg-shape-2" />
+        <div className="bg-shape bg-shape-3" />
+        <div className="bg-shape bg-shape-4" />
+        <div className="bg-shape bg-shape-5" />
+      </div>
       <Header />
       <Breadcrumb />
       <main className="main-content">

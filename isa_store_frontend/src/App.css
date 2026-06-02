@@ -4,6 +4,107 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  isolation: isolate; /* stacking context: keeps bg-shapes behind all content */
+}
+
+/* ── Animated background shapes ───────────────────────────── */
+
+.bg-shapes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* Large teal blob — top-left, clearly visible against purple */
+.bg-shape-1 {
+  width: 700px;
+  height: 700px;
+  background: rgba(0, 220, 195, 0.72);
+  filter: blur(45px);
+  top: -200px;
+  left: -180px;
+  animation: bgFloat1 9s ease-in-out infinite alternate;
+}
+
+/* Deep violet — bottom-right, darker than the light gradient */
+.bg-shape-2 {
+  width: 580px;
+  height: 580px;
+  background: rgba(120, 40, 200, 0.68);
+  filter: blur(50px);
+  bottom: -180px;
+  right: -150px;
+  animation: bgFloat2 11s ease-in-out infinite alternate;
+}
+
+/* Hot pink/magenta — center-right, warm contrast against cool bg */
+.bg-shape-3 {
+  width: 450px;
+  height: 450px;
+  background: rgba(240, 60, 190, 0.62);
+  filter: blur(40px);
+  top: 30%;
+  left: 50%;
+  animation: bgFloat3 8s ease-in-out infinite alternate;
+}
+
+/* Cyan — top-right */
+.bg-shape-4 {
+  width: 360px;
+  height: 360px;
+  background: rgba(0, 195, 255, 0.65);
+  filter: blur(38px);
+  top: 5%;
+  right: 2%;
+  animation: bgFloat4 10s ease-in-out infinite alternate;
+}
+
+/* Deep blue — bottom-left */
+.bg-shape-5 {
+  width: 420px;
+  height: 420px;
+  background: rgba(70, 90, 240, 0.6);
+  filter: blur(44px);
+  bottom: 10%;
+  left: 0%;
+  animation: bgFloat5 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgFloat1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(160px, 200px) scale(1.1); }
+}
+
+@keyframes bgFloat2 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-180px, -150px) scale(0.9); }
+}
+
+@keyframes bgFloat3 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-140px, 160px) scale(1.15); }
+}
+
+@keyframes bgFloat4 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-120px, 180px); }
+}
+
+@keyframes bgFloat5 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(150px, -130px) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-shape { animation: none; }
 }
 
 .main-content {
