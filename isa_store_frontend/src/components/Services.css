@@ -215,6 +215,14 @@
   white-space: nowrap;
 }
 
+.pricing-usd {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: #999;
+  margin-top: 0.15rem;
+}
+
 .pricing-row-featured {
   background: linear-gradient(90deg, rgba(var(--clr-primary-rgb), 0.05), rgba(var(--clr-secondary-rgb), 0.05));
 }
@@ -347,13 +355,25 @@
 }
 
 .services-btn-whatsapp {
-  background: white;
-  color: #25d366;
+  background: #25d366;
+  color: white;
 }
 
 .services-btn-whatsapp:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.services-btn-portfolio {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.services-btn-portfolio:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
