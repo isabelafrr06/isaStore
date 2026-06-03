@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/useLanguage.js'
 import { useCategories } from '../contexts/CategoriesContext.jsx'
@@ -6,6 +6,23 @@ import { getGoogleMapsUrl, getWazeUrl } from '../config.js'
 import GoogleMapsIcon from './icons/GoogleMapsIcon.jsx'
 import WazeIcon from './icons/WazeIcon.jsx'
 import './About.css'
+
+function AccordionSection({ title, icon, children, extra = '', isOpen, onToggle }) {
+  return (
+    <div className={`svc-acc${isOpen ? ' open' : ''}${extra ? ' ' + extra : ''}`}>
+      <button className="svc-acc-head" onClick={onToggle}>
+        {icon && <span className="svc-acc-icon">{icon}</span>}
+        <span className="svc-acc-title">{title}</span>
+        <span className="svc-acc-chevron">›</span>
+      </button>
+      <div className="svc-acc-body">
+        <div className="svc-acc-inner">
+          <div className="svc-acc-content">{children}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const BENEFITS = [
   { key: 'fastShipping',      textKey: 'fastShippingText' },
@@ -17,6 +34,13 @@ const BENEFITS = [
 function About() {
   const { t, language } = useLanguage()
   const categories = useCategories()
+  const [openSections, setOpenSections] = useState(new Set())
+
+  const toggle = (id) => setOpenSections(prev => {
+    const next = new Set(prev)
+    next.has(id) ? next.delete(id) : next.add(id)
+    return next
+  })
 
   const address = t('storeAddress')
   const googleMapsUrl = getGoogleMapsUrl(address)
@@ -32,24 +56,14 @@ function About() {
 
         <div className="about-content">
 
-          <div className="about-section">
-            <h2 className="about-section-title">{t('ourMission')}</h2>
+          <AccordionSection title={t('ourMission')} icon="🎯"
+            isOpen={openSections.has('mission')} onToggle={() => toggle('mission')}>
             <p>{t('ourMissionText')}</p>
-          </div>
+          </AccordionSection>
 
-          <div className="about-section about-services-section">
-            <div className="about-services-body">
-              <h2 className="about-section-title">{t('services')}</h2>
-              <p>{t('aboutServicesText')}</p>
-            </div>
-            <Link to="/services" className="about-services-link">
-              {t('servicesPromoCta')} →
-            </Link>
-          </div>
-
-          <div className="about-section">
-            <h2 className="about-section-title">{t('whatWeOffer')}</h2>
-            {categories.length > 0 ? (
+          <AccordionSection title={t('whatWeOffer')} icon="🛍️"
+            isOpen={openSections.has('offer')} onToggle={() => toggle('offer')}>
+            {categories.length > 0 && (
               <div className="categories-grid">
                 {categories.map((category) => (
                   <Link
@@ -61,13 +75,17 @@ function About() {
                   </Link>
                 ))}
               </div>
-            ) : (
-              <p>{t('noCategories')}</p>
             )}
-          </div>
+            <div className="about-services-promo">
+              <p>{t('aboutServicesText')}</p>
+              <Link to="/services" className="about-services-link">
+                {t('servicesPromoCta')} →
+              </Link>
+            </div>
+          </AccordionSection>
 
-          <div className="about-section">
-            <h2 className="about-section-title">{t('whyChooseUs')}</h2>
+          <AccordionSection title={t('whyChooseUs')} icon="⭐"
+            isOpen={openSections.has('why')} onToggle={() => toggle('why')}>
             <div className="benefits-grid">
               {BENEFITS.map(({ key, textKey }) => (
                 <div key={key} className="benefit-card">
@@ -76,10 +94,10 @@ function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </AccordionSection>
 
-          <div className="about-section">
-            <h2 className="about-section-title">{t('contactUs')}</h2>
+          <AccordionSection title={t('contactUs')} icon="📞"
+            isOpen={openSections.has('contact')} onToggle={() => toggle('contact')}>
             <p className="about-contact-intro">{t('contactUsText')}</p>
             <div className="contact-list">
               <div className="contact-item">
@@ -105,7 +123,7 @@ function About() {
                 <span>{t('openInWaze')}</span>
               </a>
             </div>
-          </div>
+          </AccordionSection>
 
         </div>
       </div>
