@@ -3,6 +3,7 @@ import './AdminDashboard.css';
 import { getApiUrl, getImageUrl, adminFetch } from '../config.js';
 import CategoryManager from './CategoryManager.jsx';
 import DiscountManager from './DiscountManager.jsx';
+import ServicePricingManager from './ServicePricingManager.jsx';
 import { useLanguage } from '../contexts/useLanguage.js';
 import { useAdmin } from '../contexts/AdminContext.jsx';
 
@@ -17,6 +18,7 @@ function AdminDashboard() {
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [showCategoryManager, setShowCategoryManager] = useState(false);
   const [showDiscountManager, setShowDiscountManager] = useState(false);
+  const [showServicePricingManager, setShowServicePricingManager] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -329,25 +331,28 @@ const handlePasswordChange = async (e) => {
         <button onClick={() => setShowDiscountManager(!showDiscountManager)} className="manage-discounts-button">
           {showDiscountManager ? t('hideDiscounts') : t('manageDiscounts')}
         </button>
+        <button onClick={() => setShowServicePricingManager(!showServicePricingManager)} className="manage-discounts-button">
+          {showServicePricingManager ? 'Hide Service Pricing' : 'Service Pricing'}
+        </button>
       </div>
 
       {showCategoryManager && (
-        <CategoryManager 
-          categories={categories} 
+        <CategoryManager
+          categories={categories}
           onUpdate={() => {
             fetchCategories();
-            fetchProducts(); // Refresh products in case category names changed
-          }} 
+            fetchProducts();
+          }}
         />
       )}
 
       {showDiscountManager && (
-        <DiscountManager 
-          onUpdate={() => {
-            // Refresh discount tiers if needed
-          }} 
+        <DiscountManager
+          onUpdate={() => {}}
         />
       )}
+
+      {showServicePricingManager && <ServicePricingManager />}
 
       {showForm && (
         <div className="product-form">

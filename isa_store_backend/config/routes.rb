@@ -37,6 +37,10 @@ Rails.application.routes.draw do
     
     # Admin discount tiers management
     resources :admin_discount_tiers, path: 'admin/discount-tiers', only: [:index, :show, :create, :update, :destroy]
+
+    # Service pricing (public read, admin write)
+    resources :service_pricings, path: 'service-pricings', only: [:index]
+    resources :admin_service_pricings, path: 'admin/service-pricings', only: [:index, :create, :update, :destroy]
     
     # Image upload
     post 'admin/upload-image', to: 'image_upload#upload'

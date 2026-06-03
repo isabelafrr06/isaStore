@@ -1,0 +1,86 @@
+.ex-rest { background: #fafaf8; }
+
+.ex-rest-header {
+  background: white; padding: 1rem 2rem;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 0 #eee, 0 2px 12px rgba(0,0,0,0.06);
+}
+.ex-rest-header-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 2rem;
+}
+.ex-rest-logo { font-size: 1.1rem; font-weight: 800; color: #1c1c1c; letter-spacing: 1px; }
+.ex-rest-logo em { font-style: italic; color: #b45309; }
+.ex-rest-header nav { display: flex; gap: 1.5rem; flex: 1; }
+.ex-rest-header nav a { color: #555; text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+.ex-rest-header nav a:hover { color: #b45309; }
+.ex-rest-reserva {
+  background: #b45309; color: white; border: none;
+  padding: 0.5rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; cursor: pointer;
+}
+
+.ex-rest-hero {
+  background: linear-gradient(135deg, #1c0a00 0%, #451a03 40%, #78350f 100%);
+  min-height: 420px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.ex-rest-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%);
+}
+.ex-rest-hero-overlay { position: relative; z-index: 1; text-align: center; padding: 2rem; color: white; }
+.ex-rest-tag { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-bottom: 1rem; }
+.ex-rest-hero-overlay h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+.ex-rest-hero-sub { font-size: 1.05rem; opacity: 0.8; max-width: 480px; margin: 0 auto 2rem; }
+.ex-rest-hero-btns { display: flex; gap: 1rem; justify-content: center; }
+.ex-rest-btn-primary {
+  background: #b45309; color: white; border: none;
+  padding: 0.75rem 1.75rem; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+}
+.ex-rest-btn-outline {
+  background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5);
+  padding: 0.75rem 1.75rem; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+}
+
+.ex-rest-features {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: #fef3c7; border-top: 3px solid #b45309;
+}
+@media(max-width:700px){ .ex-rest-features { grid-template-columns: repeat(2,1fr); } }
+.ex-rest-feat {
+  padding: 1.5rem 1.25rem; text-align: center; border-right: 1px solid rgba(0,0,0,0.06);
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+.ex-rest-feat span { font-size: 1.5rem; }
+.ex-rest-feat b { font-size: 0.9rem; color: #1c0a00; font-weight: 700; }
+.ex-rest-feat small { font-size: 0.78rem; color: #78350f; line-height: 1.4; }
+
+.ex-rest-menu-section { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; text-align: center; }
+.ex-rest-menu-section h2 { font-size: 1rem; letter-spacing: 3px; color: #b45309; font-weight: 700; margin-bottom: 0.25rem; }
+.ex-rest-menu-sub { font-size: 1.5rem; font-weight: 800; color: #1c0a00; margin-bottom: 1.75rem; }
+
+.ex-rest-tabs {
+  display: flex; justify-content: center; gap: 0; margin-bottom: 2rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+.ex-rest-tabs button {
+  background: none; border: none; padding: 0.65rem 1.5rem;
+  font-size: 0.9rem; color: #888; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: all 0.2s;
+}
+.ex-rest-tabs button.active { color: #b45309; border-bottom-color: #b45309; font-weight: 700; }
+
+.ex-rest-items { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+.ex-rest-item {
+  display: flex; gap: 1rem; background: white; border-radius: 12px;
+  overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+.ex-rest-item:hover { transform: translateX(4px); }
+.ex-rest-item-img { width: 110px; height: 110px; flex-shrink: 0; object-fit: cover; }
+.ex-rest-item-body { padding: 0.9rem 1rem 0.9rem 0; flex: 1; }
+.ex-rest-item-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem; }
+.ex-rest-item-head h3 { font-size: 1rem; font-weight: 700; color: #1c0a00; margin: 0; }
+.ex-rest-item-price { font-size: 1rem; font-weight: 800; color: #b45309; }
+.ex-rest-item-body p { color: #555; font-size: 0.85rem; line-height: 1.5; margin: 0 0 0.4rem; }
+.ex-rest-cal { color: #888; font-size: 0.78rem; }

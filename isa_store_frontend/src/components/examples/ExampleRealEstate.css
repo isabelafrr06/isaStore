@@ -1,0 +1,75 @@
+.ex-re { background: #f0f4ff; }
+
+.ex-re-header {
+  background: #1e3a8a;
+  padding: 0.9rem 2rem;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.ex-re-header-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; gap: 2rem;
+}
+.ex-re-logo { color: white; font-size: 1.2rem; font-weight: 800; }
+.ex-re-header nav { display: flex; gap: 1.5rem; flex: 1; }
+.ex-re-header nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+.ex-re-header nav a:hover, .ex-re-header nav a.act { color: white; font-weight: 600; }
+.ex-re-cta-btn { background: #3b82f6; color: white; border: none; padding: 0.45rem 1.1rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; cursor: pointer; }
+
+.ex-re-hero {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%);
+  padding: 4rem 2rem 3rem; text-align: center; color: white;
+}
+.ex-re-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 0.75rem; }
+.ex-re-hero p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 2rem; }
+.ex-re-search {
+  display: flex; gap: 0.5rem; max-width: 780px; margin: 0 auto 1.5rem;
+  background: white; padding: 0.5rem; border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+.ex-re-search input {
+  flex: 1; border: none; outline: none; font-size: 0.9rem; padding: 0.4rem 0.75rem; color: #333;
+}
+.ex-re-search select {
+  border: none; outline: none; font-size: 0.875rem; color: #555; padding: 0.4rem 0.5rem;
+  background: transparent; cursor: pointer;
+}
+.ex-re-search button {
+  background: #2563eb; color: white; border: none; padding: 0.5rem 1.25rem;
+  border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.875rem;
+}
+.ex-re-stats { display: flex; justify-content: center; gap: 3rem; opacity: 0.9; font-size: 0.9rem; }
+.ex-re-stats b { display: block; font-size: 1.4rem; }
+
+.ex-re-listings { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; }
+.ex-re-listings h2 { font-size: 1.7rem; font-weight: 800; color: #1e293b; margin-bottom: 0.25rem; }
+.ex-re-sub { color: #64748b; font-size: 0.9rem; margin-bottom: 2rem; }
+.ex-re-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+@media(max-width: 900px){ .ex-re-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width: 580px){ .ex-re-grid { grid-template-columns: 1fr; } }
+
+.ex-re-card {
+  background: white; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s;
+}
+.ex-re-card:hover { transform: translateY(-5px); box-shadow: 0 8px 28px rgba(30,58,138,0.15); }
+.ex-re-img { height: 200px; position: relative; overflow: hidden; }
+.ex-re-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.ex-re-card:hover .ex-re-img img { transform: scale(1.06); }
+.ex-re-badge {
+  position: absolute; top: 10px; right: 10px;
+  padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.ex-re-body { padding: 1rem 1.1rem 1.1rem; }
+.ex-re-body h3 { font-size: 1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.3rem; }
+.ex-re-loc { color: #64748b; font-size: 0.82rem; margin-bottom: 0.65rem; }
+.ex-re-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: #475569; margin-bottom: 0.85rem; }
+.ex-re-foot { display: flex; justify-content: space-between; align-items: center; }
+.ex-re-price { font-size: 1.1rem; font-weight: 800; color: #2563eb; }
+.ex-re-foot button {
+  background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe;
+  padding: 0.35rem 0.9rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+}

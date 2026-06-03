@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext.jsx'
 import { AdminProvider, useAdmin } from './contexts/AdminContext.jsx'
 import { CategoriesProvider } from './contexts/CategoriesContext.jsx'
@@ -26,10 +26,33 @@ const AdminLogin = lazy(() => import('./components/AdminLogin'))
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'))
 const Orders = lazy(() => import('./components/Orders'))
 
+// Lazy load example pages — only loaded when viewed
+const ExampleRealEstate = lazy(() => import('./components/examples/ExampleRealEstate'))
+const ExampleRestaurant = lazy(() => import('./components/examples/ExampleRestaurant'))
+const ExampleDigitalMenu = lazy(() => import('./components/examples/ExampleDigitalMenu'))
+const ExampleEcommerce = lazy(() => import('./components/examples/ExampleEcommerce'))
+const ExampleManagement = lazy(() => import('./components/examples/ExampleManagement'))
+const ExamplePortfolio = lazy(() => import('./components/examples/ExamplePortfolio'))
+
 function AppRoutes() {
   const { admin, login } = useAdmin()
   const location = useLocation()
   const isHome = location.pathname === '/'
+
+  if (location.pathname.startsWith('/example/')) {
+    return (
+      <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Cargando…</div>}>
+        <Routes>
+          <Route path="/example/real-estate/:v"  element={<ExampleRealEstate />} />
+          <Route path="/example/restaurant/:v"   element={<ExampleRestaurant />} />
+          <Route path="/example/digital-menu/:v" element={<ExampleDigitalMenu />} />
+          <Route path="/example/ecommerce/:v"    element={<ExampleEcommerce />} />
+          <Route path="/example/management/:v"   element={<ExampleManagement />} />
+          <Route path="/example/portfolio/:v"    element={<ExamplePortfolio />} />
+        </Routes>
+      </Suspense>
+    )
+  }
 
   return (
     <div className="App">

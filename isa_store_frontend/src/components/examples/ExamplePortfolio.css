@@ -1,0 +1,120 @@
+.ex-pf { background: #fafafa; }
+
+.ex-pf-header {
+  background: white; padding: 1rem 2rem;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+}
+.ex-pf-header-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 2rem;
+}
+.ex-pf-logo { font-size: 1.1rem; font-weight: 800; color: #1e293b; }
+.ex-pf-header nav { display: flex; gap: 1.5rem; flex: 1; }
+.ex-pf-header nav a { color: #555; text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+.ex-pf-header nav a:hover { color: #ec4899; }
+.ex-pf-hire {
+  background: linear-gradient(135deg, #ec4899, #a855f7);
+  color: white; text-decoration: none; padding: 0.45rem 1.1rem;
+  border-radius: 20px; font-size: 0.825rem; font-weight: 700; white-space: nowrap;
+}
+
+.ex-pf-hero {
+  background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 50%, #ede9fe 100%);
+  padding: 5rem 2rem;
+}
+.ex-pf-hero-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+.ex-pf-tag {
+  display: inline-block; background: #fce7f3; color: #be185d;
+  font-size: 0.78rem; font-weight: 700; padding: 4px 14px;
+  border-radius: 20px; margin-bottom: 1.25rem; letter-spacing: 0.5px;
+}
+.ex-pf-hero-inner h1 { font-size: 3rem; font-weight: 800; color: #1e293b; line-height: 1.1; margin-bottom: 1rem; }
+.ex-pf-hero-inner p { color: #64748b; font-size: 1.05rem; line-height: 1.65; max-width: 500px; margin: 0 auto 2rem; }
+.ex-pf-hero-btns { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+.ex-pf-btn-primary {
+  background: linear-gradient(135deg, #ec4899, #a855f7); color: white; border: none;
+  padding: 0.75rem 2rem; border-radius: 25px; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+}
+.ex-pf-btn-outline {
+  background: transparent; color: #ec4899;
+  border: 2px solid #ec4899; padding: 0.75rem 2rem;
+  border-radius: 25px; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+}
+.ex-pf-hero-stats { display: flex; justify-content: center; gap: 2.5rem; }
+.ex-pf-hero-stats span { font-size: 0.875rem; color: #64748b; }
+.ex-pf-hero-stats b { display: block; font-size: 1.4rem; color: #1e293b; }
+
+.ex-pf-projects { padding: 4rem 2rem; }
+.ex-pf-projects-inner { max-width: 1100px; margin: 0 auto; }
+.ex-pf-projects-inner h2 { font-size: 1.75rem; font-weight: 800; color: #1e293b; text-align: center; margin-bottom: 0.35rem; }
+.ex-pf-projects-sub { text-align: center; color: #94a3b8; margin-bottom: 2rem; }
+
+.ex-pf-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 200px 200px;
+  gap: 1rem;
+}
+@media(max-width:700px){ .ex-pf-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; } }
+
+.ex-pf-tile {
+  border-radius: 16px; overflow: hidden; position: relative; cursor: pointer;
+  transition: transform 0.25s; min-height: 160px;
+}
+.ex-pf-tile:hover { transform: scale(1.02); }
+.ex-pf-tile.large { grid-row: span 2; }
+.ex-pf-tile.wide { grid-column: span 2; }
+.ex-pf-tile-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.ex-pf-tile-overlay {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.35);
+  padding: 1.25rem; display: flex; flex-direction: column; justify-content: flex-end;
+  opacity: 0; transition: opacity 0.25s; gap: 0.5rem;
+}
+.ex-pf-tile:hover .ex-pf-tile-overlay { opacity: 1; }
+.ex-pf-tile-overlay h3 { color: white; font-size: 1rem; font-weight: 700; margin: 0; }
+.ex-pf-tile-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.ex-pf-tile-tags span {
+  background: rgba(255,255,255,0.2); color: white;
+  font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; backdrop-filter: blur(4px);
+}
+.ex-pf-tile-overlay button {
+  background: white; color: #1e293b; border: none;
+  padding: 0.35rem 0.9rem; border-radius: 8px; font-size: 0.78rem; font-weight: 700;
+  cursor: pointer; width: fit-content;
+}
+
+/* Show title always on large tile */
+.ex-pf-tile.large .ex-pf-tile-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+  opacity: 1;
+}
+.ex-pf-tile.large:hover .ex-pf-tile-overlay { background: rgba(0,0,0,0.4); }
+
+.ex-pf-skills { background: #1e293b; padding: 3rem 2rem; }
+.ex-pf-skills-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.ex-pf-skills-inner h2 { color: white; font-size: 1.35rem; font-weight: 800; margin-bottom: 1.5rem; }
+.ex-pf-skills-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+.ex-pf-skill {
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85);
+  padding: 0.5rem 1.1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.ex-pf-cta {
+  text-align: center; padding: 4rem 2rem;
+  background: linear-gradient(135deg, #fdf2f8, #faf5ff);
+}
+.ex-pf-cta h2 { font-size: 1.7rem; font-weight: 800; color: #1e293b; margin-bottom: 0.5rem; }
+.ex-pf-cta p { color: #64748b; margin-bottom: 1.75rem; }
+.ex-pf-cta-btns { display: flex; gap: 1rem; justify-content: center; }
+.ex-pf-cta-wa {
+  background: #25d366; color: white; text-decoration: none;
+  padding: 0.75rem 1.75rem; border-radius: 25px; font-weight: 700;
+}
+.ex-pf-cta-email {
+  background: linear-gradient(135deg, #ec4899, #a855f7); color: white; text-decoration: none;
+  padding: 0.75rem 1.75rem; border-radius: 25px; font-weight: 700;
+}

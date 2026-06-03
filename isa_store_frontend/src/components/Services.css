@@ -430,3 +430,709 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   Examples by Industry Section
+══════════════════════════════════════════════════════════ */
+
+.services-examples-section {
+  margin-bottom: 1.25rem;
+}
+
+.services-examples-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.services-examples-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.services-examples-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 700px) {
+  .examples-grid { grid-template-columns: 1fr; }
+  .services-examples-title { font-size: 1.5rem; }
+}
+
+/* ── Card shell ─────────────────────────────────────────── */
+
+.example-card {
+  background: white;
+  border-radius: 16px;
+  overflow: visible; /* must be visible so the hover tooltip escapes the card */
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  border: 1.5px solid rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.example-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  border-color: var(--card-accent, #ccc);
+}
+
+/* ── Preview frame ─────────────────────────────────────── */
+
+.example-preview {
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  overflow: hidden;
+  border-radius: 14px 14px 0 0; /* clip the mock preview to the card's top corners */
+  background: #f0f2f5;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-bar {
+  background: #e4e6ea;
+  height: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+}
+
+.mock-bar span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #c5c7ca;
+}
+.mock-bar span:nth-child(1) { background: #ff6059; }
+.mock-bar span:nth-child(2) { background: #ffbe2e; }
+.mock-bar span:nth-child(3) { background: #28c840; }
+
+/* ── Card info ─────────────────────────────────────────── */
+
+.example-info {
+  padding: 1.1rem 1.25rem 1.25rem;
+}
+
+.example-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  gap: 0.75rem;
+}
+
+.example-meta h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--clr-text-dark);
+  margin: 0;
+}
+
+.example-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.example-info p {
+  color: #555;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  margin: 0 0 0.85rem;
+}
+
+.example-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.example-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.example-link:hover { opacity: 0.7; }
+
+/* ══════════════════════════════════════════════════════════
+   MOCKUP STYLES
+══════════════════════════════════════════════════════════ */
+
+/* shared base for all mock content areas */
+.mock-realestate, .mock-restaurant, .mock-dmenu,
+.mock-ecommerce, .mock-mgmt, .mock-portfolio {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+}
+
+/* ── Real Estate ──────────────────────────────────────── */
+
+.mock-re-nav {
+  background: white;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  font-size: 8px;
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.mock-re-nav b { font-size: 9px; }
+.mock-re-nav span { color: #888; font-size: 7px; }
+
+.mock-re-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  padding: 6px;
+  background: #f8fafc;
+  flex: 1;
+}
+
+.mock-re-card {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.mock-re-img {
+  height: 52px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 3px;
+}
+
+.mock-re-badge {
+  background: #3b82f6;
+  color: white;
+  font-size: 6px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+.mock-re-name {
+  padding: 3px 4px 1px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mock-re-price {
+  padding: 1px 4px 4px;
+  color: #3b82f6;
+  font-weight: 700;
+  font-size: 7px;
+}
+
+/* ── Restaurant ───────────────────────────────────────── */
+
+.mock-rest-hero {
+  background: linear-gradient(135deg, #92400e, #b45309);
+  padding: 10px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mock-rest-hero-text {
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mock-rest-hero-text b { font-size: 9px; }
+.mock-rest-hero-text small {
+  font-size: 7px;
+  background: rgba(255,255,255,0.25);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+
+.mock-rest-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  padding: 6px;
+  background: #fffbf5;
+  flex: 1;
+}
+
+.mock-rest-item {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.mock-rest-img { height: 44px; }
+
+.mock-rest-name {
+  padding: 3px 4px 1px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mock-rest-price {
+  padding: 0 4px 4px;
+  color: #d97706;
+  font-weight: 700;
+  font-size: 7px;
+}
+
+/* ── Digital Menu ─────────────────────────────────────── */
+
+.mock-dmenu { background: #0f172a; }
+
+.mock-dm-header {
+  padding: 5px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.mock-dm-header b { color: white; font-size: 9px; }
+.mock-dm-header small { color: #10b981; font-size: 7px; }
+
+.mock-dm-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.mock-dm-tab {
+  color: rgba(255,255,255,0.45);
+  font-size: 7px;
+  padding: 4px 6px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.mock-dm-tab.active {
+  color: #10b981;
+  border-bottom-color: #10b981;
+}
+
+.mock-dm-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.mock-dm-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+.mock-dm-dot {
+  width: 20px; height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.mock-dm-iname {
+  flex: 1;
+  color: rgba(255,255,255,0.85);
+  font-size: 7.5px;
+  font-weight: 600;
+}
+
+.mock-dm-iprice {
+  color: #10b981;
+  font-size: 7.5px;
+  font-weight: 700;
+}
+
+/* ── E-commerce ───────────────────────────────────────── */
+
+.mock-ecommerce { background: #fafafa; }
+
+.mock-ec-nav {
+  background: white;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.mock-ec-nav b { color: #667eea; font-size: 9px; }
+.mock-ec-nav span { color: #555; font-size: 7.5px; }
+
+.mock-ec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding: 6px;
+  flex: 1;
+}
+
+.mock-ec-card {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  border: 1px solid #f0f0f0;
+}
+
+.mock-ec-img { height: 44px; }
+
+.mock-ec-name {
+  padding: 3px 4px 1px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 6.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mock-ec-price {
+  padding: 1px 4px 4px;
+  color: #667eea;
+  font-weight: 700;
+  font-size: 7px;
+}
+
+/* ── Management System ────────────────────────────────── */
+
+.mock-mgmt { background: #f8f7ff; }
+
+.mock-mg-nav {
+  background: #4c1d95;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.mock-mg-nav b { color: white; font-size: 9px; }
+.mock-mg-nav span { color: rgba(255,255,255,0.6); font-size: 7px; }
+
+.mock-mg-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 5px 6px 4px;
+  flex-shrink: 0;
+}
+
+.mock-mg-kpi {
+  background: white;
+  border-radius: 4px;
+  padding: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+}
+
+.mock-mg-kval {
+  font-size: 8px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.mock-mg-klabel {
+  font-size: 6px;
+  color: #888;
+  margin-top: 1px;
+}
+
+.mock-mg-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 4px 8px;
+  height: 55px;
+  background: white;
+  margin: 0 6px 4px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.mock-mg-bar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+}
+
+/* ── Portfolio ────────────────────────────────────────── */
+
+.mock-portfolio { background: #fff; }
+
+.mock-pf-nav {
+  background: white;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.mock-pf-nav b { color: #1e293b; font-size: 9px; }
+.mock-pf-nav span { color: #888; font-size: 7px; }
+
+.mock-pf-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  padding: 5px 6px;
+  flex: 1;
+}
+
+.mock-pf-tile {
+  border-radius: 5px;
+  display: flex;
+  align-items: flex-end;
+  padding: 4px 5px;
+  overflow: hidden;
+}
+
+.mock-pf-tile.large { grid-row: span 2; }
+.mock-pf-tile.large-h { grid-column: span 1; }
+
+.mock-pf-tile span {
+  color: white;
+  font-size: 7px;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* ── Example link hover preview ─────────────────────────── */
+
+.ex-link-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* bubble appears below the link */
+.ex-preview-bubble {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  width: 250px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  z-index: 500;
+  pointer-events: none;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.ex-link-wrap.hovered .ex-preview-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* keep first-child bubble from overflowing left edge */
+.example-links .ex-link-wrap:first-child .ex-preview-bubble {
+  left: 0;
+  transform: translateX(0) translateY(-6px);
+}
+.example-links .ex-link-wrap:first-child.hovered .ex-preview-bubble {
+  transform: translateX(0) translateY(0);
+}
+.example-links .ex-link-wrap:first-child .ex-preview-arrow {
+  left: 20px;
+  transform: none;
+}
+
+/* keep last-child bubble from overflowing right edge */
+.example-links .ex-link-wrap:last-child .ex-preview-bubble {
+  left: auto;
+  right: 0;
+  transform: translateX(0) translateY(-6px);
+}
+.example-links .ex-link-wrap:last-child.hovered .ex-preview-bubble {
+  transform: translateX(0) translateY(0);
+}
+.example-links .ex-link-wrap:last-child .ex-preview-arrow {
+  left: auto;
+  right: 20px;
+  transform: none;
+}
+
+/* arrow points UP toward the link (bubble is below) */
+.ex-preview-arrow {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid white;
+  border-top: none;
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.06));
+}
+
+.ex-preview-frame {
+  display: block;
+  width: 250px;
+  height: 178px;
+  overflow: hidden;
+  background: #f0f2f5;
+}
+
+.ex-preview-iframe {
+  width: 1080px;
+  height: 770px;
+  border: none;
+  transform: scale(0.2315);
+  transform-origin: top left;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Accordion sections
+══════════════════════════════════════════════════════════ */
+
+.svc-acc {
+  margin-bottom: 0.6rem;
+}
+
+.svc-acc-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease, border-radius 0.2s ease;
+}
+
+.svc-acc:hover .svc-acc-head {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.svc-acc.open .svc-acc-head {
+  border-radius: 14px 14px 0 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-bottom-color: transparent;
+}
+
+.svc-acc-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.svc-acc-title {
+  flex: 1;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.svc-acc-chevron {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 0.3s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.svc-acc.open .svc-acc-chevron {
+  transform: rotate(90deg);
+}
+
+/* ── Animated body ──────────────────────────────────────── */
+
+.svc-acc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.svc-acc.open .svc-acc-body {
+  grid-template-rows: 1fr;
+}
+
+/* inner must have NO padding/border so grid 0fr collapses to exactly 0 */
+.svc-acc-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.svc-acc-content {
+  background: white;
+  border-radius: 0 0 14px 14px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* alt style (additional services — slightly tinted) */
+.svc-acc.svc-acc-alt .svc-acc-content {
+  background: var(--clr-surface);
+}
+
+/* subtitle inside accordion (examples) */
+.svc-acc-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0 0 1.5rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .svc-acc-content { padding: 1.25rem 1rem; }
+  .svc-acc-head  { padding: 0.85rem 1rem; }
+  .svc-acc-title { font-size: 0.95rem; }
+}

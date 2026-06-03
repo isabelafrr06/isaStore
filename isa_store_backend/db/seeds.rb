@@ -168,4 +168,25 @@ if admin.persisted?
   end
 end
 
+# Seed service pricings (only if table is empty)
+if ServicePricing.count == 0
+  service_pricings = [
+    { name_es: 'Landing page estática (1 página)',              name_en: 'Static landing page (1 page)',           price: '₡50.000 – ₡80.000',          position: 1 },
+    { name_es: 'Sitio web básico (3-5 secciones)',              name_en: 'Basic website (3-5 sections)',           price: '₡80.000 – ₡150.000',         position: 2 },
+    { name_es: 'Portafolio profesional',                        name_en: 'Professional portfolio',                 price: '₡100.000 – ₡180.000',        position: 3 },
+    { name_es: 'Página para artista (galería, contacto, obras)',name_en: 'Artist page (gallery, contact, works)',  price: '₡120.000 – ₡250.000',        position: 4 },
+    { name_es: 'Catálogo de productos sin pagos',               name_en: 'Product catalog (no payments)',          price: '₡150.000 – ₡300.000',        position: 5 },
+    { name_es: 'Blog con CMS (WordPress, etc.)',                name_en: 'Blog with CMS (WordPress, etc.)',        price: '₡150.000 – ₡350.000',        position: 6 },
+    { name_es: 'Tienda en línea básica',                        name_en: 'Basic online store',                     price: '₡300.000 – ₡600.000',        position: 7 },
+    { name_es: 'Sistema de reservas (citas)',                   name_en: 'Booking/appointment system',             price: '₡400.000 – ₡800.000',        position: 8 },
+    { name_es: 'Aplicación web CRUD (usuarios, login, panel)', name_en: 'CRUD web app (users, login, panel)',     price: '₡500.000 – ₡1.000.000',      position: 9 },
+    { name_es: 'SaaS/MVP para startup',                         name_en: 'SaaS/MVP for startup',                   price: '₡1.000.000 – ₡3.000.000',    position: 10 },
+    { name_es: 'App móvil sencilla (React Native/Flutter)',     name_en: 'Simple mobile app (React Native/Flutter)', price: '₡800.000 – ₡2.000.000',  position: 11 },
+    { name_es: 'Sistema empresarial a medida',                  name_en: 'Custom enterprise system',               price: '₡2.000.000+',                position: 12 },
+  ]
+
+  service_pricings.each { |sp| ServicePricing.create!(sp.merge(active: true)) }
+  puts "Created #{ServicePricing.count} service pricings"
+end
+
 puts "Seeding completed!"
