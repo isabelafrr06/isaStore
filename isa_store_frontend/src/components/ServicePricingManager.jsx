@@ -6,7 +6,7 @@ import './ServicePricingManager.css'
 const EMPTY_FORM = { name_es: '', name_en: '', price: '', position: '', active: true }
 
 function ServicePricingManager() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(null)
@@ -72,7 +72,8 @@ function ServicePricingManager() {
   }
 
   const handleDelete = async (row) => {
-    if (!window.confirm(`Delete "${row.name_en}"?`)) return
+    const name = language === 'es' ? row.name_es : row.name_en
+    if (!window.confirm(`Eliminar "${name}"?`)) return
     try {
       const res = await adminFetch(getApiUrl(`/api/admin/service-pricings/${row.id}`), { method: 'DELETE' })
       if (res.ok) fetchRows()
@@ -94,23 +95,23 @@ function ServicePricingManager() {
     }
   }
 
-  if (loading) return <div className="spm-loading">Loading…</div>
+  if (loading) return <div className="spm-loading">{t('loadingDiscounts')}</div>
 
   return (
     <div className="spm">
       <div className="spm-header">
-        <h3 className="spm-title">Service Pricing</h3>
+        <h3 className="spm-title">{t('spmTitle')}</h3>
         {!showForm && (
-          <button className="spm-add-btn" onClick={openAdd}>+ Add service</button>
+          <button className="spm-add-btn" onClick={openAdd}>{t('spmAddService')}</button>
         )}
       </div>
 
       {showForm && (
         <form className="spm-form" onSubmit={handleSubmit}>
-          <h4 className="spm-form-title">{editing ? 'Edit service' : 'Add service'}</h4>
+          <h4 className="spm-form-title">{editing ? t('spmEditServiceTitle') : t('spmAddServiceTitle')}</h4>
           <div className="spm-form-grid">
             <div className="spm-field">
-              <label>Name (ES) *</label>
+              <label>{t('spmNameEs')} *</label>
               <input
                 type="text"
                 value={form.name_es}
@@ -120,7 +121,7 @@ function ServicePricingManager() {
               />
             </div>
             <div className="spm-field">
-              <label>Name (EN) *</label>
+              <label>{t('spmNameEn')} *</label>
               <input
                 type="text"
                 value={form.name_en}
@@ -130,7 +131,7 @@ function ServicePricingManager() {
               />
             </div>
             <div className="spm-field">
-              <label>Price *</label>
+              <label>{t('price')} *</label>
               <input
                 type="text"
                 value={form.price}
@@ -140,7 +141,7 @@ function ServicePricingManager() {
               />
             </div>
             <div className="spm-field">
-              <label>Position</label>
+              <label>{t('spmPosition')}</label>
               <input
                 type="number"
                 min="1"
@@ -155,13 +156,13 @@ function ServicePricingManager() {
               checked={form.active}
               onChange={e => setForm({ ...form, active: e.target.checked })}
             />
-            Active (visible on Services page)
+            {t('spmActiveLabel')}
           </label>
           <div className="spm-form-actions">
             <button type="submit" className="spm-save-btn" disabled={saving}>
-              {saving ? 'Saving…' : editing ? 'Update' : 'Create'}
+              {saving ? t('spmSaving') : editing ? t('update') : t('create')}
             </button>
-            <button type="button" className="spm-cancel-btn" onClick={cancel}>Cancel</button>
+            <button type="button" className="spm-cancel-btn" onClick={cancel}>{t('cancel')}</button>
           </div>
         </form>
       )}
@@ -171,22 +172,21 @@ function ServicePricingManager() {
           <thead>
             <tr>
               <th>#</th>
-              <th>Service (ES / EN)</th>
-              <th>Price</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th>{t('spmColService')}</th>
+              <th>{t('price')}</th>
+              <th>{t('status')}</th>
+              <th>{t('actions')}</th>
             </tr>
           </thead>
           <tbody>
             {rows.length === 0 ? (
-              <tr><td colSpan="5" className="spm-empty">No service pricings yet.</td></tr>
+              <tr><td colSpan="5" className="spm-empty">{t('spmEmpty')}</td></tr>
             ) : (
               rows.map(row => (
                 <tr key={row.id} className={row.active ? '' : 'spm-row-inactive'}>
                   <td className="spm-pos">{row.position}</td>
-                  <td className="spm-names">
-                    <span className="spm-name-es">{row.name_es}</span>
-                    <span className="spm-name-en">{row.name_en}</span>
+                  <td className="spm-name-cell">
+                    {language === 'es' ? row.name_es : row.name_en}
                   </td>
                   <td className="spm-price">{row.price}</td>
                   <td>
@@ -194,12 +194,12 @@ function ServicePricingManager() {
                       className={`spm-status-btn ${row.active ? 'active' : 'inactive'}`}
                       onClick={() => toggleActive(row)}
                     >
-                      {row.active ? 'Active' : 'Hidden'}
+                      {row.active ? t('active') : t('spmHidden')}
                     </button>
                   </td>
                   <td className="spm-actions">
-                    <button className="spm-edit-btn" onClick={() => openEdit(row)}>Edit</button>
-                    <button className="spm-delete-btn" onClick={() => handleDelete(row)}>Delete</button>
+                    <button className="spm-edit-btn" onClick={() => openEdit(row)}>{t('edit')}</button>
+                    <button className="spm-delete-btn" onClick={() => handleDelete(row)}>{t('delete')}</button>
                   </td>
                 </tr>
               ))

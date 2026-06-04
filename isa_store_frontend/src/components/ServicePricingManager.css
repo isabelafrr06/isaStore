@@ -140,7 +140,7 @@
 .spm-pos  { font-weight: 600; color: #aaa; width: 36px; text-align: center; }
 
 .spm-names { display: flex; flex-direction: column; gap: 0.15rem; }
-.spm-name-es { font-weight: 600; color: var(--clr-primary); }
+.spm-name-cell { font-weight: 600; color: var(--clr-primary); }
 .spm-name-en { font-size: 0.85rem; color: #666; }
 
 .spm-price { font-weight: 600; color: #25D366; font-size: 0.875rem; white-space: nowrap; }
