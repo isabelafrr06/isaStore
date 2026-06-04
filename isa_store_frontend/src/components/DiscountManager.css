@@ -10,12 +10,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .discount-manager-header h3 {
   color: var(--clr-primary);
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   margin: 0;
 }
 
@@ -23,13 +23,12 @@
   background: linear-gradient(135deg, var(--clr-teal) 0%, var(--clr-teal-dark) 100%);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1.1rem;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
 }
-
 .add-discount-btn:hover {
   background: linear-gradient(135deg, var(--clr-teal-dark) 0%, var(--clr-teal) 100%);
   transform: translateY(-2px);
@@ -40,17 +39,17 @@
   background: #f8f9fa;
   padding: 1.5rem;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
+.discount-form h4 { color: var(--clr-primary); margin-bottom: 1rem; }
 
-.discount-form h4 {
-  color: var(--clr-primary);
+.discount-form .form-row {
+  display: flex;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
-.discount-form .form-group {
-  margin-bottom: 1rem;
-}
+.discount-form .form-group { margin-bottom: 1rem; }
 
 .discount-form .form-group label {
   display: block;
@@ -61,66 +60,35 @@
 
 .discount-form .form-group input[type="number"] {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.875rem;
 }
+.discount-form .form-group input[type="checkbox"] { margin-right: 0.5rem; }
 
-.discount-form .form-group input[type="checkbox"] {
-  margin-right: 0.5rem;
-}
+.discount-form .form-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
 
-.discount-form .form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
+.discount-tiers-list { overflow-x: auto; }
 
 .discount-tiers-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
-
 .discount-tiers-table thead {
   background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
   color: white;
 }
+.discount-tiers-table th { padding: 0.65rem 0.9rem; text-align: left; font-weight: 600; }
+.discount-tiers-table tbody tr { border-bottom: 1px solid #eee; }
+.discount-tiers-table tbody tr:hover { background: #f8f9fa; }
+.discount-tiers-table tbody tr.inactive { opacity: 0.6; background: #f5f5f5; }
+.discount-tiers-table td { padding: 0.65rem 0.9rem; }
 
-.discount-tiers-table th {
-  padding: 1rem;
-  text-align: left;
-  font-weight: 600;
-}
-
-.discount-tiers-table tbody tr {
-  border-bottom: 1px solid #eee;
-}
-
-.discount-tiers-table tbody tr:hover {
-  background: #f8f9fa;
-}
-
-.discount-tiers-table tbody tr.inactive {
-  opacity: 0.6;
-  background: #f5f5f5;
-}
-
-.discount-tiers-table td {
-  padding: 1rem;
-}
-
-.min-quantity {
-  font-weight: 600;
-  color: var(--clr-primary);
-}
-
-.discount-percent {
-  font-weight: 600;
-  color: #25D366;
-  font-size: 1.1rem;
-}
+.min-quantity    { font-weight: 600; color: var(--clr-primary); }
+.discount-percent{ font-weight: 600; color: #25D366; font-size: 0.8rem; }
+.no-tiers        { text-align: center; padding: 2rem; color: #999; }
 
 .status-btn {
   padding: 0.5rem 1rem;
@@ -130,29 +98,13 @@
   cursor: pointer;
   transition: all 0.3s;
 }
+.status-btn.active   { background: #25D366; color: white; }
+.status-btn.inactive { background: #ccc; color: #666; }
+.status-btn:hover    { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
-.status-btn.active {
-  background: #25D366;
-  color: white;
-}
+.actions { display: flex; gap: 0.5rem; }
 
-.status-btn.inactive {
-  background: #ccc;
-  color: #666;
-}
-
-.status-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.edit-btn,
-.delete-btn {
+.edit-btn, .delete-btn {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 6px;
@@ -160,59 +112,27 @@
   cursor: pointer;
   transition: all 0.3s;
 }
+.edit-btn { background: var(--clr-primary); color: white; }
+.edit-btn:hover { background: #5568d3; transform: translateY(-1px); }
 
-.edit-btn {
-  background: var(--clr-primary);
-  color: white;
-}
+.delete-btn { background: #ef4444; color: white; }
+.delete-btn:hover { background: #dc2626; transform: translateY(-1px); }
 
-.edit-btn:hover {
-  background: #5568d3;
-  transform: translateY(-1px);
-}
-
-.delete-btn {
-  background: #ef4444;
-  color: white;
-}
-
-.delete-btn:hover {
-  background: #dc2626;
-  transform: translateY(-1px);
-}
-
-.no-tiers {
-  text-align: center;
-  padding: 2rem;
-  color: #999;
-}
-
-.save-btn,
-.cancel-btn {
-  padding: 0.75rem 1.5rem;
+.save-btn, .cancel-btn {
+  padding: 0.5rem 1.1rem;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
 }
-
 .save-btn {
   background: linear-gradient(135deg, var(--clr-teal) 0%, var(--clr-teal-dark) 100%);
   color: white;
 }
-
 .save-btn:hover {
   background: linear-gradient(135deg, var(--clr-teal-dark) 0%, var(--clr-teal) 100%);
   transform: translateY(-2px);
 }
-
-.cancel-btn {
-  background: #f0f0f0;
-  color: #333;
-}
-
-.cancel-btn:hover {
-  background: #e0e0e0;
-}
-
+.cancel-btn { background: #f0f0f0; color: #333; }
+.cancel-btn:hover { background: #e0e0e0; }

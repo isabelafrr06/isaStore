@@ -16,9 +16,7 @@ function AdminDashboard() {
   const [toast, setToast] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [showCategoryManager, setShowCategoryManager] = useState(false);
-  const [showDiscountManager, setShowDiscountManager] = useState(false);
-  const [showServicePricingManager, setShowServicePricingManager] = useState(false);
+  const [activeTab, setActiveTab] = useState('products');
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -316,45 +314,37 @@ const handlePasswordChange = async (e) => {
         </div>
       )}
 
-      <div className="dashboard-actions">
-        <button onClick={() => { 
-          setShowForm(!showForm); 
-          setEditingProduct(null); 
-          setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5', hide_when_out_of_stock: false });
-          setImageFiles([]);
-        }} className="add-button">
-          {showForm ? t('cancel') : t('addNewProduct')}
-        </button>
-        <button onClick={() => setShowCategoryManager(!showCategoryManager)} className="manage-categories-button">
-          {showCategoryManager ? t('hideCategories') : t('manageCategories')}
-        </button>
-        <button onClick={() => setShowDiscountManager(!showDiscountManager)} className="manage-discounts-button">
-          {showDiscountManager ? t('hideDiscounts') : t('manageDiscounts')}
-        </button>
-        <button onClick={() => setShowServicePricingManager(!showServicePricingManager)} className="manage-discounts-button">
-          {showServicePricingManager ? 'Hide Service Pricing' : 'Service Pricing'}
-        </button>
+      <div className="admin-tabs">
+        {[
+          { id: 'products',   label: t('products') || 'Productos',       icon: '📦' },
+          { id: 'categories', label: t('manageCategories'),               icon: '🏷️' },
+          { id: 'discounts',  label: t('manageDiscounts'),                icon: '💸' },
+          { id: 'pricing',    label: 'Precios Servicios',                 icon: '⚙️' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            className={`admin-tab${activeTab === tab.id ? ' active' : ''}`}
+            onClick={() => { setActiveTab(tab.id); setShowForm(false); }}
+          >
+            <span className="admin-tab-icon">{tab.icon}</span>
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      {showCategoryManager && (
+      {activeTab === 'categories' && (
         <CategoryManager
           categories={categories}
-          onUpdate={() => {
-            fetchCategories();
-            fetchProducts();
-          }}
+          onUpdate={() => { fetchCategories(); fetchProducts(); }}
         />
       )}
 
-      {showDiscountManager && (
-        <DiscountManager
-          onUpdate={() => {}}
-        />
-      )}
+      {activeTab === 'discounts' && <DiscountManager onUpdate={() => {}} />}
 
-      {showServicePricingManager && <ServicePricingManager />}
+      {activeTab === 'pricing' && <ServicePricingManager />}
 
-      {showForm && (
+
+      {activeTab === 'products' && showForm && (
         <div className="product-form">
           <h2>
             {editingProduct ? t('editProduct') : t('addNewProduct')}
@@ -492,34 +482,63 @@ const handlePasswordChange = async (e) => {
         </div>
       )}
 
-      <div className="products-list">
-        <h2>{t('products') || 'Products'}</h2>
+      {activeTab === 'products' && <div className="products-list">
+        <div className="products-list-header">
+          <h2>{t('products') || 'Productos'}</h2>
+          {!showForm && (
+            <button className="add-button" onClick={() => {
+              setShowForm(true);
+              setEditingProduct(null);
+              setFormData({ name: '', description: '', price: '', image: '', images: [], stock: '', category: '', condition: 'new', weight: '0.5', hide_when_out_of_stock: false });
+              setImageFiles([]);
+            }}>
+              + {t('addNewProduct')}
+            </button>
+          )}
+        </div>
         {loadingProducts ? (
           <div className="loading-message">{t('loadingProducts')}</div>
         ) : products.length === 0 ? (
           <div className="no-products-message">{t('noProducts')}</div>
         ) : (
-          <div className="products-grid">
-            {products.map(product => (
-              <div key={product.id} className="product-card-admin">
-                <div className="product-image-wrapper">
-                  <img src={getImageUrl(product.image)} alt={product.name} />
-                  {product.images?.length > 1 && (
-                    <span className="image-count-badge">⧉ {product.images.length}</span>
-                  )}
-                </div>
-                <h3>{product.name}</h3>
-                <p className="price">₡{parseInt(product.price) || product.price}</p>
-                <p className="stock">Stock: {product.stock}</p>
-                <div className="product-actions">
-                  <button onClick={() => handleEdit(product)} className="edit-button">{t('edit')}</button>
-                  <button onClick={() => handleDelete(product.id)} className="delete-button">{t('delete')}</button>
-                </div>
-              </div>
-            ))}
+          <div className="products-table-wrap">
+            <table className="products-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>{t('productName')}</th>
+                  <th>{t('price') || 'Precio'}</th>
+                  <th>Stock</th>
+                  <th>{t('category') || 'Categoría'}</th>
+                  <th>{t('actions') || 'Acciones'}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map(product => (
+                  <tr key={product.id}>
+                    <td className="product-thumb-cell">
+                      <div className="product-thumb-wrap">
+                        <img src={getImageUrl(product.image)} alt={product.name} className="product-thumb" />
+                        {product.images?.length > 1 && (
+                          <span className="image-count-badge">⧉ {product.images.length}</span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="product-name-cell">{product.name}</td>
+                    <td className="product-price-cell">₡{parseInt(product.price)?.toLocaleString() || product.price}</td>
+                    <td className={`product-stock-cell ${product.stock === 0 ? 'out' : ''}`}>{product.stock}</td>
+                    <td className="product-cat-cell">{product.category || '—'}</td>
+                    <td className="product-actions-cell">
+                      <button onClick={() => handleEdit(product)} className="edit-button">{t('edit')}</button>
+                      <button onClick={() => handleDelete(product.id)} className="delete-button">{t('delete')}</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
-      </div>
+      </div>}
     </div>
   );
 }
