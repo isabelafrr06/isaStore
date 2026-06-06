@@ -46,23 +46,23 @@ function Header() {
           <h1>IsaStore</h1>
         </Link>
         <nav className="nav">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className={`nav-link ${isActive('/') && location.pathname === '/' ? 'active' : ''}`}
           >
-            {t('home')}
+            {t('products')}
           </Link>
-          <Link 
-            to="/about" 
-            className={`nav-link ${isActive('/about') ? 'active' : ''}`}
-          >
-            {t('about')}
-          </Link>
-          <Link 
-            to="/services" 
+          <Link
+            to="/services"
             className={`nav-link ${isActive('/services') ? 'active' : ''}`}
           >
             {t('services')}
+          </Link>
+          <Link
+            to="/about"
+            className={`nav-link ${isActive('/about') ? 'active' : ''}`}
+          >
+            {t('about')}
           </Link>
           <Link 
             to="/cart" 
