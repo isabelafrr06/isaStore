@@ -146,31 +146,6 @@ function ProductList() {
     setSortBy(sort)
   }
 
-  if (fetchError) {
-    return (
-      <div className="loading-container">
-        <div className="loading-card">
-          <div className="loading-icon error-icon">!</div>
-          <p className="loading-message">{t('freeServerError')}</p>
-          <button className="reload-btn" onClick={() => window.location.reload()}>
-            {t('errorBoundaryReload')}
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-card">
-          <div className="loading-spinner" />
-          <p className="loading-message">{t('loadingProducts')}</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="product-list">
       <div className="services-promo-banner">
@@ -272,7 +247,24 @@ function ProductList() {
       </div>
 
       <div className="products-grid">
-        {sortedProducts.map(product => (
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-card">
+              <div className="loading-spinner" />
+              <p className="loading-message">{t('loadingProducts')}</p>
+            </div>
+          </div>
+        ) : fetchError ? (
+          <div className="loading-container">
+            <div className="loading-card">
+              <div className="loading-icon error-icon">!</div>
+              <p className="loading-message">{t('freeServerError')}</p>
+              <button className="reload-btn" onClick={() => window.location.reload()}>
+                {t('errorBoundaryReload')}
+              </button>
+            </div>
+          </div>
+        ) : sortedProducts.map(product => (
           <Link to={`/product/${product.id}`} key={product.id} className="product-card-link" style={{ display: visibleIds.has(product.id) ? '' : 'none' }}>
             <div className="product-card">
               <div className="product-image-container">

@@ -255,6 +255,10 @@
   padding: 1rem;
 }
 
+.products-grid > .loading-container {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 1024px) and (min-width: 601px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
