@@ -1156,7 +1156,23 @@
 }
 
 @media (max-width: 600px) {
-  .svc-acc-content { padding: 1.25rem 1rem; }
+  .svc-acc-content { padding: 1.25rem; } /* equal sides so shadow fits within svc-acc-inner */
   .svc-acc-head  { padding: 0.85rem 1rem; }
   .svc-acc-title { font-size: 0.95rem; }
+
+  .examples-grid { gap: 1rem; }
+
+  /* safe to clip on mobile — tooltips are hidden and slider is inactive */
+  .example-card { overflow: hidden; }
+
+  .example-preview { height: 160px; }
+
+  .example-info { padding: 0.85rem 1rem 1rem; }
+
+  .example-meta h3 { font-size: 1rem; }
+
+  .example-info p { font-size: 0.82rem; margin-bottom: 0.65rem; }
+
+  /* hide iframe tooltip on touch — no hover available */
+  .ex-preview-bubble { display: none; }
 }
