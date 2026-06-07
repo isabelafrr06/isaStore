@@ -71,6 +71,60 @@ export default function ExampleRestaurant() {
   const { v = '1' } = useParams()
   const d = VARIANTS[v] || VARIANTS['1']
   const [tab, setTab] = useState(d.tabs[0])
+  const d2 = VARIANTS['2']
+  const [tab2, setTab2] = useState(d2.tabs[0])
+
+  if (v === '2') {
+    return (
+      <div className="ex-rest2-page">
+        <Link to="/services" className="example-back-btn">← Servicios</Link>
+
+        <header className="ex-rest2-header">
+          <span className="ex-rest2-logo">🌮 {d2.brand} <em style={{ fontStyle: 'italic', fontWeight: 400 }}>{d2.brandSub}</em></span>
+          <button className="ex-rest2-cart">🛒 0</button>
+        </header>
+
+        <div className="ex-rest2-body">
+          <aside className="ex-rest2-sidebar">
+            <p className="ex-rest2-sidebar-title">Categorías</p>
+            {d2.tabs.map(cat => (
+              <button
+                key={cat}
+                className={`ex-rest2-cat-btn${tab2 === cat ? ' active' : ''}`}
+                onClick={() => setTab2(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </aside>
+
+          <main className="ex-rest2-main">
+            <h2 className="ex-rest2-section-title">{tab2}</h2>
+            <div className="ex-rest2-grid">
+              {(d2.menu[tab2] || []).map(item => (
+                <div key={item.name} className="ex-rest2-card">
+                  <img className="ex-rest2-card-img" src={item.img} alt={item.name} loading="lazy" />
+                  <div className="ex-rest2-card-body">
+                    <span className="ex-rest2-card-tag">{tab2}</span>
+                    <h3 className="ex-rest2-card-name">{item.name}</h3>
+                    <p className="ex-rest2-card-desc">{item.desc}</p>
+                    <div className="ex-rest2-card-foot">
+                      <span className="ex-rest2-card-price">{item.price}</span>
+                      <button className="ex-rest2-card-add">Agregar +</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </main>
+        </div>
+
+        <footer className="ex-footer">
+          <p>© 2025 {d2.brand} {d2.brandSub} · {d2.city}</p>
+        </footer>
+      </div>
+    )
+  }
 
   return (
     <div className="ex-page ex-rest">

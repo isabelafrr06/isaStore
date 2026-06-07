@@ -46,6 +46,84 @@ export default function ExampleEcommerce() {
   const [cart, setCart] = useState(0)
   const shown = cat === 'Todos' ? d.products : d.products.filter(p => p.cat === cat)
 
+  // ── Variant 2: dark fashion editorial / lookbook layout ──────────────────
+  if (v === '2') {
+    const featured = d.products.slice(0, 3)
+    const more = d.products.slice(3)
+    return (
+      <div className="ex-ec2-page">
+        <Link to="/services" className="example-back-btn" style={{ position: 'relative', zIndex: 200 }}>← Servicios</Link>
+
+        {/* Sticky header */}
+        <header className="ex-ec2-header">
+          <span className="ex-ec2-logo">{d.brand}</span>
+          <div className="ex-ec2-header-actions">
+            <button className="ex-ec2-saved-btn">♡ Guardados</button>
+            <button className="ex-ec2-cart-btn" onClick={() => setCart(c => c + 1)}>
+              🛒 {cart}
+            </button>
+          </div>
+        </header>
+
+        {/* Hero banner */}
+        <div className="ex-ec2-hero">
+          <h1>Nueva Colección</h1>
+          <p>Moda que te define · Primavera 2025</p>
+          <div className="ex-ec2-hero-btns">
+            <button className="ex-ec2-hero-btn-main">Ver Colección →</button>
+            <button className="ex-ec2-hero-btn-out">Novedades</button>
+          </div>
+        </div>
+
+        {/* Asymmetric featured section */}
+        <p className="ex-ec2-section-title">Looks Destacados</p>
+        <div className="ex-ec2-featured">
+          {/* Left: tall card — product 0 */}
+          <div className="ex-ec2-feat-card tall">
+            <img src={featured[0].img} alt={featured[0].name} className="ex-ec2-feat-img" loading="lazy" />
+            <div className="ex-ec2-feat-overlay">
+              <p className="ex-ec2-feat-name">{featured[0].name}</p>
+              <p className="ex-ec2-feat-price">{featured[0].price}</p>
+              <button className="ex-ec2-feat-add" onClick={() => setCart(c => c + 1)}>Agregar</button>
+            </div>
+          </div>
+
+          {/* Right: two stacked short cards — products 1 & 2 */}
+          <div className="ex-ec2-feat-right">
+            {featured.slice(1).map((p, i) => (
+              <div key={i} className="ex-ec2-feat-card short">
+                <img src={p.img} alt={p.name} className="ex-ec2-feat-img" loading="lazy" />
+                <div className="ex-ec2-feat-overlay">
+                  <p className="ex-ec2-feat-name">{p.name}</p>
+                  <p className="ex-ec2-feat-price">{p.price}</p>
+                  <button className="ex-ec2-feat-add" onClick={() => setCart(c => c + 1)}>Agregar</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Horizontal scroll strip — remaining 5 products */}
+        <div className="ex-ec2-more-strip">
+          <p className="ex-ec2-more-title">Más Prendas</p>
+          <div className="ex-ec2-scroll">
+            {more.map((p, i) => (
+              <div key={i} className="ex-ec2-mini">
+                <img src={p.img} alt={p.name} className="ex-ec2-mini-img" loading="lazy" />
+                <div className="ex-ec2-mini-info">
+                  <p className="ex-ec2-mini-name">{p.name}</p>
+                  <p className="ex-ec2-mini-price">{p.price}</p>
+                  <button className="ex-ec2-mini-add" onClick={() => setCart(c => c + 1)}>+</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Variant 1 (default): light product grid layout ───────────────────────
   return (
     <div className="ex-page ex-ec" style={{ background: d.accentLight }}>
       <Link to="/services" className="example-back-btn">← Servicios</Link>

@@ -118,3 +118,272 @@
   background: linear-gradient(135deg, #ec4899, #a855f7); color: white; text-decoration: none;
   padding: 0.75rem 1.75rem; border-radius: 25px; font-weight: 700;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   VARIANT 2 — Dark full-screen photography gallery (Andrés Silva)
+   All classes prefixed ex-pf2- to avoid conflicts with variant 1
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.ex-pf2-page {
+  background: #090909;
+  min-height: 100vh;
+  color: white;
+}
+
+/* ── Sticky header ── */
+.ex-pf2-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ex-pf2-name {
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.ex-pf2-book-btn {
+  background: #f59e0b;
+  color: #0a0a0a;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+/* ── Intro strip ── */
+.ex-pf2-intro {
+  text-align: center;
+  padding: 4rem 2rem 2.5rem;
+  background: #090909;
+}
+
+.ex-pf2-tag {
+  display: inline-block;
+  background: rgba(245,158,11,0.15);
+  color: #f59e0b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.ex-pf2-intro h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 1rem;
+}
+
+.ex-pf2-intro p {
+  color: rgba(255,255,255,0.6);
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.ex-pf2-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.ex-pf2-stats b {
+  color: white;
+}
+
+.ex-pf2-intro-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ex-pf2-btn-amber {
+  background: #f59e0b;
+  color: #0a0a0a;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.ex-pf2-btn-out {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* ── Full-width photo sections ── */
+.ex-pf2-photo-section {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.ex-pf2-photo-section.tall  { height: 420px; }
+.ex-pf2-photo-section.short { height: 320px; }
+
+.ex-pf2-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ex-pf2-photo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+  padding: 1.5rem 2rem 1.25rem;
+}
+
+.ex-pf2-photo-section.right-align .ex-pf2-photo-overlay {
+  text-align: right;
+}
+
+.ex-pf2-photo-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem;
+}
+
+.ex-pf2-photo-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.ex-pf2-photo-section.right-align .ex-pf2-photo-tags {
+  justify-content: flex-end;
+}
+
+.ex-pf2-photo-tag {
+  background: rgba(245,158,11,0.25);
+  color: #fcd34d;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 10px;
+}
+
+.ex-pf2-photo-link {
+  color: #f59e0b;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ex-pf2-photo-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Tools strip ── */
+.ex-pf2-tools {
+  background: #111;
+  padding: 2rem;
+  text-align: center;
+}
+
+.ex-pf2-tools-title {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.ex-pf2-tools-list {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ex-pf2-tool-tag {
+  border: 1.5px solid rgba(245,158,11,0.4);
+  color: rgba(245,158,11,0.8);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+/* ── CTA section ── */
+.ex-pf2-cta {
+  background: #0d0d0d;
+  padding: 3.5rem 2rem;
+  text-align: center;
+}
+
+.ex-pf2-cta h2 {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+}
+
+.ex-pf2-cta p {
+  color: rgba(255,255,255,0.5);
+  margin: 0 0 1.5rem;
+}
+
+.ex-pf2-cta-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ex-pf2-cta-wa {
+  background: #25D366;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ex-pf2-cta-email {
+  background: #f59e0b;
+  color: #0a0a0a;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ── Responsive adjustments for variant 2 ── */
+@media (max-width: 600px) {
+  .ex-pf2-intro h1 { font-size: 1.9rem; }
+  .ex-pf2-photo-section.tall  { height: 280px; }
+  .ex-pf2-photo-section.short { height: 220px; }
+  .ex-pf2-header { padding: 0.75rem 1rem; }
+  .ex-pf2-photo-overlay { padding: 1rem 1rem 0.9rem; }
+}

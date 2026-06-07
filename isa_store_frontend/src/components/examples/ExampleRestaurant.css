@@ -84,3 +84,178 @@
 .ex-rest-item-price { font-size: 1rem; font-weight: 800; color: #b45309; }
 .ex-rest-item-body p { color: #555; font-size: 0.85rem; line-height: 1.5; margin: 0 0 0.4rem; }
 .ex-rest-cal { color: #888; font-size: 0.78rem; }
+
+/* ── Variant 2: La Taquería Chapultepec (food-delivery style) ───────────── */
+
+.ex-rest2-page {
+  background: #fff8f0;
+  min-height: 100vh;
+}
+
+.ex-rest2-header {
+  background: #7f1d1d;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ex-rest2-logo {
+  color: white;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.ex-rest2-cart {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.ex-rest2-cart:hover { background: #b91c1c; }
+
+.ex-rest2-body {
+  display: flex;
+  min-height: calc(100vh - 52px);
+}
+
+.ex-rest2-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background: #7f1d1d;
+  padding: 1rem;
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+}
+
+.ex-rest2-sidebar-title {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+}
+
+.ex-rest2-cat-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.8);
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  transition: background 0.15s, color 0.15s;
+}
+.ex-rest2-cat-btn:hover { background: rgba(255,255,255,0.12); color: white; }
+.ex-rest2-cat-btn.active { background: #dc2626; color: white; font-weight: 600; }
+
+.ex-rest2-main {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.ex-rest2-section-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1a0505;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.ex-rest2-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+@media(max-width: 640px) { .ex-rest2-grid { grid-template-columns: 1fr; } }
+
+.ex-rest2-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ex-rest2-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+
+.ex-rest2-card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.ex-rest2-card-body {
+  padding: 0.85rem;
+}
+
+.ex-rest2-card-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #dc2626;
+  background: rgba(220,38,38,0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+
+.ex-rest2-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a0505;
+  margin: 0 0 0.3rem;
+}
+
+.ex-rest2-card-desc {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0 0 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.45;
+}
+
+.ex-rest2-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ex-rest2-card-price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #dc2626;
+}
+
+.ex-rest2-card-add {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s;
+}
+.ex-rest2-card-add:hover { background: #b91c1c; }

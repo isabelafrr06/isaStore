@@ -69,7 +69,74 @@ export default function ExampleDigitalMenu() {
   const { v = '1' } = useParams()
   const d = VARIANTS[v] || VARIANTS['1']
   const [cat, setCat] = useState(d.cats[0])
+  const [cat2, setCat2] = useState(VARIANTS['2'].cats[0])
 
+  // ── Variant 2: El Asador – light warm grid layout ──────────────────────────
+  if (v === '2') {
+    const d2 = VARIANTS['2']
+    return (
+      <div className="ex-dm2-page">
+        <Link to="/services" className="example-back-btn">← Servicios</Link>
+
+        <header className="ex-dm2-header">
+          <div>
+            <div className="ex-dm2-logo">{d2.brand}</div>
+            <div className="ex-dm2-header-info">{d2.sub}</div>
+          </div>
+          <div className="ex-dm2-header-info" style={{ textAlign: 'right' }}>
+            <div>{d2.hours}</div>
+            <div>{d2.address}</div>
+            <div style={{ marginTop: '0.25rem', fontSize: '0.72rem', opacity: 0.5 }}>
+              Escanea el QR en tu mesa
+            </div>
+          </div>
+        </header>
+
+        <nav className="ex-dm2-tabs-bar">
+          {d2.cats.map(k => (
+            <button
+              key={k}
+              className={`ex-dm2-tab${cat2 === k ? ' active' : ''}`}
+              onClick={() => setCat2(k)}
+            >
+              {k}
+            </button>
+          ))}
+        </nav>
+
+        <div className="ex-dm2-grid">
+          {(d2.menu[cat2] || []).map(item => (
+            <div key={item.name} className="ex-dm2-card">
+              <div className="ex-dm2-card-img-wrap">
+                <img className="ex-dm2-card-img" src={item.img} alt={item.name} loading="lazy" />
+                <span
+                  className="ex-dm2-card-tag"
+                  style={{ background: item.tagC + '22', color: item.tagC }}
+                >
+                  {item.tag}
+                </span>
+              </div>
+              <div className="ex-dm2-card-body">
+                <h3 className="ex-dm2-card-name">{item.name}</h3>
+                <p className="ex-dm2-card-desc">{item.desc}</p>
+                <div className="ex-dm2-card-foot">
+                  <span className="ex-dm2-card-price">{item.price}</span>
+                  <button className="ex-dm2-card-btn">Pedir →</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <footer className="ex-dm2-footer">
+          <p>© 2025 El Asador · BBQ &amp; Grill · Curridabat, San José</p>
+          <p style={{ marginTop: '0.4rem', fontSize: '0.78rem' }}>📞 +506 2234-5678 · Abierto Mar – Dom</p>
+        </footer>
+      </div>
+    )
+  }
+
+  // ── Variant 1: Café Luna – dark list layout (unchanged) ───────────────────
   return (
     <div className="ex-page ex-dm" style={{ background: d.bg }}>
       <Link to="/services" className="example-back-btn">← Servicios</Link>

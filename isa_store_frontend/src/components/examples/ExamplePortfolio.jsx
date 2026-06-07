@@ -46,18 +46,89 @@ const VARIANTS = {
 export default function ExamplePortfolio() {
   const { v = '1' } = useParams()
   const d = VARIANTS[v] || VARIANTS['1']
-  const isDark = v === '2'
 
+  // ── Variant 2: full-screen dark photography gallery ──────────────────────
+  if (v === '2') {
+    return (
+      <div className="ex-pf2-page">
+        <Link to="/services" className="example-back-btn" style={{ position: 'relative', zIndex: 200 }}>← Servicios</Link>
+
+        {/* Minimal sticky header */}
+        <header className="ex-pf2-header">
+          <span className="ex-pf2-name">{d.name}</span>
+          <button className="ex-pf2-book-btn">📷 Reservar Sesión</button>
+        </header>
+
+        {/* Intro strip */}
+        <section className="ex-pf2-intro">
+          <span className="ex-pf2-tag">Disponible · Guanacaste, CR</span>
+          <h1>{d.name}</h1>
+          <p>{d.bio}</p>
+          <div className="ex-pf2-stats">
+            {d.stats.map(s => (
+              <span key={s.label}><b>{s.val}</b> {s.label}</span>
+            ))}
+          </div>
+          <div className="ex-pf2-intro-btns">
+            <button className="ex-pf2-btn-amber">Ver Galería</button>
+            <button className="ex-pf2-btn-out">Reservar</button>
+          </div>
+        </section>
+
+        {/* Full-width photo sections */}
+        {d.projects.map((p, i) => {
+          const heightClass = i % 2 === 0 ? 'tall' : 'short'
+          const alignClass = i % 2 === 1 ? 'right-align' : ''
+          return (
+            <div key={i} className={`ex-pf2-photo-section ${heightClass} ${alignClass}`}>
+              <img src={p.img} alt={p.title} loading="lazy" className="ex-pf2-photo-img" />
+              <div className="ex-pf2-photo-overlay">
+                <p className="ex-pf2-photo-title">{p.title}</p>
+                <div className="ex-pf2-photo-tags">
+                  {p.tags.map(t => <span key={t} className="ex-pf2-photo-tag">{t}</span>)}
+                </div>
+                <a href="#" className="ex-pf2-photo-link">Ver más →</a>
+              </div>
+            </div>
+          )
+        })}
+
+        {/* Tools strip */}
+        <div className="ex-pf2-tools">
+          <p className="ex-pf2-tools-title">Herramientas</p>
+          <div className="ex-pf2-tools-list">
+            {d.skills.map(s => <span key={s} className="ex-pf2-tool-tag">{s}</span>)}
+          </div>
+        </div>
+
+        {/* CTA section */}
+        <section className="ex-pf2-cta">
+          <h2>¿Listo para tu sesión?</h2>
+          <p>Reserva con anticipación y asegura tu fecha.</p>
+          <div className="ex-pf2-cta-btns">
+            <a href="#" className="ex-pf2-cta-wa">💬 WhatsApp</a>
+            <a href="#" className="ex-pf2-cta-email">✉ Email</a>
+          </div>
+        </section>
+
+        <footer style={{ background: '#000', color: 'white', textAlign: 'center', padding: '1.25rem' }}>
+          <p style={{ margin: 0 }}>© 2025 {d.name} · {d.city}</p>
+        </footer>
+      </div>
+    )
+  }
+
+  // ── Variant 1: light pink/purple masonry grid (unchanged) ─────────────────
   return (
-    <div className="ex-page ex-pf" style={isDark ? { background: '#0f172a' } : {}}>
+    <div className="ex-page ex-pf">
       <Link to="/services" className="example-back-btn">← Servicios</Link>
 
-      <header className="ex-pf-header" style={isDark ? { background: '#1e293b', borderBottomColor: '#334155' } : {}}>
+      <header className="ex-pf-header">
         <div className="ex-pf-header-inner">
-          <span className="ex-pf-logo" style={isDark ? { color: 'white' } : {}}>{d.name}</span>
+          <span className="ex-pf-logo">{d.name}</span>
           <nav>
             {['Inicio','Proyectos','Sobre mí','Contacto'].map(n => (
-              <a key={n} href="#" style={isDark ? { color: 'rgba(255,255,255,0.7)' } : {}}>{n}</a>
+              <a key={n} href="#">{n}</a>
             ))}
           </nav>
           <a href="#" className="ex-pf-hire" style={{ background: d.accentGrad }}>Contrátame</a>
@@ -69,34 +140,26 @@ export default function ExamplePortfolio() {
           <div className="ex-pf-tag" style={{ background: d.tagBg, color: d.tagColor }}>
             Disponible · {d.city}
           </div>
-          <h1 style={isDark ? { color: 'white' } : {}}>{d.title}</h1>
-          <p style={isDark ? { color: 'rgba(255,255,255,0.65)' } : {}}>{d.bio}</p>
+          <h1>{d.title}</h1>
+          <p>{d.bio}</p>
           <div className="ex-pf-hero-btns">
-            <button className="ex-pf-btn-primary" style={{ background: d.accentGrad }}>
-              {v === '1' ? 'Ver Proyectos' : 'Ver Galería'}
-            </button>
-            <button className="ex-pf-btn-outline" style={{ color: d.accent, borderColor: d.accent }}>
-              {v === '1' ? 'Descargar CV' : 'Reservar Sesión'}
-            </button>
+            <button className="ex-pf-btn-primary" style={{ background: d.accentGrad }}>Ver Proyectos</button>
+            <button className="ex-pf-btn-outline" style={{ color: d.accent, borderColor: d.accent }}>Descargar CV</button>
           </div>
           <div className="ex-pf-hero-stats">
             {d.stats.map(s => (
-              <span key={s.label} style={isDark ? { color: 'rgba(255,255,255,0.7)' } : {}}>
-                <b style={isDark ? { color: 'white' } : {}}>{s.val}</b> {s.label}
+              <span key={s.label}>
+                <b>{s.val}</b> {s.label}
               </span>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="ex-pf-projects" style={isDark ? { background: '#1e293b' } : {}}>
+      <section className="ex-pf-projects">
         <div className="ex-pf-projects-inner">
-          <h2 style={isDark ? { color: 'white' } : {}}>
-            {v === '1' ? 'Proyectos Destacados' : 'Galería de Trabajos'}
-          </h2>
-          <p className="ex-pf-projects-sub" style={isDark ? { color: 'rgba(255,255,255,0.5)' } : {}}>
-            {v === '1' ? 'Una selección de mis mejores trabajos' : 'Cada imagen cuenta una historia'}
-          </p>
+          <h2>Proyectos Destacados</h2>
+          <p className="ex-pf-projects-sub">Una selección de mis mejores trabajos</p>
           <div className="ex-pf-grid">
             {d.projects.map((p, i) => (
               <div key={i} className={`ex-pf-tile ${p.span}`}>
@@ -112,22 +175,18 @@ export default function ExamplePortfolio() {
         </div>
       </section>
 
-      <section className="ex-pf-skills" style={isDark ? { background: '#0f172a' } : {}}>
+      <section className="ex-pf-skills">
         <div className="ex-pf-skills-inner">
-          <h2>{v === '1' ? 'Tecnologías' : 'Herramientas'}</h2>
+          <h2>Tecnologías</h2>
           <div className="ex-pf-skills-list">
             {d.skills.map(s => <span key={s} className="ex-pf-skill">{s}</span>)}
           </div>
         </div>
       </section>
 
-      <section className="ex-pf-cta" style={isDark ? { background: '#1e293b' } : {}}>
-        <h2 style={isDark ? { color: 'white' } : {}}>
-          {v === '1' ? '¿Tienes un proyecto en mente?' : '¿Listo para tu sesión?'}
-        </h2>
-        <p style={isDark ? { color: 'rgba(255,255,255,0.6)' } : {}}>
-          {v === '1' ? 'Cuéntame tu idea y lo hacemos realidad juntos.' : 'Reserva con anticipación y asegura tu fecha.'}
-        </p>
+      <section className="ex-pf-cta">
+        <h2>¿Tienes un proyecto en mente?</h2>
+        <p>Cuéntame tu idea y lo hacemos realidad juntos.</p>
         <div className="ex-pf-cta-btns">
           <a href="#" className="ex-pf-cta-wa">💬 WhatsApp</a>
           <a href="#" className="ex-pf-cta-email" style={{ background: d.accentGrad }}>✉ Email</a>

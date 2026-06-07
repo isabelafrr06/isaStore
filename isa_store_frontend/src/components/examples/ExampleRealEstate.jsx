@@ -43,6 +43,82 @@ export default function ExampleRealEstate() {
   const { v = '1' } = useParams()
   const d = VARIANTS[v] || VARIANTS['1']
 
+
+  // ── Variant 2 – CasasCR ──
+  if (v === '2') {
+    const [featured, ...rest] = d.properties
+    return (
+      <div className="ex-re2-page">
+        <Link to="/services" className="example-back-btn">← Servicios</Link>
+
+        <header className="ex-re2-header">
+          <span className="ex-re2-logo">{d.brand}</span>
+          <nav className="ex-re2-nav">
+            <a href="#">Inicio</a>
+            <a href="#">Propiedades</a>
+            <a href="#">Agentes</a>
+            <a href="#">Blog</a>
+          </nav>
+          <button className="ex-re2-cta-btn">Contactar</button>
+        </header>
+
+        <div className="ex-re2-featured">
+          <img className="ex-re2-feat-img" src={featured.img} alt={featured.name} loading="lazy" />
+          <div className="ex-re2-feat-panel">
+            <div>
+              <span className="ex-re2-feat-badge">PROPIEDAD DESTACADA</span>
+              <h2 className="ex-re2-feat-name">{featured.name}</h2>
+              <p className="ex-re2-feat-loc">📍 {featured.loc}</p>
+              <div className="ex-re2-feat-specs">
+                <div className="ex-re2-feat-spec">
+                  <b>{featured.beds}</b>
+                  <small>Habitaciones</small>
+                </div>
+                <div className="ex-re2-feat-spec">
+                  <b>{featured.baths}</b>
+                  <small>Baños</small>
+                </div>
+                <div className="ex-re2-feat-spec">
+                  <b>{featured.m2}</b>
+                  <small>m²</small>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p className="ex-re2-feat-price">{featured.price}</p>
+              <button className="ex-re2-feat-btn">Ver Propiedad</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="ex-re2-more-section">
+          <h3 className="ex-re2-more-title">Más Propiedades</h3>
+          <div className="ex-re2-scroll">
+            {rest.map((p, i) => (
+              <div key={i} className="ex-re2-mini-card">
+                <img className="ex-re2-mini-img" src={p.img} alt={p.name} loading="lazy" />
+                <div className="ex-re2-mini-body">
+                  <span className="ex-re2-mini-badge">{p.badge}</span>
+                  <p className="ex-re2-mini-name">{p.name}</p>
+                  <p className="ex-re2-mini-price">{p.price}</p>
+                  <div className="ex-re2-mini-specs">
+                    <span>🛏 {p.beds}</span>
+                    <span>🚿 {p.baths}</span>
+                    <span>📐 {p.m2}m²</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <footer className="ex-footer">
+          <p>© 2025 {d.brand.replace(/^. /, '')} · Todos los derechos reservados</p>
+        </footer>
+      </div>
+    )
+  }
+
   return (
     <div className="ex-page ex-re">
       <Link to="/services" className="example-back-btn">← Servicios</Link>

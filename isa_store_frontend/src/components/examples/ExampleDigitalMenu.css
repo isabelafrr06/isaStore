@@ -31,3 +31,45 @@
 
 .ex-dm-item-foot { display: flex; justify-content: flex-end; }
 .ex-dm-item-foot button { color: white; border: none; padding: 0.3rem 0.9rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+
+/* ── Variant 2: El Asador – light warm grid layout ────────────────────────── */
+
+.ex-dm2-page { background: #faf7f2; min-height: 100vh; }
+
+.ex-dm2-header { background: #2d1b0e; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+
+.ex-dm2-logo { color: white; font-size: 1.3rem; font-weight: 800; }
+
+.ex-dm2-header-info { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+
+.ex-dm2-tabs-bar { background: white; padding: 0.75rem 1.5rem; display: flex; gap: 0.5rem; overflow-x: auto; position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+.ex-dm2-tab { background: transparent; border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: #666; white-space: nowrap; transition: all 0.2s; }
+
+.ex-dm2-tab.active { background: rgba(239,68,68,0.1); color: #ef4444; font-weight: 700; }
+
+.ex-dm2-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 1.25rem; }
+
+.ex-dm2-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.08); position: relative; }
+
+.ex-dm2-card-img-wrap { position: relative; }
+
+.ex-dm2-card-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+
+.ex-dm2-card-tag { position: absolute; top: 8px; right: 8px; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 10px; }
+
+.ex-dm2-card-body { padding: 0.85rem; }
+
+.ex-dm2-card-name { font-size: 1rem; font-weight: 700; color: #1a0a00; margin: 0 0 0.3rem; }
+
+.ex-dm2-card-desc { font-size: 0.8rem; color: #888; margin: 0 0 0.6rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.ex-dm2-card-foot { display: flex; align-items: center; justify-content: space-between; }
+
+.ex-dm2-card-price { font-size: 1.05rem; font-weight: 800; color: #ef4444; }
+
+.ex-dm2-card-btn { background: #ef4444; color: white; border: none; padding: 0.35rem 0.85rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: opacity 0.2s; }
+
+.ex-dm2-card-btn:hover { opacity: 0.85; }
+
+.ex-dm2-footer { background: #2d1b0e; color: rgba(255,255,255,0.6); text-align: center; padding: 1.5rem; font-size: 0.85rem; }

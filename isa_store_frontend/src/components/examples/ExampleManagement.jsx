@@ -64,6 +64,106 @@ export default function ExampleManagement() {
   const d = VARIANTS[v] || VARIANTS['1']
   const [active, setActive] = useState('Dashboard')
 
+  if (v === '2') {
+    const TIME_SLOTS = ['08:00','09:00','10:00','11:00','12:00','13:00']
+    return (
+      <div className="ex-mg2-page">
+        <Link to="/services" className="example-back-btn">← Servicios</Link>
+
+        {/* TOP NAVIGATION BAR */}
+        <nav className="ex-mg2-topnav">
+          <div>
+            <div className="ex-mg2-brand">{d.brand}</div>
+            <div className="ex-mg2-sector">{d.sector}</div>
+          </div>
+          <div className="ex-mg2-nav">
+            {['Dashboard','Citas','Pacientes','Médicos'].map(n => (
+              <a key={n} href="#" className={active === n ? 'active' : ''} onClick={e => { e.preventDefault(); setActive(n) }}>{n}</a>
+            ))}
+          </div>
+          <div className="ex-mg2-topnav-right">
+            <input className="ex-mg2-search" placeholder="🔍 Buscar…" />
+            <button className="ex-mg2-notif">🔔</button>
+            <div className="ex-mg2-avatar">A</div>
+          </div>
+        </nav>
+
+        {/* BODY */}
+        <div className="ex-mg2-body">
+
+          {/* AGENDA HEADER */}
+          <div className="ex-mg2-agenda-header">
+            <div className="ex-mg2-agenda-title">Agenda de Hoy</div>
+            <div className="ex-mg2-agenda-right">
+              <div className="ex-mg2-date-chip">Vie, 6 Jun 2025</div>
+              <select className="ex-mg2-doctor-sel">
+                <option>Dr. General</option>
+                <option>Dra. Martínez</option>
+                <option>Dr. Ramírez</option>
+              </select>
+            </div>
+          </div>
+
+          {/* STATS STRIP */}
+          <div className="ex-mg2-stats-strip">
+            {d.kpis.map(k => (
+              <div key={k.label} className="ex-mg2-stat-chip">
+                <span className="ex-mg2-stat-icon">{k.icon}</span>
+                <span className="ex-mg2-stat-val">{k.val}</span>
+                <span className="ex-mg2-stat-label">{k.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* TIME SLOTS TABLE */}
+          <div className="ex-mg2-scheduler">
+            {TIME_SLOTS.map((time, i) => {
+              const appt = d.orders[i] || null
+              const statusColor = appt ? (STATUS_COLORS[appt.status] || '#888') : null
+              return (
+                <div key={time} className="ex-mg2-slot-row">
+                  <div className="ex-mg2-slot-time">{time}</div>
+                  <div className="ex-mg2-slot-content">
+                    {appt ? (
+                      <div
+                        className="ex-mg2-appt-card"
+                        style={{ background: statusColor + '18', borderLeft: '3px solid ' + statusColor }}
+                      >
+                        <div className="ex-mg2-appt-patient">{appt.client}</div>
+                        <div className="ex-mg2-appt-spec">{appt.total} · {appt.id}</div>
+                        <span
+                          className="ex-mg2-appt-status"
+                          style={{ background: statusColor + '22', color: statusColor }}
+                        >{appt.status}</span>
+                      </div>
+                    ) : (
+                      <span className="ex-mg2-empty-slot">— Sin cita programada —</span>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* PRÓXIMAS CITAS (activity feed) */}
+          <div className="ex-mg2-upcoming">
+            <div className="ex-mg2-upcoming-title">Próximas citas</div>
+            {d.activity.map(([ic, t, ts]) => (
+              <div key={t} className="ex-mg2-upcoming-item">
+                <span className="ex-mg2-upcoming-icon">{ic}</span>
+                <div className="ex-mg2-upcoming-text">
+                  <b>{t}</b>
+                  <small>{ts}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="ex-page ex-mg">
       <Link to="/services" className="example-back-btn">← Servicios</Link>

@@ -73,3 +73,211 @@
   background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe;
   padding: 0.35rem 0.9rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
 }
+
+/* ── Variant 2 – CasasCR ── */
+.ex-re2-page {
+  background: #0a1f1a;
+  min-height: 100vh;
+  color: white;
+}
+
+.ex-re2-header {
+  background: #064e3b;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ex-re2-logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: white;
+}
+
+.ex-re2-nav a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  margin: 0 0.75rem;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.ex-re2-nav a:hover {
+  color: white;
+}
+
+.ex-re2-cta-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.ex-re2-featured {
+  display: flex;
+  height: 400px;
+  margin: 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.ex-re2-feat-img {
+  flex: 1;
+  object-fit: cover;
+  width: 100%;
+  display: block;
+}
+
+.ex-re2-feat-panel {
+  width: 340px;
+  flex-shrink: 0;
+  background: #0d2b22;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ex-re2-feat-badge {
+  display: inline-block;
+  background: #10b981;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.ex-re2-feat-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0 0 0.5rem;
+}
+
+.ex-re2-feat-loc {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.ex-re2-feat-specs {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ex-re2-feat-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ex-re2-feat-spec b {
+  color: white;
+  font-size: 1.1rem;
+}
+
+.ex-re2-feat-spec small {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+}
+
+.ex-re2-feat-price {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #10b981;
+  margin-bottom: 1.5rem;
+}
+
+.ex-re2-feat-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.ex-re2-more-section {
+  padding: 0 2rem 2rem;
+}
+
+.ex-re2-more-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.ex-re2-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.ex-re2-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.ex-re2-mini-card {
+  flex-shrink: 0;
+  width: 220px;
+  background: #0d2b22;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ex-re2-mini-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.ex-re2-mini-body {
+  padding: 0.75rem;
+}
+
+.ex-re2-mini-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  background: #10b981;
+  color: white;
+  display: inline-block;
+  margin-bottom: 0.4rem;
+}
+
+.ex-re2-mini-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.25rem;
+}
+
+.ex-re2-mini-price {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #10b981;
+  margin: 0 0 0.4rem;
+}
+
+.ex-re2-mini-specs {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  gap: 0.75rem;
+}
