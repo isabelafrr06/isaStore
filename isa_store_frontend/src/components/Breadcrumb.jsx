@@ -29,7 +29,7 @@ function Breadcrumb() {
     const segments = path.split('/').filter(segment => segment !== '')
 
     const breadcrumbs = [
-      { name: t('home'), path: '/', isActive: path === '/' }
+      { name: t('products'), path: '/', isActive: path === '/' }
     ]
 
     if (segments.length === 0) return breadcrumbs
@@ -142,13 +142,13 @@ function Breadcrumb() {
         <div className="mobile-menu">
           <div className="mobile-menu-content">
             <Link to="/" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
-              {t('home')}
-            </Link>
-            <Link to="/about" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
-              {t('about')}
+              {t('products')}
             </Link>
             <Link to="/services" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
               {t('services')}
+            </Link>
+            <Link to="/about" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
+              {t('about')}
             </Link>
             <Link to="/cart" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>
               <span>{t('cart')}</span>
