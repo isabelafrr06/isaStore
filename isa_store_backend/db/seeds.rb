@@ -185,8 +185,25 @@ if ServicePricing.count == 0
     { name_es: 'Sistema empresarial a medida',                  name_en: 'Custom enterprise system',               price: '₡2.000.000+',                position: 12 },
   ]
 
-  service_pricings.each { |sp| ServicePricing.create!(sp.merge(active: true)) }
+  service_pricings.each { |sp| ServicePricing.create!(sp.merge(active: true, category: 'reference')) }
   puts "Created #{ServicePricing.count} service pricings"
+end
+
+# Seed additional services (only if none exist yet)
+if ServicePricing.additional.count == 0
+  additional_services = [
+    { name_es: 'Dominio (.com)',                     name_en: 'Domain (.com)',                price: 'Desde ₡5.000/año',            position: 1 },
+    { name_es: 'Hosting anual',                      name_en: 'Annual hosting',                price: 'Desde ₡10.000/año',           position: 2 },
+    { name_es: 'Configuración inicial hosting',       name_en: 'Initial hosting setup',         price: '₡20.000 – ₡50.000',           position: 3 },
+    { name_es: 'SEO básico',                          name_en: 'Basic SEO',                     price: '₡30.000 – ₡100.000',          position: 4 },
+    { name_es: 'Google Analytics',                    name_en: 'Google Analytics',               price: '₡15.000 – ₡50.000',           position: 5 },
+    { name_es: 'Mantenimiento mensual',                name_en: 'Monthly maintenance',            price: '₡15.000 – ₡100.000',          position: 6 },
+    { name_es: 'Cambios menores por hora',             name_en: 'Minor changes per hour',         price: '₡10.000 – ₡25.000/hora',      position: 7 },
+    { name_es: 'Diseño en Figma',                      name_en: 'Figma design',                   price: '₡50.000 – ₡300.000',          position: 8 },
+  ]
+
+  additional_services.each { |as| ServicePricing.create!(as.merge(active: true, category: 'additional')) }
+  puts "Created #{ServicePricing.additional.count} additional services"
 end
 
 puts "Seeding completed!"

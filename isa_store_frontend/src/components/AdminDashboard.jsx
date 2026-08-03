@@ -341,7 +341,12 @@ const handlePasswordChange = async (e) => {
 
       {activeTab === 'discounts' && <DiscountManager onUpdate={() => {}} />}
 
-      {activeTab === 'pricing' && <ServicePricingManager />}
+      {activeTab === 'pricing' && (
+        <>
+          <ServicePricingManager category="reference" />
+          <ServicePricingManager category="additional" />
+        </>
+      )}
 
 
       {activeTab === 'products' && showForm && (

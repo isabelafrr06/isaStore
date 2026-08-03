@@ -35,6 +35,6 @@ class Api::AdminServicePricingsController < ApplicationController
   end
 
   def service_pricing_params
-    params.require(:service_pricing).permit(:name_es, :name_en, :price, :position, :active)
+    params.require(:service_pricing).permit(:name_es, :name_en, :price, :position, :active, :category)
   end
 end

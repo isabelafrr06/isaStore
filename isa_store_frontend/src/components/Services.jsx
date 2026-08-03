@@ -162,8 +162,11 @@ function Services() {
               </thead>
               <tbody>
                 {(() => {
-                  const source = apiPricing
-                    ? (showAllPricing ? apiPricing : apiPricing.slice(0, 3))
+                  const apiReference = apiPricing
+                    ? apiPricing.filter(row => (row.category || 'reference') === 'reference')
+                    : null
+                  const source = apiReference
+                    ? (showAllPricing ? apiReference : apiReference.slice(0, 3))
                     : Array.from({ length: showAllPricing ? PRICING_ROW_COUNT : 3 }, (_, i) => ({
                         id: i,
                         name: t(`servicePricing_row${i + 1}_name`),
@@ -171,10 +174,10 @@ function Services() {
                         _last: i === PRICING_ROW_COUNT - 1
                       }))
                   return source.map((row, i) => {
-                    const name  = apiPricing ? (language === 'es' ? row.name_es : row.name_en) : row.name
-                    const price = apiPricing ? row.price : row.price
+                    const name  = apiReference ? (language === 'es' ? row.name_es : row.name_en) : row.name
+                    const price = row.price
                     const usd   = crcToUSD(price, usdRate)
-                    const isLast = apiPricing
+                    const isLast = apiReference
                       ? (!showAllPricing ? false : i === source.length - 1)
                       : row._last
                     return (
@@ -216,19 +219,33 @@ function Services() {
                 </tr>
               </thead>
               <tbody>
-                {Array.from({ length: showAllAdditional ? ADDITIONAL_ROW_COUNT : 3 }, (_, i) => {
-                  const price = t(`servicesAdditional_row${i + 1}_price`)
-                  const usd = crcToUSD(price, usdRate)
-                  return (
-                    <tr key={i}>
-                      <td>{t(`servicesAdditional_row${i + 1}_name`)}</td>
-                      <td className="pricing-price">
-                        {price}
-                        {usd && <span className="pricing-usd">{usd}</span>}
-                      </td>
-                    </tr>
-                  )
-                })}
+                {(() => {
+                  const hasCategoryField = apiPricing?.length > 0 && 'category' in apiPricing[0]
+                  const apiAdditional = hasCategoryField
+                    ? apiPricing.filter(row => row.category === 'additional')
+                    : null
+                  const source = apiAdditional
+                    ? (showAllAdditional ? apiAdditional : apiAdditional.slice(0, 3))
+                    : Array.from({ length: showAllAdditional ? ADDITIONAL_ROW_COUNT : 3 }, (_, i) => ({
+                        id: i,
+                        name: t(`servicesAdditional_row${i + 1}_name`),
+                        price: t(`servicesAdditional_row${i + 1}_price`)
+                      }))
+                  return source.map(row => {
+                    const name  = apiAdditional ? (language === 'es' ? row.name_es : row.name_en) : row.name
+                    const price = row.price
+                    const usd   = crcToUSD(price, usdRate)
+                    return (
+                      <tr key={row.id}>
+                        <td>{name}</td>
+                        <td className="pricing-price">
+                          {price}
+                          {usd && <span className="pricing-usd">{usd}</span>}
+                        </td>
+                      </tr>
+                    )
+                  })
+                })()}
               </tbody>
             </table>
           </div>

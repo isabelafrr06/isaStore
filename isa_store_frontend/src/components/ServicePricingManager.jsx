@@ -5,7 +5,9 @@ import './ServicePricingManager.css'
 
 const EMPTY_FORM = { name_es: '', name_en: '', price: '', position: '', active: true }
 
-function ServicePricingManager() {
+const TITLE_KEYS = { reference: 'spmTitleReference', additional: 'spmTitleAdditional' }
+
+function ServicePricingManager({ category = 'reference' }) {
   const { t, language } = useLanguage()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
@@ -16,6 +18,8 @@ function ServicePricingManager() {
   const [error, setError] = useState(null)
 
   useEffect(() => { fetchRows() }, [])
+
+  const visibleRows = rows.filter(row => row.category === category)
 
   const fetchRows = async () => {
     setError(null)
@@ -38,7 +42,7 @@ function ServicePricingManager() {
 
   const openAdd = () => {
     setEditing(null)
-    setForm({ ...EMPTY_FORM, position: rows.length + 1 })
+    setForm({ ...EMPTY_FORM, position: visibleRows.length + 1 })
     setShowForm(true)
   }
 
@@ -64,7 +68,7 @@ function ServicePricingManager() {
       const res = await adminFetch(url, {
         method: editing ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ service_pricing: form })
+        body: JSON.stringify({ service_pricing: { ...form, category } })
       })
       if (res.ok) {
         cancel()
@@ -109,7 +113,7 @@ function ServicePricingManager() {
   return (
     <div className="spm">
       <div className="spm-header">
-        <h3 className="spm-title">{t('spmTitle')}</h3>
+        <h3 className="spm-title">{t(TITLE_KEYS[category])}</h3>
         {!showForm && (
           <button className="spm-add-btn" onClick={openAdd}>{t('spmAddService')}</button>
         )}
@@ -190,10 +194,10 @@ function ServicePricingManager() {
             </tr>
           </thead>
           <tbody>
-            {rows.length === 0 ? (
+            {visibleRows.length === 0 ? (
               <tr><td colSpan="5" className="spm-empty">{t('spmEmpty')}</td></tr>
             ) : (
-              rows.map(row => (
+              visibleRows.map(row => (
                 <tr key={row.id} className={row.active ? '' : 'spm-row-inactive'}>
                   <td className="spm-pos">{row.position}</td>
                   <td className="spm-name-cell">
