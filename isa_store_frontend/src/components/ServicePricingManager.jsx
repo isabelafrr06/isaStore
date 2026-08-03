@@ -13,15 +13,24 @@ function ServicePricingManager() {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => { fetchRows() }, [])
 
   const fetchRows = async () => {
+    setError(null)
     try {
       const res = await adminFetch(getApiUrl('/api/admin/service-pricings'))
-      if (res.ok) setRows(await res.json())
+      if (res.ok) {
+        setRows(await res.json())
+      } else if (res.status === 401 || res.status === 403) {
+        setError(t('spmAuthError'))
+      } else {
+        setError(t('spmLoadError'))
+      }
     } catch (e) {
       console.error(e)
+      setError(t('spmLoadError'))
     } finally {
       setLoading(false)
     }
@@ -166,6 +175,8 @@ function ServicePricingManager() {
           </div>
         </form>
       )}
+
+      {error && <div className="spm-error">{error}</div>}
 
       <div className="spm-table-wrap">
         <table className="spm-table">
