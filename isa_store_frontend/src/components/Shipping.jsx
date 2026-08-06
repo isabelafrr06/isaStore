@@ -68,15 +68,12 @@ function Shipping() {
               <li>{t('paymentMethod3')}</li>
             </ul>
             <p className="important-note">{t('paymentNote')}</p>
+            <p className="important-note">{t('electronicInvoiceNote')}</p>
           </div>
 
           <div className="shipping-section">
             <h2>{t('warranty')}</h2>
             <p>{t('warrantyDescription')}</p>
-            <ul className="info-list">
-              <li>{t('warrantyUsed')}</li>
-              <li>{t('warrantyNew')}</li>
-            </ul>
           </div>
         </div>
       </div>
